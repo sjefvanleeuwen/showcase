@@ -1,0 +1,10 @@
+overwrite: true
+schema: "./dapr.gql.inventory/gql/schema.graphql"
+documents: "./dapr.gql.inventory/gql/operation.graphql"
+generates:
+  ./dapr.gql.inventory/gql/graphql.cs:
+    plugins:
+      - "c-sharp"
+      - "c-sharp-operations"
+    config:
+      namespaceName: dapr.gql.inventory.gqlgen

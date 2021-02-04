@@ -1,0 +1,304 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/dapr.gql.basket/dapr.gql.basket.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/dapr.gql.basket/dapr.gql.basket.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "${workspaceFolder}/dapr.gql.basket/dapr.gql.basket.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        // Build definitions---------------------------------------------------
+        // 0. gateway
+        {
+            "label": "build-gateway",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+            "build",
+            "${workspaceFolder}/dapr.gql.gateway/dapr.gql.gateway.csproj",
+            "/property:GenerateFullPaths=true",
+            "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        // 1. basket
+        {
+            "label": "build-basket",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+            "build",
+            "${workspaceFolder}/dapr.gql.basket/dapr.gql.basket.csproj",
+            "/property:GenerateFullPaths=true",
+            "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        // 2. customer
+        {
+            "label": "build-customer",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+            "build",
+            "${workspaceFolder}/dapr.gql.customer/dapr.gql.customer.csproj",
+            "/property:GenerateFullPaths=true",
+            "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        // 3. inventory
+        {
+            "label": "build-inventory",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+            "build",
+            "${workspaceFolder}/dapr.gql.inventory/dapr.gql.inventory.csproj",
+            "/property:GenerateFullPaths=true",
+            "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        // 4. payment
+        {
+            "label": "build-payment",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+            "build",
+            "${workspaceFolder}/dapr.gql.payment/dapr.gql.payment.csproj",
+            "/property:GenerateFullPaths=true",
+            "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        // 5. product
+        {
+            "label": "build-product",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+            "build",
+            "${workspaceFolder}/dapr.gql.product/dapr.gql.product.csproj",
+            "/property:GenerateFullPaths=true",
+            "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        // Dapr definitions----------------------------------------------------
+        // 0. gateway
+        {
+            "appId": "dapr-gql-gateway",
+            "appPort":      10000,
+            "httpPort":     20000,
+            "grpcPort":     30000,
+            "metricsPort":  40000,
+            "placementAddress": "localhost:6010",
+            "label": "daprd-debug-gateway",
+            "type": "daprd",
+            "problemMatcher": {
+            "pattern": [
+                {
+                    "regexp": ".",
+                    "file": 1,
+                    "location": 2,
+                    "message": 3
+                }
+            ],
+            "background": {
+                "beginsPattern": "^.*starting Dapr Runtime.*",
+                "endsPattern": "^.*waiting on port.*"
+                }
+            },
+            "dependsOn": "build-gateway"
+        },
+        {
+            "appId": "dapr-gql-gateway",
+            "label": "daprd-down-gateway",
+            "type": "daprd-down"
+        },
+        // 1. basket
+        {
+            "appId": "dapr-gql-basket",
+            "appPort":      10001,
+            "httpPort":     20001,
+            "grpcPort":     30001,
+            "metricsPort":  40001,
+            "placementAddress": "localhost:6010",
+            "label": "daprd-debug-basket",
+            "type": "daprd",
+            "problemMatcher": {
+            "pattern": [
+                {
+                    "regexp": ".",
+                    "file": 1,
+                    "location": 2,
+                    "message": 3
+                }
+            ],
+            "background": {
+                "beginsPattern": "^.*starting Dapr Runtime.*",
+                "endsPattern": "^.*waiting on port.*"
+                }
+            },
+            "dependsOn": "build-basket"
+        },
+        {
+            "appId": "dapr-gql-basket",
+            "label": "daprd-down-basket",
+            "type": "daprd-down"
+        },
+        // 2. customer
+        {
+            "appId": "dapr-gql-customer",
+            "appPort":      10002,
+            "httpPort":     20002,
+            "grpcPort":     30002,
+            "metricsPort":  40002,
+            "label": "daprd-debug-customer",
+            "type": "daprd",
+            "problemMatcher": {
+            "pattern": [
+                {
+                    "regexp": ".",
+                    "file": 1,
+                    "location": 2,
+                    "message": 3
+                }
+            ],
+            "background": {
+                "beginsPattern": "^.*starting Dapr Runtime.*",
+                "endsPattern": "^.*waiting on port.*"
+                }
+            },
+            "dependsOn": "build-customer"
+        },
+        {
+            "appId": "dapr-gql-customer",
+            "label": "daprd-down-customer",
+            "type": "daprd-down"
+        },
+        // 3. inventory
+        {
+            "appId": "dapr-gql-inventory",
+            "appPort":      10003,
+            "httpPort":     20003,
+            "grpcPort":     30003,
+            "metricsPort":  40003,
+            "label": "daprd-debug-inventory",
+            "type": "daprd",
+            "problemMatcher": {
+            "pattern": [
+                {
+                    "regexp": ".",
+                    "file": 1,
+                    "location": 2,
+                    "message": 3
+                }
+            ],
+            "background": {
+                "beginsPattern": "^.*starting Dapr Runtime.*",
+                "endsPattern": "^.*waiting on port.*"
+                }
+            },
+            "dependsOn": "build-inventory"
+        },
+        {
+            "appId": "dapr-gql-inventory",
+            "label": "daprd-down-inventory",
+            "type": "daprd-down"
+        },
+        // 4. payment
+        {
+            "appId": "dapr-gql-payment",
+            "appPort":      10004,
+            "httpPort":     20004,
+            "grpcPort":     30004,
+            "metricsPort":  40004,
+            "label": "daprd-debug-payment",
+            "type": "daprd",
+            "problemMatcher": {
+            "pattern": [
+                {
+                    "regexp": ".",
+                    "file": 1,
+                    "location": 2,
+                    "message": 3
+                }
+            ],
+            "background": {
+                "beginsPattern": "^.*starting Dapr Runtime.*",
+                "endsPattern": "^.*waiting on port.*"
+                }
+            },
+            "dependsOn": "build-payment"
+        },
+        {
+            "appId": "dapr-gql-payment",
+            "label": "daprd-down-payment",
+            "type": "daprd-down"
+        },
+        // 5. product
+        {
+            "appId": "dapr-gql-product",
+            "appPort":      10005,
+            "httpPort":     20005,
+            "grpcPort":     30005,
+            "metricsPort":  40005,
+            "label": "daprd-debug-product",
+            "type": "daprd",
+            "problemMatcher": {
+            "pattern": [
+                {
+                    "regexp": ".",
+                    "file": 1,
+                    "location": 2,
+                    "message": 3
+                }
+            ],
+            "background": {
+                "beginsPattern": "^.*starting Dapr Runtime.*",
+                "endsPattern": "^.*waiting on port.*"
+                }
+            },
+            "dependsOn": "build-product"
+        },
+        {
+            "appId": "dapr-gql-product",
+            "label": "daprd-down-product",
+            "type": "daprd-down"
+        },
+    ]
+}

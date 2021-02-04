@@ -1,0 +1,18 @@
+schema {
+  query: Query
+}
+
+type Query {
+  product(id: ID!): Product
+}
+
+interface Node {
+  id: ID!
+}
+
+type Product implements Node {
+  id: ID!
+  code: String
+  name: String
+  description: String
+}

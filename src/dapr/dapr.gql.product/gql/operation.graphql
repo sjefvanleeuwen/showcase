@@ -1,0 +1,12 @@
+query getProduct($Id: ID!) {
+  product(id: $Id) {
+    ...getProductFields
+  }
+}
+
+fragment getProductFields on Product {
+  id
+  code
+  name
+  description
+}

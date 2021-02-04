@@ -1,0 +1,16 @@
+schema {
+  query: Query
+}
+
+type Query {
+  product(id: ID!): ProductQuantity
+}
+
+interface Node {
+  id: ID!
+}
+
+type ProductQuantity implements Node {
+  id: ID!
+  quantity: Float
+}

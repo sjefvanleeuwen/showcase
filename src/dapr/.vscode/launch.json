@@ -1,0 +1,146 @@
+{
+   // Use IntelliSense to find out which attributes exist for C# debugging
+   // Use hover for the description of the existing attributes
+   // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+   "version": "0.2.0",
+   "configurations": [
+        // 0. Gateway
+        {
+            "name": "gateway",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-gateway",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/dapr.gql.gateway/bin/Debug/net5.0/dapr.gql.gateway.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/dapr.gql.gateway",
+            "stopAtEntry": false,
+            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
+            //"serverReadyAction": { "pattern": "\\bNow listening on:\\s+(https?://\\S+)" },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:10000"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            },
+            //"postDebugTask": "daprd-down-gateway"
+        },
+        // 1. Basket
+        {
+            "name": "basket",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "daprd-debug-basket",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/dapr.gql.basket/bin/Debug/net5.0/dapr.gql.basket.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/dapr.gql.basket",
+            "stopAtEntry": false,
+            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
+           // "serverReadyAction": {
+           //     "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+           // },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:10001"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            },
+            "postDebugTask": "daprd-down-basket"
+        },
+        // 2. Customer
+        {
+            "name": "customer",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "daprd-debug-customer",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/dapr.gql.customer/bin/Debug/net5.0/dapr.gql.customer.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/dapr.gql.customer",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:10002"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            },
+            "postDebugTask": "daprd-down-customer"
+        },
+        // 3. Inventory
+        {
+            "name": "inventory",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "daprd-debug-inventory",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/dapr.gql.inventory/bin/Debug/net5.0/dapr.gql.inventory.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/dapr.gql.inventory",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:10003"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            },
+            "postDebugTask": "daprd-down-inventory"
+        },
+        // 4. Payment
+        {
+            "name": "payment",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "daprd-debug-payment",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/dapr.gql.payment/bin/Debug/net5.0/dapr.gql.payment.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/dapr.gql.payment",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:10004"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            },
+            "postDebugTask": "daprd-down-payment"
+        },
+        // 5. Product
+        {
+            "name": "product",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "daprd-debug-product",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/dapr.gql.product/bin/Debug/net5.0/dapr.gql.product.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/dapr.gql.product",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:10005"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            },
+            "postDebugTask": "daprd-down-product"
+        },        
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        },
+        // Start ALL micro services
+    ],
+    // Compounds
+    "compounds": [{
+        "name": "debug all microservices",
+        "configurations": ["gateway", "basket", "customer", "inventory", "payment", "product"]
+    }] 
+}

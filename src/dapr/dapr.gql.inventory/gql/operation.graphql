@@ -1,0 +1,10 @@
+query findProduct($Id: ID!) {
+  product(id: $Id) {
+    ...ProductFields
+  }
+}
+
+fragment ProductFields on ProductQuantity {
+  id
+  quantity
+}

@@ -1,0 +1,19 @@
+{
+  "devDependencies": {
+    "@graphql-codegen/c-sharp": "^1.17.10",
+    "@graphql-codegen/c-sharp-operations": "^1.17.10",
+    "@graphql-codegen/cli": "1.20.1",
+    "@graphql-codegen/typescript": "1.20.2"
+  },
+  "dependencies": {
+    "graphql": "^15.5.0"
+  },
+  "scripts": {
+    "gqlgen-basket":    "graphql-codegen --config ./dapr.gql.basket/gql/codegen.yaml",
+    "gqlgen-customer":  "graphql-codegen --config ./dapr.gql.customer/gql/codegen.yaml",
+    "gqlgen-gateway":   "graphql-codegen --config ./dapr.gql.gateway/gql/codegen.yaml",
+    "gqlgen-inventory": "graphql-codegen --config ./dapr.gql.inventory/gql/codegen.yaml",
+    "gqlgen-payment":   "graphql-codegen --config ./dapr.gql.payment/gql/codegen.yaml",
+    "gqlgen-product":   "graphql-codegen --config ./dapr.gql.product/gql/codegen.yaml"
+  }
+}
