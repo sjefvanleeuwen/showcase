@@ -10,6 +10,9 @@ using System.Security.Claims;
 
 namespace dapr.gql.product.Repository
 {
+    /// <summary>
+    /// Product repo
+    /// </summary>
     public class ProductRepository :IProductRepository {
         public async Task<Product[]> GetProducts(){
             return await Task.FromResult( new Product[]{
@@ -22,7 +25,6 @@ namespace dapr.gql.product.Repository
              return await Task.FromResult(GetProducts().Result.SingleOrDefault(p=>p.id==id));
         }
     }
-
 
     /// <summary>
     /// Graph for Product
@@ -38,12 +40,12 @@ namespace dapr.gql.product.Repository
     }
 
     /// <summary>
-    /// Graph for Product Search
+    /// GraphQl graph for Product Search
     /// </summary>
     public class ProductQuery : ObjectGraphType<object>{
         public ProductQuery(IProductRepository repository){
             Field<ProductType>(
-                "id",
+                "product",
                 arguments: new QueryArguments(
                     new QueryArgument<StringGraphType> {Name= "id", Description = "id of the product to find."}
                     ),
@@ -52,6 +54,9 @@ namespace dapr.gql.product.Repository
         }
     }
 
+    /// <summary>
+    /// Graphql schema
+    /// </summary>
     public class ProductSchema : Schema {
         public ProductSchema(IServiceProvider provider) : base(provider){
             Query = provider.GetRequiredService<ProductQuery>();

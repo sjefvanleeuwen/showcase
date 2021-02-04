@@ -23,7 +23,9 @@ namespace dapr.gql.product
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IProductRepository, ProductRepository>();
             services.AddSingleton<ProductQuery>();
+            services.AddSingleton<ProductType>();
             services.AddSingleton<ISchema, ProductSchema>();
             services.AddGraphQL(options =>
             {
@@ -48,7 +50,7 @@ namespace dapr.gql.product
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "dapr.gql.product v1"));
             }
-                        // add http for Schema at default url /graphql
+            // add http for Schema at default url /graphql
             app.UseGraphQL<ISchema>();
 
             // use graphql-playground at default url /ui/playground
