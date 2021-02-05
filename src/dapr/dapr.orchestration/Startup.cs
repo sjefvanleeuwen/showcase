@@ -1,12 +1,18 @@
-using dapr.gql.inventory.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
-namespace dapr.gql.inventory
+namespace dapr.orchestration
 {
     public class Startup
     {
@@ -20,15 +26,12 @@ namespace dapr.gql.inventory
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddDapr();
+
+            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "dapr.gql.inventory", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "dapr.orchestration", Version = "v1" });
             });
-            services
-                .AddSingleton<InventoryRepository>()
-                .AddGraphQLServer()
-                .AddQueryType<Query>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,7 +41,7 @@ namespace dapr.gql.inventory
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "dapr.gql.inventory v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "dapr.orchestration v1"));
             }
 
             app.UseHttpsRedirection();
@@ -50,7 +53,6 @@ namespace dapr.gql.inventory
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapGraphQL();
             });
         }
     }

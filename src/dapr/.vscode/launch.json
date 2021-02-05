@@ -136,11 +136,34 @@
             "request": "attach",
             "processId": "${command:pickProcess}"
         },
+        // 6. Hot Chocolate Gateway (GraphQL Stitching)
+        {
+            "name": "stitching",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-stitching",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/gql.gateway/bin/Debug/net5.0/gql.gateway.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/gql.gateway",
+            "stopAtEntry": false,
+            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
+            //"serverReadyAction": { "pattern": "\\bNow listening on:\\s+(https?://\\S+)" },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:9999"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            },
+            //"postDebugTask": "daprd-down-gateway"
+        },
+
         // Start ALL micro services
     ],
     // Compounds
     "compounds": [{
         "name": "debug all microservices",
-        "configurations": ["gateway", "basket", "customer", "inventory", "payment", "product"]
+        "configurations": ["basket", "customer", "inventory", "payment", "product", "stitching"]
     }] 
 }

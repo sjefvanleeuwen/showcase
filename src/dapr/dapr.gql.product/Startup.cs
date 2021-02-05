@@ -1,14 +1,11 @@
-using dapr.gql.product.Repository;
-using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using GraphQL.Server;
-using Microsoft.Extensions.Logging;
-
+ using dapr.gql.product.Repositories;
+ 
 namespace dapr.gql.product
 {
     public class Startup
@@ -23,22 +20,15 @@ namespace dapr.gql.product
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IProductRepository, ProductRepository>();
-            services.AddSingleton<ProductQuery>();
-            services.AddSingleton<ProductType>();
-            services.AddSingleton<ISchema, ProductSchema>();
-            services.AddGraphQL(options =>
-            {
-                options.EnableMetrics = true;
-            })
-            .AddSystemTextJson()
-            .AddErrorInfoProvider(opt => opt.ExposeExceptionStackTrace = true)
-            .AddUserContextBuilder(httpContext => new GraphQLUserContext { User = httpContext.User });
-            services.AddControllers();
+            services.AddControllers().AddDapr();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "dapr.gql.product", Version = "v1" });
             });
+            services
+                .AddSingleton<ProductRepository>()
+                .AddGraphQLServer()
+                .AddQueryType<Query>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,11 +40,6 @@ namespace dapr.gql.product
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "dapr.gql.product v1"));
             }
-            // add http for Schema at default url /graphql
-            app.UseGraphQL<ISchema>();
-
-            // use graphql-playground at default url /ui/playground
-            app.UseGraphQLPlayground();
 
             app.UseHttpsRedirection();
 
@@ -65,6 +50,7 @@ namespace dapr.gql.product
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapGraphQL();
             });
         }
     }

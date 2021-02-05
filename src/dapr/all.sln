@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dapr.gql.payment", "dapr.gq
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dapr.gql.product", "dapr.gql.product\dapr.gql.product.csproj", "{B73511F8-1F7B-4DE5-8E99-8B6F1DF99BE9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gql.gateway", "gql.gateway\gql.gateway.csproj", "{64E9EC8D-F2F5-49C6-9CE9-C037C15EEDB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -100,5 +102,17 @@ Global
 		{B73511F8-1F7B-4DE5-8E99-8B6F1DF99BE9}.Release|x64.Build.0 = Release|Any CPU
 		{B73511F8-1F7B-4DE5-8E99-8B6F1DF99BE9}.Release|x86.ActiveCfg = Release|Any CPU
 		{B73511F8-1F7B-4DE5-8E99-8B6F1DF99BE9}.Release|x86.Build.0 = Release|Any CPU
+		{64E9EC8D-F2F5-49C6-9CE9-C037C15EEDB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64E9EC8D-F2F5-49C6-9CE9-C037C15EEDB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64E9EC8D-F2F5-49C6-9CE9-C037C15EEDB0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{64E9EC8D-F2F5-49C6-9CE9-C037C15EEDB0}.Debug|x64.Build.0 = Debug|Any CPU
+		{64E9EC8D-F2F5-49C6-9CE9-C037C15EEDB0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{64E9EC8D-F2F5-49C6-9CE9-C037C15EEDB0}.Debug|x86.Build.0 = Debug|Any CPU
+		{64E9EC8D-F2F5-49C6-9CE9-C037C15EEDB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64E9EC8D-F2F5-49C6-9CE9-C037C15EEDB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64E9EC8D-F2F5-49C6-9CE9-C037C15EEDB0}.Release|x64.ActiveCfg = Release|Any CPU
+		{64E9EC8D-F2F5-49C6-9CE9-C037C15EEDB0}.Release|x64.Build.0 = Release|Any CPU
+		{64E9EC8D-F2F5-49C6-9CE9-C037C15EEDB0}.Release|x86.ActiveCfg = Release|Any CPU
+		{64E9EC8D-F2F5-49C6-9CE9-C037C15EEDB0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

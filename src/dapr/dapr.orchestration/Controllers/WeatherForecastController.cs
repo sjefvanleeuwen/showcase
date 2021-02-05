@@ -1,16 +1,15 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GraphQL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace dapr.gql.inventory.Controllers
+namespace dapr.orchestration.Controllers
 {
     [ApiController]
-    //[Route("[controller]")]
-    public class QueryController : ControllerBase
+    [Route("[controller]")]
+    public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
@@ -19,12 +18,12 @@ namespace dapr.gql.inventory.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public QueryController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
         }
 
-        [HttpGet("weather")]
+        [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();
@@ -35,13 +34,6 @@ namespace dapr.gql.inventory.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
-        }
-
-
-
-        public class Product {
-            public int Id {get;set;}
-            public string Name { get; set; }
         }
     }
 }

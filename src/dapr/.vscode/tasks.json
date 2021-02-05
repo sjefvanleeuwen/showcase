@@ -117,6 +117,19 @@
             ],
             "problemMatcher": "$msCompile"
         },
+        // 6. Hot Chocolate Gateway (GraphQL Stitching)
+        {
+            "label": "build-stitching",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+            "build",
+            "${workspaceFolder}/gql.gateway/gql.gateway.csproj",
+            "/property:GenerateFullPaths=true",
+            "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
         // Dapr definitions----------------------------------------------------
         // 0. gateway
         {
