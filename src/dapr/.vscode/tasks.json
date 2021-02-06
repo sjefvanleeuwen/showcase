@@ -133,7 +133,6 @@
         // Dapr definitions----------------------------------------------------
         // 0. gateway
         {
-            "componentsPath": "C:/Users/sjefv/source/repo/showcase/src/dapr/components",
             "appId": "dapr-gql-gateway",
             "appPort":      10000,
             "httpPort":     20000,
@@ -196,7 +195,6 @@
         },
         // 2. customer
         {
-            "componentsPath": "C:/Users/sjefv/source/repo/showcase/src/dapr/components",
             "appId": "dapr-gql-customer",
             "appPort":      10002,
             "httpPort":     20002,
@@ -227,7 +225,6 @@
         },
         // 3. inventory
         {
-            "componentsPath": "C:/Users/sjefv/source/repo/showcase/src/dapr/components",
             "appId": "dapr-gql-inventory",
             "appPort":      10003,
             "httpPort":     20003,
@@ -258,7 +255,6 @@
         },
         // 4. payment
         {
-            "componentsPath": "C:/Users/sjefv/source/repo/showcase/src/dapr/components",
             "appId": "dapr-gql-payment",
             "appPort":      10004,
             "httpPort":     20004,
@@ -289,7 +285,6 @@
         },
         // 5. product
         {
-            "componentsPath": "C:/Users/sjefv/source/repo/showcase/src/dapr/components",
             "appId": "dapr-gql-product",
             "appPort":      10005,
             "httpPort":     20005,
