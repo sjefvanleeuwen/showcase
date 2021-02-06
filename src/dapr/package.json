@@ -3,17 +3,20 @@
     "@graphql-codegen/c-sharp": "^1.17.10",
     "@graphql-codegen/c-sharp-operations": "^1.17.10",
     "@graphql-codegen/cli": "1.20.1",
-    "@graphql-codegen/typescript": "1.20.2"
+    "@graphql-codegen/typescript": "1.20.2",
+    "newman": "^5.2.2",
+    "newman-reporter-htmlextra": "^1.20.1"
   },
   "dependencies": {
     "graphql": "^15.5.0"
   },
   "scripts": {
-    "gqlgen-basket":    "graphql-codegen --config ./dapr.gql.basket/gql/codegen.yaml",
-    "gqlgen-customer":  "graphql-codegen --config ./dapr.gql.customer/gql/codegen.yaml",
-    "gqlgen-gateway":   "graphql-codegen --config ./dapr.gql.gateway/gql/codegen.yaml",
+    "test-debug": "newman run \"./tests/dapr-microservices.postman_collection.json\" -e \"./tests/dapr-microservice (debug local).postman_environment.json\" -r htmlextra --reporter-htmlextra-title \"microservices integration\"",
+    "gqlgen-basket": "graphql-codegen --config ./dapr.gql.basket/gql/codegen.yaml",
+    "gqlgen-customer": "graphql-codegen --config ./dapr.gql.customer/gql/codegen.yaml",
+    "gqlgen-gateway": "graphql-codegen --config ./dapr.gql.gateway/gql/codegen.yaml",
     "gqlgen-inventory": "graphql-codegen --config ./dapr.gql.inventory/gql/codegen.yaml",
-    "gqlgen-payment":   "graphql-codegen --config ./dapr.gql.payment/gql/codegen.yaml",
-    "gqlgen-product":   "graphql-codegen --config ./dapr.gql.product/gql/codegen.yaml"
+    "gqlgen-payment": "graphql-codegen --config ./dapr.gql.payment/gql/codegen.yaml",
+    "gqlgen-product": "graphql-codegen --config ./dapr.gql.product/gql/codegen.yaml"
   }
 }
