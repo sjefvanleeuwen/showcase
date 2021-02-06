@@ -5,6 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using HotChocolate;
+using HotChocolate.Subscriptions.InMemory;
+
 
 namespace dapr.gql.basket
 {
@@ -20,7 +23,8 @@ namespace dapr.gql.basket
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            // Add in-memory event provider
+            services.AddInMemorySubscriptions();
             services.AddControllers().AddDapr();
             services.AddSwaggerGen(c =>
             {
@@ -29,7 +33,8 @@ namespace dapr.gql.basket
             services
                 .AddSingleton<BasketRepository>()
                 .AddGraphQLServer()
-                .AddQueryType<Query>();
+                .AddQueryType<Query>()
+                .AddMutationType<BasketMutations>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

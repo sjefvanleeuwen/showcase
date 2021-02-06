@@ -9,19 +9,19 @@ namespace dapr.gql.basket.Repositories
     public class Query
     {
         /// <summary>
-        /// Gets all customers
+        /// Gets all baskets
         /// </summary>
         /// <param name="repository"></param>
         /// <returns></returns>
-        public IEnumerable<BasketItem> GetBasket([Service] BasketRepository repository) =>
-            repository.GetBasket();
+        public IEnumerable<BasketItem> GetBaskets([Service] BasketRepository repository) =>
+            repository.GetBaskets();
         /// <summary>
-        /// Gets a customer by unique identity
+        /// Gets a basket item for a customer by unique identity
         /// </summary>
         /// <param name="id"></param>
         /// <param name="repository"></param>
         /// <returns></returns>
-        public BasketItem GetCustomer(int id, [Service] BasketRepository repository) => 
+        public BasketItem GetBasket(int id, [Service] BasketRepository repository) => 
             repository.GetBasketItem(id);
     }
 }

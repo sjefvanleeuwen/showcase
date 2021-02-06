@@ -17,11 +17,21 @@ namespace dapr.gql.basket.Repositories
 
     #region Queries
         public BasketItem GetBasketItem(int id) => _basket[id];
-        public IEnumerable<BasketItem> GetBasket() => _basket.Values;
+        public IEnumerable<BasketItem> GetBaskets() => _basket.Values;
+        public IEnumerable<BasketItem> GetBasket(int basketId) => _basket.Values;
     #endregion  
 
     #region Commands
-        public void Add(BasketItem item) =>  _basket.Add(item.Id, item);
+        public BasketItem Add(BasketItem item) {
+            if (_basket.ContainsKey(item.Id)) {
+                _basket[item.Id] = item;
+            }
+            else {
+                _basket.Add(item.Id, item);
+            }
+            return item;
+        }
+        
         public void Remove(int id) => _basket.Remove(id);
         public void Update(BasketItem item) =>  _basket[item.Id] = item;
     #endregion
