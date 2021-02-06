@@ -10,4 +10,9 @@
     <PackageReference Include="WorkflowCore" Version="3.3.5" />
   </ItemGroup>
 
+  <!-- Copy dapr components store in standalone / debug mode -->
+  <ItemGroup Condition="'$(Configuration)'=='Debug'">
+    <None Include="../components/**" CopyToOutputDirectory="PreserveNewest" LinkBase="components\" />
+  </ItemGroup>
+
 </Project>
