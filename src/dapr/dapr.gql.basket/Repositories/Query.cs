@@ -16,12 +16,21 @@ namespace dapr.gql.basket.Repositories
         public IEnumerable<BasketItem> GetBaskets([Service] BasketRepository repository) =>
             repository.GetBaskets();
         /// <summary>
-        /// Gets a basket item for a customer by unique identity
+        /// Gets a basket item on primary key
         /// </summary>
         /// <param name="id"></param>
         /// <param name="repository"></param>
         /// <returns></returns>
         public BasketItem GetBasket(int id, [Service] BasketRepository repository) => 
             repository.GetBasketItem(id);
+        /// <summary>
+        /// Gets a basket items for a customer by customer identity
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="repository"></param>
+        /// <returns></returns>
+        public IEnumerable<BasketItem> GetBasketForCustomer(int id, [Service] BasketRepository repository) => 
+            repository.GetBasketForCustomer(id);
+
     }
 }

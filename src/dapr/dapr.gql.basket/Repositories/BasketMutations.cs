@@ -5,8 +5,8 @@ using HotChocolate.Types;
 
 namespace dapr.gql.basket.Repositories
 {
-    public record UpsertBasketItemInput(int Id, int CustomerId, string ProductId, int Quantity);
-    public record UpsertBasketItemResult(int Id, int CustomerId, string ProductId, int Quantity);
+    public record UpsertBasketItemInput(int Id, int CustomerId, int ProductId, int Quantity);
+    public record UpsertBasketItemResult(int Id, int CustomerId, int ProductId, int Quantity);
 
     public class BasketMutations
     {

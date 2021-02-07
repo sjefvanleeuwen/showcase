@@ -11,7 +11,7 @@ namespace dapr.gql.product.Repositories
             _products = new Product[]
             {
                 new Product(1, "Milk", "Some Milk", 1.50f),
-                new Product(1, "Cheese", "Some Cheese", 2.50f),
+                new Product(2, "Cheese", "Some Cheese", 2.50f),
             }.ToDictionary(t => t.ProductId);
         }
 

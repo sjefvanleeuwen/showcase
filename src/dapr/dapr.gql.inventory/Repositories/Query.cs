@@ -9,19 +9,19 @@ namespace dapr.gql.inventory.Repositories
     public class Query
     {
         /// <summary>
-        /// Gets all customers
+        /// Gets all invtory items
         /// </summary>
         /// <param name="repository"></param>
         /// <returns></returns>
-        public IEnumerable<Inventory> GetCustomers([Service] InventoryRepository repository) =>
-            repository.GetProducts();
+        public IEnumerable<Inventory> Get([Service] InventoryRepository repository) =>
+            repository.Get();
         /// <summary>
-        /// Gets a customer by unique identity
+        /// Gets a an inventory item for a specific product
         /// </summary>
         /// <param name="id"></param>
         /// <param name="repository"></param>
         /// <returns></returns>
-        public Inventory GetCustomer(int id, [Service] InventoryRepository repository) => 
-            repository.GetProduct(id);
+        public Inventory GetInventory(int id, [Service] InventoryRepository repository) => 
+            repository.Get(id);
     }
 }

@@ -36,11 +36,13 @@ namespace gql.gateway
 
             services.AddGraphQLServer()
             //.AddQueryType(d => d.Name("Query")) <-- used when stitching query and overriding source root schemas
-            .AddRemoteSchema(Basket)
+            .AddRemoteSchema(Basket, ignoreRootTypes: false)
+           // .AddTypeExtensionsFromFile("basket.stitches.graphql")
             .AddRemoteSchema(Customer)
             .AddRemoteSchema(Inventory)
             .AddRemoteSchema(Payment)
             .AddRemoteSchema(Product);
+            ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

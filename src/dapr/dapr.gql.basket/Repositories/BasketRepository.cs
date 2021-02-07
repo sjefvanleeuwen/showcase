@@ -10,12 +10,14 @@ namespace dapr.gql.basket.Repositories
         {
             _basket = new BasketItem[]
             {
-                new BasketItem(1, 1,"1",2),
-                new BasketItem(1, 2,"2",3),
-            }.ToDictionary(t => t.CustomerId);
+                new BasketItem(1, 1, 1, 2),
+                new BasketItem(2, 1, 2, 3),
+            }.ToDictionary(t => t.Id);
         }
 
     #region Queries
+
+        public IEnumerable<BasketItem> GetBasketForCustomer(int customerId) => _basket.Where(t => t.Value.CustomerId == customerId).Select(t => t.Value);
         public BasketItem GetBasketItem(int id) => _basket[id];
         public IEnumerable<BasketItem> GetBaskets() => _basket.Values;
         public IEnumerable<BasketItem> GetBasket(int basketId) => _basket.Values;

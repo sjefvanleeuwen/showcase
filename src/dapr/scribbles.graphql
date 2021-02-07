@@ -1,0 +1,11 @@
+{
+  mybasket {
+    productId
+  }
+  products {
+    productId
+    
+    name
+    description
+  }
+}
