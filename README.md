@@ -1,3 +1,6 @@
+![banner](./docs/images/banner.svg)
+
+
 # Showcase
 
 A personal full stack journey. Consisting out of:
