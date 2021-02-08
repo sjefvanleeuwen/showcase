@@ -1,8 +1,7 @@
 # Stitching sub graphs for UX Design of the Basket View
 extend type Query {
-    "This is an extended query which shows a basket for the current logged in customer along with the products.
-    This view is in accordance with the UX design and contains delegated fields from the inventory and product database"
-    mybasket: [BasketItem!] @delegate(schema: "basket", path: "basket(id: 1)")
+    "This is an extended query which shows a basket for the current logged in customer along with the products. This view is in accordance with the UX design and contains delegated fields from the inventory and product database"
+    mybasket: [BasketItem!]! @delegate(schema: "basket", path: "basketForCustomer(id: 1)")
 }
 
 extend type BasketItem {
