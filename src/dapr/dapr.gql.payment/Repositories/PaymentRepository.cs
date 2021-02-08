@@ -12,7 +12,7 @@ namespace dapr.gql.payment.Repositories
             {
                 new Payment(1, 1, 1, 1.50f),
                 new Payment(2, 2, 1, 5.00f),
-            }.ToDictionary(t => t.Id);
+            }.ToDictionary(t => t.PaymentId);
         }
 
         public Payment GetPayment(int id) => _payments[id];

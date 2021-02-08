@@ -10,18 +10,18 @@ namespace dapr.gql.customer.Repositories
     /// Basic customer information
     /// </summary>
     public class Customer{ 
-        public Customer(int Id, string Name, DateTime Birthdate, string Username) {
-            this.Id = Id;
-            this.Name = Name;
-            this.Birthdate = Birthdate;
-            this.Username = Username;
+        public Customer(int customerId, string name, DateTime birthdate, string username) {
+            this.CustomerId = customerId;
+            this.Name = name;
+            this.Birthdate = birthdate;
+            this.Username = username;
         }
 
         /// <summary>
         /// Unique identifier for this customer
         /// </summary>
         /// <value></value>
-        public int Id { get; }
+        public int CustomerId { get; }
         /// <summary>
         /// The full name of this customer
         /// </summary>

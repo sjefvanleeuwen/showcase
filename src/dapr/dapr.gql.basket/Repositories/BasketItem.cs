@@ -4,8 +4,8 @@ namespace dapr.gql.basket.Repositories
     /// This is a basket item. Multiple items form the shopping basket for a customer.
     /// </summary>
     public class BasketItem {
-        public BasketItem(int Id, int CustomerId, int ProductId, int Quantity){
-            this.Id = Id;
+        public BasketItem(int BaketItemId, int CustomerId, int ProductId, int Quantity){
+            this.BasketItemId = BaketItemId;
             this.CustomerId = CustomerId;
             this.ProductId = ProductId;
             this.Quantity = Quantity;
@@ -15,7 +15,7 @@ namespace dapr.gql.basket.Repositories
         /// Unique Id of the basket item
         /// </summary>
         /// <value></value>
-        public int Id { get; }
+        public int BasketItemId { get; }
         /// <summary>
         /// Customer to basket item relation
         /// </summary>

@@ -4,8 +4,8 @@ namespace dapr.gql.payment.Repositories
         // The XML documenter is needed by GraphQL Hot Chocolate to document your entities.
         //public record Payment(int Id, int BasketId, int CustomerId, float Total);
         public class Payment {
-                public Payment(int id, int basketId, int customerId, float total) {
-            Id = id;
+                public Payment(int paymentId, int basketId, int customerId, float total) {
+            PaymentId = paymentId;
             BasketId = basketId;
             CustomerId = customerId;
             Total = total;
@@ -15,7 +15,7 @@ namespace dapr.gql.payment.Repositories
         /// Unique field for the payment transaction
         /// </summary>
         /// <value></value>
-        public int Id { get; }
+        public int PaymentId { get; }
         /// <summary>
         /// The relationship with the basket containing the product items for purchase
         /// </summary>

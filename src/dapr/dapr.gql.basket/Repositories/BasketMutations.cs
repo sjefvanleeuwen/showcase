@@ -16,7 +16,7 @@ namespace dapr.gql.basket.Repositories
         {
             var item = new BasketItem(input.Id, input.CustomerId, input.ProductId, input.Quantity);
             repository.Add(item);
-            return await Task.FromResult(new UpsertBasketItemResult(item.Id, item.CustomerId, input.ProductId, input.Quantity));
+            return await Task.FromResult(new UpsertBasketItemResult(item.BasketItemId, item.CustomerId, input.ProductId, input.Quantity));
         }
     }
 }
