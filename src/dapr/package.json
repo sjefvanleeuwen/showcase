@@ -18,7 +18,7 @@
     "get-stiched-schema": "curl http://localhost:9999/graphql/stitched-schema?sdl --output ./generated/schema.graphql",
     "gqlg": "gqlg --schemaFilePath ./generated/schema.graphql --destDirPath ./generated/gqlg",
     "test-debug": "newman run \"./tests/dapr-microservices.postman_collection.json\" -e \"./tests/dapr-microservice (debug local).postman_environment.json\" -r htmlextra --reporter-htmlextra-title \"microservices integration\"",
-    "test-debug-dashboard": "newman run \"./tests/dapr-microservices.postman_collection.json\" -e \"./tests/dapr-microservice (debug local).postman_environment.json\" -r htmlextra --reporter-htmlextra-export ./newman/dashboard.html --reporter-htmlextra-title \"microservices integration\"",
+    "test-debug-dashboard": "newman run \"./tests/dapr-microservices.postman_collection.json\" -e \"./tests/dapr-microservice (debug local).postman_environment.json\" -r htmlextra --reporter-htmlextra-export ../../docs/tests/newman/dashboard.html --reporter-htmlextra-title \"microservices integration\"",
     "gqlgen-basket": "graphql-codegen --config ./dapr.gql.basket/gql/codegen.yaml",
     "gqlgen-customer": "graphql-codegen --config ./dapr.gql.customer/gql/codegen.yaml",
     "gqlgen-gateway": "graphql-codegen --config ./dapr.gql.gateway/gql/codegen.yaml",

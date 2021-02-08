@@ -285,7 +285,7 @@
 											"script": {
 												"exec": [
 													"pm.test(\"can read basket quantity\", function () {\r",
-													"    pm.expect(pm.response.json().data.basket.quantity).to.equal(2);\r",
+													"    pm.expect(pm.response.json().data.basketItem.quantity).to.equal(2);\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -305,7 +305,7 @@
 										"body": {
 											"mode": "graphql",
 											"graphql": {
-												"query": "query {\r\n  basket(id:1){\r\n    customerId\r\n    basketItemId\r\n    productId\r\n    quantity\r\n  }\r\n}\r\n",
+												"query": "query {\r\n  basketItem(id:1){\r\n    customerId\r\n    basketItemId\r\n    productId\r\n    quantity\r\n  }\r\n}\r\n",
 												"variables": ""
 											},
 											"options": {
