@@ -221,106 +221,214 @@
 					"name": "basket",
 					"item": [
 						{
-							"name": "basketById",
-							"event": [
+							"name": "extended",
+							"item": [
 								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"can read basket quantity\", function () {\r",
-											"    pm.expect(pm.response.json().data.basket.quantity).to.equal(2);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "content-type",
-										"value": "application/graphql",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "graphql",
-									"graphql": {
-										"query": "query {\r\n  basket(id:1){\r\n    customerId\r\n    id\r\n    productId\r\n    quantity\r\n  }\r\n}\r\n",
-										"variables": ""
-									},
-									"options": {
-										"raw": {
-											"language": "text"
+									"name": "myBasket",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													" pm.test(\"can read basket quantity\", function () {\r",
+													"    pm.expect(pm.response.json().data.mybasket[0].quantity).to.equal(2);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
 										}
-									}
-								},
-								"url": {
-									"raw": "{{graphql_gateway_base_url}}/graphql",
-									"host": [
-										"{{graphql_gateway_base_url}}"
 									],
-									"path": [
-										"graphql"
-									]
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "content-type",
+												"type": "text",
+												"value": "application/graphql",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query {\r\n  mybasket{\r\n    customerId\r\n    basketItemId\r\n    productId\r\n    quantity\r\n    inStock\r\n    unitPrice\r\n    name\r\n    description\r\n  }\r\n}\r\n",
+												"variables": ""
+											},
+											"options": {
+												"raw": {
+													"language": "text"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{graphql_gateway_base_url}}/graphql",
+											"host": [
+												"{{graphql_gateway_base_url}}"
+											],
+											"path": [
+												"graphql"
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "upsertBasketItem",
-							"event": [
+							"name": "federated",
+							"item": [
 								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"upsert test\", function () {\r",
-											"    const json = pm.response.json();\r",
-											"    pm.expect(json.data.upsertBasketItem.id).to.equal(56);\r",
-											"    pm.expect(json.data.upsertBasketItem.quantity).to.equal(42);\r",
-											"    pm.expect(json.data.upsertBasketItem.productId).to.equal(\"1\");\r",
-											"    pm.expect(json.data.upsertBasketItem.customerId).to.equal(1);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "content-type",
-										"type": "text",
-										"value": "application/graphql",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "graphql",
-									"graphql": {
-										"query": "mutation {\r\n  upsertBasketItem(input: {id:56 customerId: 1 productId: \"1\" quantity: 42}){\r\n      id\r\n      quantity\r\n      productId\r\n      customerId\r\n    }\r\n}\r\n",
-										"variables": ""
-									},
-									"options": {
-										"raw": {
-											"language": "text"
+									"name": "basketItemById",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"can read basket quantity\", function () {\r",
+													"    pm.expect(pm.response.json().data.basket.quantity).to.equal(2);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
 										}
-									}
-								},
-								"url": {
-									"raw": "{{graphql_gateway_base_url}}/graphql",
-									"host": [
-										"{{graphql_gateway_base_url}}"
 									],
-									"path": [
-										"graphql"
-									]
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "content-type",
+												"value": "application/graphql",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query {\r\n  basket(id:1){\r\n    customerId\r\n    basketItemId\r\n    productId\r\n    quantity\r\n  }\r\n}\r\n",
+												"variables": ""
+											},
+											"options": {
+												"raw": {
+													"language": "text"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{graphql_gateway_base_url}}/graphql",
+											"host": [
+												"{{graphql_gateway_base_url}}"
+											],
+											"path": [
+												"graphql"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "basketForCustomer",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"can read basket quantity\", function () {\r",
+													"    pm.expect(pm.response.json().data.basketForCustomer[0].quantity).to.equal(2);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "content-type",
+												"type": "text",
+												"value": "application/graphql",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query {\r\n  basketForCustomer(id:1){\r\n    customerId\r\n    basketItemId\r\n    productId\r\n    quantity\r\n  }\r\n}\r\n",
+												"variables": ""
+											},
+											"options": {
+												"raw": {
+													"language": "text"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{graphql_gateway_base_url}}/graphql",
+											"host": [
+												"{{graphql_gateway_base_url}}"
+											],
+											"path": [
+												"graphql"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "upsertBasketItem",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"upsert test\", function () {\r",
+													"    const json = pm.response.json();\r",
+													"    pm.expect(json.data.upsertBasketItem.id).to.equal(56);\r",
+													"    pm.expect(json.data.upsertBasketItem.quantity).to.equal(42);\r",
+													"    pm.expect(json.data.upsertBasketItem.productId).to.equal(1);\r",
+													"    pm.expect(json.data.upsertBasketItem.customerId).to.equal(1);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "content-type",
+												"type": "text",
+												"value": "application/graphql",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation {\r\n  upsertBasketItem(input: {id: 56 customerId: 1 productId: 1 quantity: 42}){\r\n      id\r\n      quantity\r\n      productId\r\n      customerId\r\n    }\r\n}\r\n",
+												"variables": ""
+											},
+											"options": {
+												"raw": {
+													"language": "text"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{graphql_gateway_base_url}}/graphql",
+											"host": [
+												"{{graphql_gateway_base_url}}"
+											],
+											"path": [
+												"graphql"
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						}
 					]
 				}
