@@ -10,7 +10,7 @@ namespace dapr.gql.basket.Repositories
 
     public class BasketMutations
     {
-        public async Task<UpsertBasketItemResult> UpsertBasketItemAsync(
+        public async Task<UpsertBasketItemResult> UpsertBasketItem(
             UpsertBasketItemInput input,
             [Service]BasketRepository repository)
         {

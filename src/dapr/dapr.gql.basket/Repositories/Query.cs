@@ -21,7 +21,7 @@ namespace dapr.gql.basket.Repositories
         /// <param name="id"></param>
         /// <param name="repository"></param>
         /// <returns></returns>
-        public BasketItem GetBasket(int id, [Service] BasketRepository repository) => 
+        public BasketItem GetBasketItem(int id, [Service] BasketRepository repository) => 
             repository.GetBasketItem(id);
         /// <summary>
         /// Gets a basket items for a customer by customer identity
