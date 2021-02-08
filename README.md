@@ -20,5 +20,5 @@ https://sjefvanleeuwen.github.io/showcase/schemas/graphql/
 Integration tests are done in postman and exported as dashboard using newman with `newman-reporter-html-extra` npm package.
 
 The dashboard can be found here:
-https://sjefvanleeuwen.github.io/showcase/tests/newman/dashboard/
+https://sjefvanleeuwen.github.io/showcase/tests/newman/dashboard/dashboard.html
 
