@@ -27,7 +27,7 @@ namespace dapr.gql.payment
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "dapr.gql.payment", Version = "v1" });
             });
             services
-                .AddSingleton<PaymentRepository>()
+                .AddSingleton<IPaymentRepository, PaymentRepositoryInMemory>()
                 .AddGraphQLServer()
                 .AddQueryType<Query>();
         }

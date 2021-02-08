@@ -26,7 +26,7 @@ namespace dapr.gql.customer
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "dapr.gql.customer", Version = "v1" });
             });
             services
-                .AddSingleton<CustomerRepository>()
+                .AddSingleton<ICustomerRepository, CustomerRepositoryInmemory>()
                 .AddGraphQLServer()
                 .AddQueryType<Query>();
         }

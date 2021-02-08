@@ -13,7 +13,7 @@ namespace dapr.gql.payment.Repositories
         /// </summary>
         /// <param name="repository"></param>
         /// <returns></returns>
-        public IEnumerable<Payment> GetPayments([Service] PaymentRepository repository) =>
+        public IEnumerable<Payment> GetPayments([Service] IPaymentRepository repository) =>
             repository.GetPayments();
         /// <summary>
         /// Gets a Product by unique identity
@@ -21,7 +21,7 @@ namespace dapr.gql.payment.Repositories
         /// <param name="id"></param>
         /// <param name="repository"></param>
         /// <returns></returns>
-        public Payment GetProduct(int id, [Service] PaymentRepository repository) => 
+        public Payment GetProduct(int id, [Service] IPaymentRepository repository) => 
             repository.GetPayment(id);
     }
 }

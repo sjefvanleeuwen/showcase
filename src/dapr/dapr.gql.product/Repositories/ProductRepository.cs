@@ -3,10 +3,12 @@ using System.Linq;
 
 namespace dapr.gql.product.Repositories
 {
-    public class ProductRepository {
+
+    public class ProductRepositoryInMemory : IProductRepository
+    {
         private Dictionary<int, Product> _products;
 
-        public ProductRepository()
+        public ProductRepositoryInMemory()
         {
             _products = new Product[]
             {

@@ -13,7 +13,7 @@ namespace dapr.gql.customer.Repositories
         /// </summary>
         /// <param name="repository"></param>
         /// <returns></returns>
-        public IEnumerable<Customer> GetCustomers([Service] CustomerRepository repository) =>
+        public IEnumerable<Customer> GetCustomers([Service] ICustomerRepository repository) =>
             repository.GetUsers();
         /// <summary>
         /// Gets a customer by unique identity
@@ -21,7 +21,7 @@ namespace dapr.gql.customer.Repositories
         /// <param name="id"></param>
         /// <param name="repository"></param>
         /// <returns></returns>
-        public Customer GetCustomer(int id, [Service] CustomerRepository repository) => 
+        public Customer GetCustomer(int id, [Service] ICustomerRepository repository) => 
             repository.GetUser(id);
     }
 }

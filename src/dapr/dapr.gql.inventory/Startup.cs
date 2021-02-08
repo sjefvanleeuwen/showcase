@@ -26,7 +26,7 @@ namespace dapr.gql.inventory
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "dapr.gql.inventory", Version = "v1" });
             });
             services
-                .AddSingleton<InventoryRepository>()
+                .AddSingleton<IInventoryRepository, InventoryRepositoryInMemory>()
                 .AddGraphQLServer()
                 .AddQueryType<Query>();
         }

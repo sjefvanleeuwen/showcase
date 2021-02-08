@@ -3,10 +3,12 @@ using System.Linq;
 
 namespace dapr.gql.payment.Repositories
 {
-    public class PaymentRepository {
+
+    public class PaymentRepositoryInMemory : IPaymentRepository
+    {
         private Dictionary<int, Payment> _payments;
 
-        public PaymentRepository()
+        public PaymentRepositoryInMemory()
         {
             _payments = new Payment[]
             {

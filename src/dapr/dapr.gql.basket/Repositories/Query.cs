@@ -13,7 +13,7 @@ namespace dapr.gql.basket.Repositories
         /// </summary>
         /// <param name="repository"></param>
         /// <returns></returns>
-        public IEnumerable<BasketItem> GetBaskets([Service] BasketRepository repository) =>
+        public IEnumerable<BasketItem> GetBaskets([Service] IBasketRepository repository) =>
             repository.GetBaskets();
         /// <summary>
         /// Gets a basket item on primary key
@@ -21,7 +21,7 @@ namespace dapr.gql.basket.Repositories
         /// <param name="id"></param>
         /// <param name="repository"></param>
         /// <returns></returns>
-        public BasketItem GetBasketItem(int id, [Service] BasketRepository repository) => 
+        public BasketItem GetBasketItem(int id, [Service] IBasketRepository repository) => 
             repository.GetBasketItem(id);
         /// <summary>
         /// Gets a basket items for a customer by customer identity
@@ -29,7 +29,7 @@ namespace dapr.gql.basket.Repositories
         /// <param name="id"></param>
         /// <param name="repository"></param>
         /// <returns></returns>
-        public IEnumerable<BasketItem> GetBasketForCustomer(int id, [Service] BasketRepository repository) => 
+        public IEnumerable<BasketItem> GetBasketForCustomer(int id, [Service] IBasketRepository repository) => 
             repository.GetBasketForCustomer(id);
 
     }

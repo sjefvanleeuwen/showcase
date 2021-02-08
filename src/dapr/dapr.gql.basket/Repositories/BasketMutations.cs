@@ -1,7 +1,5 @@
 using System.Threading.Tasks;
 using HotChocolate;
-using HotChocolate.Subscriptions;
-using HotChocolate.Types;
 
 namespace dapr.gql.basket.Repositories
 {
@@ -12,7 +10,7 @@ namespace dapr.gql.basket.Repositories
     {
         public async Task<UpsertBasketItemResult> UpsertBasketItem(
             UpsertBasketItemInput input,
-            [Service]BasketRepository repository)
+            [Service]IBasketRepository repository)
         {
             var item = new BasketItem(input.Id, input.CustomerId, input.ProductId, input.Quantity);
             repository.Add(item);

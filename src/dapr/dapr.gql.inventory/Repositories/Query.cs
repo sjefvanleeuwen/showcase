@@ -13,7 +13,7 @@ namespace dapr.gql.inventory.Repositories
         /// </summary>
         /// <param name="repository"></param>
         /// <returns></returns>
-        public IEnumerable<Inventory> Get([Service] InventoryRepository repository) =>
+        public IEnumerable<Inventory> Get([Service] IInventoryRepository repository) =>
             repository.Get();
         /// <summary>
         /// Gets a an inventory item for a specific product
@@ -21,7 +21,7 @@ namespace dapr.gql.inventory.Repositories
         /// <param name="id"></param>
         /// <param name="repository"></param>
         /// <returns></returns>
-        public Inventory GetInventory(int id, [Service] InventoryRepository repository) => 
+        public Inventory GetInventory(int id, [Service] IInventoryRepository repository) => 
             repository.Get(id);
     }
 }

@@ -31,7 +31,7 @@ namespace dapr.gql.basket
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "dapr.gql.basket", Version = "v1" });
             });
             services
-                .AddSingleton<BasketRepository>()
+                .AddSingleton<IBasketRepository, BasketRepositoryInMemory>()
                 .AddGraphQLServer()
                 .AddQueryType<Query>()
                 .AddMutationType<BasketMutations>();

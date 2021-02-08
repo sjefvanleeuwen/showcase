@@ -3,10 +3,12 @@ using System.Linq;
 
 namespace dapr.gql.inventory.Repositories
 {
-    public class InventoryRepository {
+
+    public class InventoryRepositoryInMemory : IInventoryRepository
+    {
         private Dictionary<int, Inventory> _inventory;
 
-        public InventoryRepository()
+        public InventoryRepositoryInMemory()
         {
             _inventory = new Inventory[]
             {

@@ -13,7 +13,7 @@ namespace dapr.gql.product.Repositories
         /// </summary>
         /// <param name="repository"></param>
         /// <returns></returns>
-        public IEnumerable<Product> GetProducts([Service] ProductRepository repository) =>
+        public IEnumerable<Product> GetProducts([Service] IProductRepository repository) =>
             repository.GetProducts();
         /// <summary>
         /// Gets a Product by unique identity
@@ -21,7 +21,7 @@ namespace dapr.gql.product.Repositories
         /// <param name="id"></param>
         /// <param name="repository"></param>
         /// <returns></returns>
-        public Product GetProduct(int id, [Service] ProductRepository repository) => 
+        public Product GetProduct(int id, [Service] IProductRepository repository) => 
             repository.GetProduct(id);
     }
 }

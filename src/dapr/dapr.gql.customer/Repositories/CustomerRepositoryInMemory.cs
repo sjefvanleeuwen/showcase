@@ -4,10 +4,12 @@ using System.Linq;
 
 namespace dapr.gql.customer.Repositories
 {
-    public class CustomerRepository {
+
+    public class CustomerRepositoryInmemory : ICustomerRepository
+    {
         private Dictionary<int, Customer> _customers;
 
-        public CustomerRepository()
+        public CustomerRepositoryInmemory()
         {
             _customers = new Customer[]
             {
