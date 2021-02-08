@@ -14,6 +14,7 @@
     "graphql": "^15.5.0"
   },
   "scripts": {
+    "graphql-doc": "graphdoc -e http://localhost:9999/graphql -o ../../docs/schemas/graphql",
     "get-stiched-schema": "curl http://localhost:9999/graphql/stitched-schema?sdl --output ./generated/schema.graphql",
     "gqlg": "gqlg --schemaFilePath ./generated/schema.graphql --destDirPath ./generated/gqlg",
     "test-debug": "newman run \"./tests/dapr-microservices.postman_collection.json\" -e \"./tests/dapr-microservice (debug local).postman_environment.json\" -r htmlextra --reporter-htmlextra-title \"microservices integration\"",
