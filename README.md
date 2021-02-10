@@ -14,6 +14,11 @@ A personal full stack journey. Consisting out of:
 Very much under construction. Started with the back end. The schema for the back end can be found here.
 https://sjefvanleeuwen.github.io/showcase/schemas/graphql/
 
+## High Level Overview
+
+High level overview of what I am building.
+
+![High Level Overview](./docs/images/high-level.svg)
 
 ## Integration Tests
 
