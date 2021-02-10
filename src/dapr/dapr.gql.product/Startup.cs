@@ -26,7 +26,7 @@ namespace dapr.gql.product
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "dapr.gql.product", Version = "v1" });
             });
             services
-                .AddSingleton<ProductRepositoryInMemory>()
+                .AddSingleton<IProductRepository, ProductRepositoryInMemory>()
                 .AddGraphQLServer()
                 .AddQueryType<Query>();
         }
