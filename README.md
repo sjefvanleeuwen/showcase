@@ -27,3 +27,10 @@ Integration tests are done in postman and exported as dashboard using newman wit
 The dashboard can be found here:
 https://sjefvanleeuwen.github.io/showcase/tests/newman/dashboard.html
 
+## Hosting Modes
+
+### Micro services
+
+At this time the micro services run in local host mode. The eventual "production" mode is targeted towards kubernetes.
+
+![Hosting Modes](./docs/images/hosting-modes.svg)
