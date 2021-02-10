@@ -31,6 +31,6 @@ https://sjefvanleeuwen.github.io/showcase/tests/newman/dashboard.html
 
 ### Micro services
 
-At this time the micro services run in local host mode. The eventual "production" mode is targeted towards kubernetes.
+At this time the micro services run in self hosted mode. The eventual "production" mode is targeted towards kubernetes.
 
 ![Hosting Modes](./docs/images/hosting-modes.svg)
