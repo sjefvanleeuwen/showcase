@@ -169,9 +169,7 @@ aks-nodepool1-32983209-vmss000000   Ready    agent   6m59s   v1.18.14
 
 You should see the single node kubernetes cluster in ready state.
 
-
-
-
+In the [next section](./setup-dapr.md) we will setup dapr on the cluster.
 
 
 

@@ -34,3 +34,7 @@ https://sjefvanleeuwen.github.io/showcase/tests/newman/dashboard.html
 At this time the micro services run in self hosted mode. The eventual "production" mode is targeted towards kubernetes.
 
 ![Hosting Modes](./docs/images/hosting-modes.svg)
+
+## Setup dapr on Azure AKS kubernetes
+
+Please follow the guide [here](./docs/kubernetes/setup-aks-cluster.md)
