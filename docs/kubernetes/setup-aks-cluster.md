@@ -169,9 +169,7 @@ aks-nodepool1-32983209-vmss000000   Ready    agent   6m59s   v1.18.14
 
 You should see the single node kubernetes cluster in ready state.
 
-**note** at the time of this writing the cluster
-
-Please stop the cluster when you don't need it to save costs (you will still have to pay for storage)...
+**note** Please stop the cluster when you don't need it to save costs (you will still have to pay for storage)...
 
 ```
 az aks stop --resource-group showcase --name showcase
