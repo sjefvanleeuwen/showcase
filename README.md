@@ -11,14 +11,13 @@ A personal full stack journey. Consisting out of:
 
 ## Status
 
-Very much under construction. Started with the back end. The schema for the back end can be found here.
-
+Very much under construction. Started with the back end and setting up docker containers and npm scripts.
 
 ## Setup
 
 The VSCODE project consists out of Tasks/Launch json configuration. On top of this some utilities are installed as NPM packages. The scripts that are shipped in package.json with the solution are installed as dev dependencies and these node modules are executed with `npx`.
 
-## Clone repo
+### Clone repo
 
 ```
 git clone https://github.com/sjefvanleeuwen/showcase.git
@@ -31,11 +30,11 @@ cd ./showcase/src/dapr
 npm install
 ```
 
-## npm Scripts
+### npm Scripts
 
 The following section describes the available scripts:
 
-### gql-doc
+#### gql-doc
 
 Documents the graphql schema from the stitching/federated graphql gateway endpoint. Output example [here](https://sjefvanleeuwen.github.io/showcase/schemas/graphql/).
 
