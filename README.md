@@ -6,9 +6,9 @@
     - [Clone repo](#clone-repo)
     - [npm Scripts](#npm-scripts)
       - [gql-doc](#gql-doc)
-    - [gql-schemas](#gql-schemas)
-    - [gqlg](#gqlg)
-    - [test / test-dashboard](#test--test-dashboard)
+      - [gql-schemas](#gql-schemas)
+      - [gqlg](#gqlg)
+      - [test / test-dashboard](#test--test-dashboard)
   - [High Level Overview](#high-level-overview)
   - [Hosting Modes](#hosting-modes)
     - [Micro services](#micro-services)
@@ -58,7 +58,7 @@ Documents the graphql schema from the stitching/federated graphql gateway endpoi
 npm run gql-doc
 ```
 
-### gql-schemas
+#### gql-schemas
 
 Fetches the schema from the stitching/federated graphql gateway endpoint via curl and places it in the `./generated` folder.
 
@@ -66,7 +66,7 @@ Fetches the schema from the stitching/federated graphql gateway endpoint via cur
 npm run gql-schema
 ```
 
-### gqlg
+#### gqlg
 
 Generates a javascript serverside (nodejs) graphql client for the gateway. This command is dependend on gql-schema.
 *note* this generator can not interpret the @source directive containing a repeatable ENUM. Please remove it from the fetched `schema.graphql` file in the `./generated-folder`
@@ -75,7 +75,7 @@ This command is going to be replaced by a better client/server code generator. S
 ```
 npm run gqlg
 ```
-### test / test-dashboard
+#### test / test-dashboard
 
 Executes newman integration tests from the ./tests directory, which contains postman configurations. It exports the test results using a html reporter `newman-reporter-html-extra`
 
