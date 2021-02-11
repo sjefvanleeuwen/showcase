@@ -1,3 +1,11 @@
+- [Deployment on Kubernetes](#deployment-on-kubernetes)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+    - [Azure Resource Group Creation](#azure-resource-group-creation)
+      - [Alternative location](#alternative-location)
+    - [Azure Cluster Creation](#azure-cluster-creation)
+    - [Connect to your Azure cluster](#connect-to-your-azure-cluster)
+
 # Deployment on Kubernetes
 
 The following describes deploying dapr on kubernetes on an azure AKS cluster.

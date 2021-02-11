@@ -1,5 +1,19 @@
 ![banner](./docs/images/banner.svg)
 
+- [Showcase](#showcase)
+  - [Status](#status)
+  - [Setup](#setup)
+    - [Clone repo](#clone-repo)
+    - [npm Scripts](#npm-scripts)
+      - [gql-doc](#gql-doc)
+    - [gql-schemas](#gql-schemas)
+    - [gqlg](#gqlg)
+    - [test / test-dashboard](#test--test-dashboard)
+  - [High Level Overview](#high-level-overview)
+  - [Hosting Modes](#hosting-modes)
+    - [Micro services](#micro-services)
+  - [Setup dapr on Azure AKS kubernetes](#setup-dapr-on-azure-aks-kubernetes)
+  - [Setup your container registry](#setup-your-container-registry)
 
 # Showcase
 
@@ -8,6 +22,8 @@ A personal full stack journey. Consisting out of:
 * Micro Services
 * Micro (modular) Front End
 * Simulation Driven Development
+
+
 
 ## Status
 

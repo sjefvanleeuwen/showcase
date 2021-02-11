@@ -1,3 +1,8 @@
+- [Setup dapr on Kubernetes](#setup-dapr-on-kubernetes)
+  - [Jump to Hyperspace](#jump-to-hyperspace)
+  - [Verify Installation](#verify-installation)
+  - [Setup dapr dashboard](#setup-dapr-dashboard)
+
 # Setup dapr on Kubernetes
 
 ## Jump to Hyperspace
