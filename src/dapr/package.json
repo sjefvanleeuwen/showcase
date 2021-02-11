@@ -9,10 +9,7 @@
     "graphql": "^15.5.0",
     "graphql-cli": "^4.1.0",
     "newman": "^5.2.2",
-    "newman-reporter-htmlextra": "^1.20.1",
-    "lodash": "^4.17.19",
-    "highlight": "^10.4.1",
-    "minimatch": "^3.0.2"
+    "newman-reporter-htmlextra": "^1.20.1"
   },
   "dependencies": {},
   "scripts": {
