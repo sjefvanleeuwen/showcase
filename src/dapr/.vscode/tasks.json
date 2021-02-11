@@ -7,9 +7,43 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/dapr.gql.basket/dapr.gql.basket.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "${workspaceFolder}/all.sln"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build all dockers :latest",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/all.sln"
+            ],
+            "dependsOn": [
+                "docker-build basket: release",
+                "docker-build customer: release",
+                "docker-build inventory: release",
+                "docker-build payment: release",
+                "docker-build product: release",
+                
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build all dockers :dev",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/all.sln"
+            ],
+            "dependsOn": [
+                "docker-build basket: debug",
+                "docker-build customer: debug",
+                "docker-build inventory: debug",
+                "docker-build payment: debug",
+                "docker-build product: debug",
+                
             ],
             "problemMatcher": "$msCompile"
         },
@@ -313,5 +347,290 @@
             "label": "daprd-down-product",
             "type": "daprd-down"
         },
+        // 1. basket docker
+        {
+            "type": "docker-build",
+            "label": "docker-build basket: debug",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "dapr.gql.basket:dev",
+                "target": "base",
+                "dockerfile": "${workspaceFolder}/dapr.gql.basket/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.basket/dapr.gql.basket.csproj"
+            }
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build basket: release",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "dapr.gql.basket:latest",
+                "dockerfile": "${workspaceFolder}/dapr.gql.basket/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.basket/dapr.gql.basket.csproj"
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run basket: debug",
+            "dependsOn": [
+                "docker-build basket: debug"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.basket/dapr.gql.basket.csproj",
+                "enableDebugging": true
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: release",
+            "dependsOn": [
+                "docker-build basket: release"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.basket/dapr.gql.basket.csproj"
+            }
+        },
+        // 2. customer docker
+        {
+            "type": "docker-build",
+            "label": "docker-build customer: debug",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "dapr.gql.customer:dev",
+                "target": "base",
+                "dockerfile": "${workspaceFolder}/dapr.gql.customer/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.customer/dapr.gql.customer.csproj"
+            }
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build customer: release",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "dapr.gql.customer:latest",
+                "dockerfile": "${workspaceFolder}/dapr.gql.customer/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.customer/dapr.gql.customer.csproj"
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run customer: debug",
+            "dependsOn": [
+                "docker-build customer: debug"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.customer/dapr.gql.customer.csproj",
+                "enableDebugging": true
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: release",
+            "dependsOn": [
+                "docker-build customer: release"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.customer/dapr.gql.customer.csproj"
+            }
+        },
+        // 3. inventory docker
+        {
+            "type": "docker-build",
+            "label": "docker-build inventory: debug",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "dapr.gql.inventory:dev",
+                "target": "base",
+                "dockerfile": "${workspaceFolder}/dapr.gql.inventory/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.inventory/dapr.gql.inventory.csproj"
+            }
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build inventory: release",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "dapr.gql.inventory:latest",
+                "dockerfile": "${workspaceFolder}/dapr.gql.inventory/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.inventory/dapr.gql.inventory.csproj"
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run inventory: debug",
+            "dependsOn": [
+                "docker-build inventory: debug"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.inventory/dapr.gql.inventory.csproj",
+                "enableDebugging": true
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: release",
+            "dependsOn": [
+                "docker-build inventory: release"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.inventory/dapr.gql.inventory.csproj"
+            }
+        },
+        // 4. payment docker
+        {
+            "type": "docker-build",
+            "label": "docker-build payment: debug",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "dapr.gql.payment:dev",
+                "target": "base",
+                "dockerfile": "${workspaceFolder}/dapr.gql.payment/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.payment/dapr.gql.payment.csproj"
+            }
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build payment: release",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "dapr.gql.payment:latest",
+                "dockerfile": "${workspaceFolder}/dapr.gql.payment/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.payment/dapr.gql.payment.csproj"
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run payment: debug",
+            "dependsOn": [
+                "docker-build payment: debug"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.payment/dapr.gql.payment.csproj",
+                "enableDebugging": true
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: release",
+            "dependsOn": [
+                "docker-build payment: release"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.payment/dapr.gql.payment.csproj"
+            }
+        },
+        // 5. product docker
+        {
+            "type": "docker-build",
+            "label": "docker-build product: debug",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "dapr.gql.product:dev",
+                "target": "base",
+                "dockerfile": "${workspaceFolder}/dapr.gql.product/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.product/dapr.gql.product.csproj"
+            }
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build product: release",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "dapr.gql.product:latest",
+                "dockerfile": "${workspaceFolder}/dapr.gql.product/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.product/dapr.gql.product.csproj"
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run product: debug",
+            "dependsOn": [
+                "docker-build product: debug"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.product/dapr.gql.product.csproj",
+                "enableDebugging": true
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: release",
+            "dependsOn": [
+                "docker-build product: release"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.product/dapr.gql.product.csproj"
+            }
+        }
     ]
 }

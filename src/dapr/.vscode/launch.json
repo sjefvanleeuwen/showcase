@@ -158,12 +158,66 @@
             },
             //"postDebugTask": "daprd-down-gateway"
         },
-
-        // Start ALL micro services
+        {
+            "name": "docker product",
+            "type": "docker",
+            //"request": "",
+            //"preLaunchTask": "docker-run product: debug",
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.product/dapr.gql.product.csproj"
+            }
+        },
+        {
+            "name": "docker basket",
+            //"type": "docker",
+            //"request": "launch",
+            "preLaunchTask": "docker-run basket: debug",
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.basket/dapr.gql.basket.csproj"
+            }
+        },
+        {
+            "name": "docker customer",
+            //"type": "docker",
+            //"request": "launch",
+            "preLaunchTask": "docker-run customer: debug",
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.customer/dapr.gql.customer.csproj"
+            }
+        },
+        {
+            "name": "docker inventory",
+            "type": "docker",
+            //"request": "launch",
+            //"preLaunchTask": "docker-run inventory: debug",
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.inventory/dapr.gql.inventory.csproj"
+            }
+        },
+        {
+            "name": "docker payment",
+            "type": "docker",
+            //"request": "launch",
+            //"preLaunchTask": "docker-run payment: debug",
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.payment/dapr.gql.payment.csproj"
+            }
+        },
+        {
+            "name": "docker product",
+            //"type": "docker",
+            //"request": "launch",
+            "preLaunchTask": "docker-run product: debug",
+            "netCore": {
+                "appProject": "${workspaceFolder}/dapr.gql.product/dapr.gql.product.csproj"
+            }
+        },
     ],
     // Compounds
-    "compounds": [{
-        "name": "debug all microservices",
-        "configurations": ["basket", "customer", "inventory", "payment", "product", "stitching"]
-    }] 
+    "compounds": [
+        {
+            "name": "debug all microservices",
+            "configurations": ["basket", "customer", "inventory", "payment", "pro duct", "stitching"]
+        },
+    ] 
 }
