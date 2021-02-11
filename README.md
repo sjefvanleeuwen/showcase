@@ -38,3 +38,7 @@ At this time the micro services run in self hosted mode. The eventual "productio
 ## Setup dapr on Azure AKS kubernetes
 
 Please follow the guide [here](./docs/kubernetes/setup-aks-cluster.md)
+
+## Setup your container registry
+
+Please follow the guide [here](./docs/docker/setup-azure-container-registry.md)
