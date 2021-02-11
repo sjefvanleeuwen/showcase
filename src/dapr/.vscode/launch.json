@@ -217,7 +217,7 @@
     "compounds": [
         {
             "name": "debug all microservices",
-            "configurations": ["basket", "customer", "inventory", "payment", "pro duct", "stitching"]
+            "configurations": ["basket", "customer", "inventory", "payment", "product", "stitching"]
         },
     ] 
 }

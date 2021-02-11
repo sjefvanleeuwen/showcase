@@ -3,15 +3,28 @@ schema {
   mutation: Mutation
 }
 
+"This is a basket item. Multiple items form the shopping basket for a customer."
 type BasketItem @source(name: "BasketItem", schema: "basket") {
-  id: Int!
+  "Unique Id of the basket item"
+  basketItemId: Int!
+  "Customer to basket item relation"
   customerId: Int!
-  productId: String
+  "Product to basket item relation"
+  productId: Int!
+  "Quantity of the product in the basket item"
   quantity: Int!
+  "delegates the name of the product in the basket from product"
+  name: String @delegate(schema: "product", path: "product(id: $fields:productId).name")
+  "delegates the description of the product in the basket from product"
+  description: String @delegate(schema: "product", path: "product(id: $fields:productId).description")
+  "delegates the unit price of the product"
+  unitPrice: Float @delegate(schema: "product", path: "product(id: $fields:productId).unitPrice")
+  "delegates the available stock of the product in the basket from the inventory"
+  inStock: Int @delegate(schema: "inventory", path: "inventory(id: $fields:productId).quantity")
 }
 
 type Customer @source(name: "Customer", schema: "customer") {
-  id: Int!
+  customerId: Int!
   name: String
   birthdate: DateTime!
   username: String
@@ -27,7 +40,7 @@ type Mutation {
 }
 
 type Payment @source(name: "Payment", schema: "payment") {
-  id: Int!
+  paymentId: Int!
   basketId: Int!
   customerId: Int!
   total: Float!
@@ -41,29 +54,35 @@ type Product @source(name: "Product", schema: "product") {
 }
 
 type Query {
+  "Gets all baskets"
   baskets: [BasketItem] @delegate(schema: "basket")
-  basket(id: Int!): BasketItem @delegate(schema: "basket")
+  "Gets a basket item on primary key"
+  basketItem(id: Int!): BasketItem @delegate(schema: "basket")
+  "Gets a basket items for a customer by customer identity"
+  basketForCustomer(id: Int!): [BasketItem] @delegate(schema: "basket")
   customers: [Customer] @delegate(schema: "customer")
   customer(id: Int!): Customer @delegate(schema: "customer")
-  inventory_customers: [Inventory] @delegate(schema: "inventory", path: "customers")
-  inventory_customer(id: Int!): Inventory @delegate(schema: "inventory", path: "customer(id: $arguments:id)")
+  get: [Inventory] @delegate(schema: "inventory")
+  inventory(id: Int!): Inventory @delegate(schema: "inventory")
   payments: [Payment] @delegate(schema: "payment")
   product(id: Int!): Payment @delegate(schema: "payment")
   products: [Product] @delegate(schema: "product")
   product_product(id: Int!): Product @delegate(schema: "product", path: "product(id: $arguments:id)")
+  "This is an extended query which shows a basket for the current logged in customer along with the products. This view is in accordance with the UX design and contains delegated fields from the inventory and product database"
+  mybasket: [BasketItem!]! @delegate(schema: "basket", path: "basketForCustomer(id: 1)")
 }
 
 type UpsertBasketItemResult @source(name: "UpsertBasketItemResult", schema: "basket") {
   id: Int!
   customerId: Int!
-  productId: String
+  productId: Int!
   quantity: Int!
 }
 
 input UpsertBasketItemInput @source(name: "UpsertBasketItemInput", schema: "basket") {
   id: Int!
   customerId: Int!
-  productId: String
+  productId: Int!
   quantity: Int!
 }
 
@@ -82,6 +101,9 @@ directive @include("Included when true." if: Boolean!) on FIELD | FRAGMENT_SPREA
 
 "Directs the executor to skip this field or fragment when the `if` argument is true."
 directive @skip("Skipped when true." if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+"Annotates the original name of a type."
+directive @source("The original name of the annotated type." name: Name! "The name of the schema to which this type belongs to." schema: Name!) repeatable on ENUM | OBJECT | INTERFACE | UNION | INPUT_OBJECT | FIELD_DEFINITION | INPUT_FIELD_DEFINITION | ARGUMENT_DEFINITION | ENUM_VALUE
 
 "The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
 directive @specifiedBy("The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types." url: String!) on SCALAR

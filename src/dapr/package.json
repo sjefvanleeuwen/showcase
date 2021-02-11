@@ -4,26 +4,19 @@
     "@graphql-codegen/c-sharp-operations": "^1.17.10",
     "@graphql-codegen/cli": "1.20.1",
     "@graphql-codegen/typescript": "1.20.2",
+    "@raydeck/graphdoc": "^2.4.0",
     "gql-generator": "^1.0.12",
+    "graphql": "^15.5.0",
     "graphql-cli": "^4.1.0",
     "newman": "^5.2.2",
     "newman-reporter-htmlextra": "^1.20.1"
   },
-  "dependencies": {
-    "@raydeck/graphdoc": "^2.4.0",
-    "graphql": "^15.5.0"
-  },
+  "dependencies": {},
   "scripts": {
-    "graphql-doc": "graphdoc -e http://localhost:9999/graphql -o ../../docs/schemas/graphql",
-    "get-stiched-schema": "curl http://localhost:9999/graphql/stitched-schema?sdl --output ./generated/schema.graphql",
-    "gqlg": "gqlg --schemaFilePath ./generated/schema.graphql --destDirPath ./generated/gqlg",
-    "test-debug": "newman run \"./tests/dapr-microservices.postman_collection.json\" -e \"./tests/dapr-microservice (debug local).postman_environment.json\" -r htmlextra --reporter-htmlextra-title \"microservices integration\"",
-    "test-debug-dashboard": "newman run \"./tests/dapr-microservices.postman_collection.json\" -e \"./tests/dapr-microservice (debug local).postman_environment.json\" -r htmlextra --reporter-htmlextra-export ../../docs/tests/newman/dashboard.html --reporter-htmlextra-title \"microservices integration\"",
-    "gqlgen-basket": "graphql-codegen --config ./dapr.gql.basket/gql/codegen.yaml",
-    "gqlgen-customer": "graphql-codegen --config ./dapr.gql.customer/gql/codegen.yaml",
-    "gqlgen-gateway": "graphql-codegen --config ./dapr.gql.gateway/gql/codegen.yaml",
-    "gqlgen-inventory": "graphql-codegen --config ./dapr.gql.inventory/gql/codegen.yaml",
-    "gqlgen-payment": "graphql-codegen --config ./dapr.gql.payment/gql/codegen.yaml",
-    "gqlgen-product": "graphql-codegen --config ./dapr.gql.product/gql/codegen.yaml"
+    "gql-doc": "npx graphdoc -e http://localhost:9999/graphql -o ../../docs/schemas/graphql --force",
+    "gql-schema": "curl http://localhost:9999/graphql/stitched-schema?sdl --output ./generated/schema.graphql",
+    "gqlg": "npx gqlg --schemaFilePath ./generated/schema.graphql --destDirPath ./generated/gqlg",
+    "test": "npx newman run \"./tests/dapr-microservices.postman_collection.json\" -e \"./tests/dapr-microservice (debug local).postman_environment.json\" -r htmlextra --reporter-htmlextra-title \"microservices integration\"",
+    "test-dashboard": "npx newman run \"./tests/dapr-microservices.postman_collection.json\" -e \"./tests/dapr-microservice (debug local).postman_environment.json\" -r htmlextra --reporter-htmlextra-export ../../docs/tests/newman/dashboard.html --reporter-htmlextra-title \"microservices integration\""
   }
 }

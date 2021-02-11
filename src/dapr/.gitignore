@@ -19,5 +19,8 @@ logs
 npm-debug.log*
 yarn-*.log
 
+# generated files
+generated/
 # tests
 newman/
+
