@@ -128,6 +128,12 @@ Here is a snippet of the list:
 ...
 ```
 
+Another great way of selecting your prefered region is to visit: https://azureprice.net/Region.
+The ID column contains the name of the region you can use in the az cli, as well as the average VM costs indexed against other regions.
+
+For a graphical overview (worldmap) of regions and more details per region visit: https://azure.microsoft.com/en-us/global-infrastructure/geographies/
+
+
 ### Azure Cluster Creation
 
 We are now ready to set up the cluster in the created resource group. We will be creating a simple one node cluster for now.
