@@ -30,7 +30,7 @@
   - [Setup your container registry](#setup-your-container-registry)
   - [Deploying Dapr services (from vscode)](#deploying-dapr-services-from-vscode)
     - [Building your docker containers](#building-your-docker-containers)
-    - [Deploying your docker containers](#deploying-your-docker-containers)
+    - [Pushing your docker Images](#pushing-your-docker-images)
   - [Deploying Dapr services (GitOps)](#deploying-dapr-services-gitops)
 
 # Showcase
@@ -319,9 +319,32 @@ The images list should contain the `basket, customer, inventory and payment` mic
 
 ![docker image builds](./docs/images/docker-image-builds.png)
 
-### Deploying your docker containers
+### Pushing your docker Images
 
-t.b.a.
+We will be pushing our images to the previously created Azure Container Registry in your resource group.
+In the docker accordion pane in vscode you see a registry menu.
+
+1. Click on Connect Registry
+2. Choose Azure
+3. Open the Azure tree
+4. Click on `Install Azure Ccount Extension`
+5. Install the Extension
+6. Sign In to Azure 
+
+The created container registry should now appear in the view pane.
+
+![docker registry](./docs/images/registries.png)
+
+Now push all 6 images to the registry that are tagged :latest.
+
+![push docker image](./docs/images/push-docker-image.png)
+
+The Azure portal should show all images in its repositories menu for the resource group.
+
+![azure portal repositories](./docs/images/azure-portal-repositories.png)
+
+
+
 
 ## Deploying Dapr services (GitOps)
 
