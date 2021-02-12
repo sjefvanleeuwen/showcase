@@ -9,6 +9,7 @@
       - [dapr Release Train](#dapr-release-train)
   - [Setup](#setup)
     - [Clone repo](#clone-repo)
+    - [Setting up secrets (important)](#setting-up-secrets-important)
     - [vscode debug launch](#vscode-debug-launch)
       - [Debug all micro services](#debug-all-micro-services)
       - [Service registry and ports](#service-registry-and-ports)
@@ -81,6 +82,27 @@ To get up and running with dapr solution. `cd to the ./showcase/src/dapr folder`
 cd ./showcase/src/dapr
 npm install
 ```
+
+### Setting up secrets (important)
+
+dapr stores its secrets in the `./src/dapr/secrets.json` file. The secrets component configuration itself can be found in:  `./src/dapr/components/localSecretStore.yaml`. This configuration is used for `standalone mode` during your debug sessions. You will need to replace the full path to match the location of the file on your dev workstation (replace %Your Path%).
+
+```yaml
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: my-secret-store
+  namespace: default
+spec:
+  type: secretstores.local.file
+  version: v1
+  metadata:
+  - name: secretsFile
+    value: %Your Path%/showcase/src/dapr/secrets.json
+  - name: nestedSeparator
+    value: ":"
+```
+
 
 ### vscode debug launch
 
