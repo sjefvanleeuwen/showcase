@@ -2,6 +2,11 @@
 
 - [Showcase](#showcase)
   - [Status](#status)
+  - [Stack used](#stack-used)
+    - [Micro services](#micro-services)
+      - [Popularity](#popularity)
+      - [Runtime language services](#runtime-language-services)
+      - [dapr Release Train](#dapr-release-train)
   - [Setup](#setup)
     - [Clone repo](#clone-repo)
     - [npm Scripts](#npm-scripts)
@@ -11,7 +16,7 @@
       - [test / test-dashboard](#test--test-dashboard)
   - [High Level Overview](#high-level-overview)
   - [Hosting Modes](#hosting-modes)
-    - [Micro services](#micro-services)
+    - [Micro services](#micro-services-1)
   - [Setup dapr on Azure AKS kubernetes](#setup-dapr-on-azure-aks-kubernetes)
   - [Setup your container registry](#setup-your-container-registry)
 
@@ -23,11 +28,35 @@ A personal full stack journey. Consisting out of:
 * Micro (modular) Front End
 * Simulation Driven Development
 
-
-
 ## Status
 
 Very much under construction. Started with the back end and setting up docker containers and npm scripts.
+
+## Stack used
+
+### Micro services
+
+In Microsoft technologies there are mainly three promising technologies. The main reason why I choose dapr over other technologies are as follows:
+
+* Orleans only supports Actors
+* More official SDK integrations for multiple languages
+* Excellent documentation
+* Fastest growing community
+* Fast release train
+
+#### Popularity
+
+As per January 29th 2020
+
+![popularity dapr](./docs/images/dapr-popularity.svg)
+
+#### Runtime language services
+
+![sdk language services](./docs/images/runtime-language-services.svg)
+
+#### dapr Release Train
+
+![](./docs/images/dapr-release-train.png)
 
 ## Setup
 
