@@ -9,6 +9,13 @@
       - [dapr Release Train](#dapr-release-train)
   - [Setup](#setup)
     - [Clone repo](#clone-repo)
+    - [vscode debug launch](#vscode-debug-launch)
+      - [Debug all micro services](#debug-all-micro-services)
+      - [Service registry and ports](#service-registry-and-ports)
+        - [Swagger endpoints](#swagger-endpoints)
+        - [GraphQL endpoints](#graphql-endpoints)
+        - [GraphQL Gateway](#graphql-gateway)
+      - [Install additional tools.](#install-additional-tools)
     - [npm Scripts](#npm-scripts)
       - [gql-doc](#gql-doc)
       - [gql-schemas](#gql-schemas)
@@ -74,6 +81,123 @@ To get up and running with dapr solution. `cd to the ./showcase/src/dapr folder`
 cd ./showcase/src/dapr
 npm install
 ```
+
+### vscode debug launch
+
+The vscode project contains several launch options. The most important one you will be working with is `debug all microservices`
+
+#### Debug all micro services
+
+This will startup the entire environment as depicted in the `high level overview`. At the time of this writing the micro orchestrator is not yet integrated in the debugging experience.
+
+The debug options can be found in the left pane.
+
+![debug all micro services](./docs/images/debug-all-micro-services.png)
+
+#### Service registry and ports
+
+The following URL's will be available as GraphQL service endpoints (and RESTful for that matter) when debugging in standalone mode.
+
+##### Swagger endpoints
+
+| Micro Service                      	| Native                  	| Dapr                                                          	|
+|------------------------------------	|-------------------------	|---------------------------------------------------------------	|
+| dapr.gql.basket                    	| localhost:10001/swagger 	| localhost:20001/v1.0/invoke/dapr-gql-basket/method    	|
+| dapr.gql.customer                  	| localhost:10002/swagger 	| localhost:20002/v1.0/invoke/dapr-gql-customer/method  	|
+| dapr.gql.inventory                 	| localhost:10003/swagger 	| localhost:20003/v1.0/invoke/dapr-gql-inventory/method 	|
+| dapr.gql.payment                   	| localhost:10004/swagger 	| localhost:20004/v1.0/invoke/dapr-gql-payment/method   	|
+| dapr.gql.product                   	| localhost:10005/swagger 	| localhost:20005/v1.0/invoke/dapr-gql-product/method   	|
+
+##### GraphQL endpoints
+
+| Micro Service      	| Native                  	| Dapr                                                          	|
+|--------------------	|-------------------------	|---------------------------------------------------------------	|
+| dapr.gql.basket    	| localhost:10001/graphql 	| localhost:20001/v1.0/invoke/dapr-gql-basket/method/graphql    	|
+| dapr.gql.customer  	| localhost:10002/graphql 	| localhost:20002/v1.0/invoke/dapr-gql-customer/method/graphql  	|
+| dapr.gql.inventory 	| localhost:10003/graphql 	| localhost:20003/v1.0/invoke/dapr-gql-inventory/method/graphql 	|
+| dapr.gql.payment   	| localhost:10004/graphql 	| localhost:20004/v1.0/invoke/dapr-gql-payment/method/graphql   	|
+| dapr.gql.product   	| localhost:10005/graphql 	| localhost:20005/v1.0/invoke/dapr-gql-product/method/graphql   	|
+
+##### GraphQL Gateway
+
+The GraphQL gateway federates all services. The sticthing gateway can be opened in your web browser at: http://localhost:9999/graphql when debugging.
+
+Next to federation it also stiches schema's such as mybasket, to join several graphs from several micro services (basket, product and inventory) into one query endpoint. At the time of this writing, the gaphql gateway is still tested to the native graphql query endpoints and will soon change to be served from the dapr endpoints.
+
+Here is the stitching example:
+
+```graphql
+# Stitching sub graphs for UX Design of the Basket View
+extend type Query {
+    "This is an extended query which shows a basket for the current logged in customer along with the products. This view is in accordance with the UX design and contains delegated fields from the inventory and product database"
+    mybasket: [BasketItem!]! @delegate(schema: "basket", path: "basketForCustomer(id: 1)")
+}
+
+extend type BasketItem {
+    "delegates the name of the product in the basket from product"
+    name: String
+        @delegate(
+            schema: "product",
+            path: "product(id: $fields:productId).name"
+        )
+    "delegates the description of the product in the basket from product"
+    description: String
+        @delegate(
+            schema: "product",
+            path: "product(id: $fields:productId).description"
+        )
+    "delegates the unit price of the product"
+    unitPrice: Float
+        @delegate(
+            schema: "product",
+            path: "product(id: $fields:productId).unitPrice"
+        )
+    "delegates the available stock of the product in the basket from the inventory"
+    inStock: Int
+        @delegate(
+            schema: "inventory",
+            path: "inventory(id: $fields:productId).quantity"
+        )
+}
+
+```
+
+#### Install additional tools.
+
+Here is a list of tools that will enhance your (debugging) experience with VSCODE for this project:
+
+**dotnet core test explorer**
+
+Unit Test Explorer for .NET Core
+https://marketplace.visualstudio.com/items?itemName=formulahendry.dotnet-test-explorer
+
+**dapr extensions**
+
+This Dapr extension makes it easy to setup debugging of applications within the Dapr environment as well as interact with applications via the Dapr runtime.
+
+https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-dapr
+
+**C# for Visual Studio Code (powered by OmniSharp)**
+
+Lightweight development tools for .NET Core.
+Great C# editing support, including Syntax Highlighting, IntelliSense, Go to Definition, Find All References, etc. Debugging support for .NET Core
+
+https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp
+
+**Docker**
+
+The Docker extension makes it easy to build, manage, and deploy containerized applications from Visual Studio Code. It also provides one-click debugging of Node.js, Python, and .NET Core inside a container.
+
+**GraphQL**
+
+GraphQL extension VSCode built with the aim to tightly integrate the GraphQL Ecosystem with VSCode for an awesome developer experience.
+
+https://marketplace.visualstudio.com/items?itemName=GraphQL.vscode-graphql
+
+**Live Server**
+Launch a local development server with live reload feature for static & dynamic pages.
+
+https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
 
 ### npm Scripts
 
