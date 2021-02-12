@@ -84,7 +84,7 @@ npm install
 
 ### vscode debug launch
 
-The vscode project contains several launch options. The most important one you will be working with is `debug all microservices`
+When starting up a new VSCode editor, in `./src/dapr/`, the project contains several launch options. The most important one you will be working with is `debug all microservices`
 
 #### Debug all micro services
 
