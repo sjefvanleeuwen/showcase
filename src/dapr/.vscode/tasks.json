@@ -80,7 +80,7 @@
             "type": "process",
             "args": [
             "build",
-            "${workspaceFolder}/dapr.gql.gateway/dapr.gql.gateway.csproj",
+            "${workspaceFolder}/ocelot/dapr.gql.gateway/dapr.gql.gateway.csproj",
             "/property:GenerateFullPaths=true",
             "/consoleloggerparameters:NoSummary"
             ],
@@ -347,6 +347,8 @@
             "label": "daprd-down-product",
             "type": "daprd-down"
         },
+        // 0. graphql gateway docker
+        
         // 1. basket docker
         {
             "type": "docker-build",

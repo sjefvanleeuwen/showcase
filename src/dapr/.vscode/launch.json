@@ -11,9 +11,9 @@
             "request": "launch",
             "preLaunchTask": "build-gateway",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/dapr.gql.gateway/bin/Debug/net5.0/dapr.gql.gateway.dll",
+            "program": "${workspaceFolder}/ocelot/dapr.gql.gateway/bin/Debug/net5.0/dapr.gql.gateway.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/dapr.gql.gateway",
+            "cwd": "${workspaceFolder}/ocelot/dapr.gql.gateway",
             "stopAtEntry": false,
             // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
             //"serverReadyAction": { "pattern": "\\bNow listening on:\\s+(https?://\\S+)" },
