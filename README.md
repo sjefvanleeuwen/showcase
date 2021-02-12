@@ -31,6 +31,9 @@
   - [Deploying Dapr services (from vscode)](#deploying-dapr-services-from-vscode)
     - [Building your docker containers](#building-your-docker-containers)
     - [Pushing your docker Images](#pushing-your-docker-images)
+    - [Managing Secrets](#managing-secrets)
+    - [Attaching container Registry](#attaching-container-registry)
+    - [Deploying dapr services](#deploying-dapr-services)
   - [Deploying Dapr services (GitOps)](#deploying-dapr-services-gitops)
 
 # Showcase
@@ -322,7 +325,7 @@ The images list should contain the `basket, customer, inventory and payment` mic
 ### Pushing your docker Images
 
 We will be pushing our images to the previously created Azure Container Registry in your resource group.
-In the docker accordion pane in vscode you see a registry menu.
+In the docker pane in vscode you see a registry menu.
 
 1. Click on Connect Registry
 2. Choose Azure
@@ -343,7 +346,87 @@ The Azure portal should show all images in its repositories menu for the resourc
 
 ![azure portal repositories](./docs/images/azure-portal-repositories.png)
 
+### Managing Secrets
 
+Secrets will be kept seperate from our code to enforce secure software development.
+For this we use the built in kubernetes built-in secret store.
+
+You can create a secret via the kubectl cli. For now we create the same test secret that we use in standalone dapr mode for integration testing.
+
+```
+kubectl create secret generic my-secret-store --from-literal='my-secret'='If you want to keep a secret, you must also hide it from yourself. -- George Orwell, 1984'
+secret/my-secret-store created
+```
+
+### Attaching container Registry
+
+You can attach the container registry to your AKS cluster that you created and pushed the images to. remember to replace the name of the `acr` to your own unique container registry name.
+
+```
+az aks update --name showcase --resource-group showcase --attach-acr sjefvanleeuwenshowcase
+
+```
+
+This wil take less than a minute usually. 
+
+### Deploying dapr services
+
+You can find Deployment spec files in the ./src/dapr/k8s/deployment folder.
+**note** that I haven't templated the file yet, you need to change the container image tag `%youracrname%` with your own registry name for now. 
+
+`dapr-gql-basket.yaml` spec file:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dapr-gql-basket
+  namespace: default
+  labels:
+    app: dapr-gql-basket
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dapr-gql-basket
+  template:
+    metadata:
+      labels:
+        app: dapr-gql-basket
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/id: "dapr-gql-basket"
+        dapr.io/port: "80"
+        dapr.io/config: "appconfig"
+        dapr.io/log-level: "info"
+    spec:
+      containers:
+      - name: dapr-gql-basket
+        image: %youracename%.azurecr.io/dapr.gql.basket:latest
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
+
+```
+
+You can deploy using `kubectl apply`.
+
+```
+kubectl apply -f dapr-gql-basket.yaml
+deployment.apps/dapr-gql-basket created
+```
+
+You can go to your previously installed dashboard to see the basket service running. If its not running issue:
+
+```
+dapr dashboard -k
+```
+
+browse to: http://localhost:8080/
+
+You should see the basket micro service running.
+
+![control plane basket](./docs/images/dapr-control-plane-basket.png)
 
 
 ## Deploying Dapr services (GitOps)

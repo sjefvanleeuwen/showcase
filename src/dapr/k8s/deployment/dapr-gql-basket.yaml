@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dapr-gql-basket
+  namespace: default
+  labels:
+    app: dapr-gql-basket
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dapr-gql-basket
+  template:
+    metadata:
+      labels:
+        app: dapr-gql-basket
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/id: "dapr-gql-basket"
+        dapr.io/port: "80"
+        dapr.io/config: "appconfig"
+        dapr.io/log-level: "info"
+    spec:
+      containers:
+      - name: dapr-gql-basket
+        image: sjefvanleeuwenshowcase.azurecr.io/dapr.gql.basket:latest
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
