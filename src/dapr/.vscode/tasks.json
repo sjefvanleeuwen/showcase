@@ -25,7 +25,7 @@
                 "docker-build inventory: release",
                 "docker-build payment: release",
                 "docker-build product: release",
-                
+                "docker-build gateway: release"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -43,7 +43,7 @@
                 "docker-build inventory: debug",
                 "docker-build payment: debug",
                 "docker-build product: debug",
-                
+                "docker-build gateway: debug"                
             ],
             "problemMatcher": "$msCompile"
         },
@@ -347,8 +347,6 @@
             "label": "daprd-down-product",
             "type": "daprd-down"
         },
-        // 0. graphql gateway docker
-        
         // 1. basket docker
         {
             "type": "docker-build",
@@ -633,6 +631,63 @@
             "netCore": {
                 "appProject": "${workspaceFolder}/dapr.gql.product/dapr.gql.product.csproj"
             }
-        }
+        },
+        // 6. graphql gateway docker
+        {
+            "type": "docker-build",
+            "label": "docker-build gateway: debug",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "gql.gateway:dev",
+                "target": "base",
+                "dockerfile": "${workspaceFolder}/gql.gateway/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/gql.gateway/gql.gateway.csproj"
+            }
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build gateway: release",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "gql.gateway:latest",
+                "dockerfile": "${workspaceFolder}/gql.gateway/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/gql.gateway/gql.gateway.csproj"
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run gateway: debug",
+            "dependsOn": [
+                "docker-build gateway: debug"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/gql.gateway/gql.gateway.csproj",
+                "enableDebugging": true
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: release",
+            "dependsOn": [
+                "docker-build gateway: release"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/gql.gateway/gql.gateway.csproj"
+            }
+        },
     ]
 }

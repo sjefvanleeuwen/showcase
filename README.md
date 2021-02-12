@@ -25,8 +25,13 @@
   - [High Level Overview](#high-level-overview)
   - [Hosting Modes](#hosting-modes)
     - [Micro services](#micro-services-1)
+- [Deploying to Kubernetes](#deploying-to-kubernetes)
   - [Setup dapr on Azure AKS kubernetes](#setup-dapr-on-azure-aks-kubernetes)
   - [Setup your container registry](#setup-your-container-registry)
+  - [Deploying Dapr services (from vscode)](#deploying-dapr-services-from-vscode)
+    - [Building your docker containers](#building-your-docker-containers)
+    - [Deploying your docker containers](#deploying-your-docker-containers)
+  - [Deploying Dapr services (GitOps)](#deploying-dapr-services-gitops)
 
 # Showcase
 
@@ -282,6 +287,10 @@ At this time the micro services run in self hosted mode. The eventual "productio
 
 ![Hosting Modes](./docs/images/hosting-modes.svg)
 
+# Deploying to Kubernetes
+
+Time to shift our focus on the Kubernetes hosting mode. This is also known as `Dapr First`. Dapr is a world class citizen when it comes to deployment to kubernetes. We will be deploying the dapr solution to the Azure cloud using `azure cli`.
+
 ## Setup dapr on Azure AKS kubernetes
 
 Please follow the guide [here](./docs/kubernetes/setup-aks-cluster.md)
@@ -289,3 +298,31 @@ Please follow the guide [here](./docs/kubernetes/setup-aks-cluster.md)
 ## Setup your container registry
 
 Please follow the guide [here](./docs/docker/setup-azure-container-registry.md)
+
+## Deploying Dapr services (from vscode)
+
+The `./src/dapr` project comes with a .sln file, binding all services together. When developing larger services landscapes these can be seperated out as you scale your application. For now however we can make use of one of the Tasks that will containerize our services in order to get ready for kubernetes deployment via the Azure service registry you have already set up by now.
+
+### Building your docker containers
+
+In vscode, got to the task run list by pressing ctrl+ shift+p to open the command palette.
+
+From the list pick `Task: Run Task`
+
+Select the `build all dockers: latest`.
+
+This will build the containers for the micro services, including the gateway
+
+If you installed the visual studio extension for docker as indicated under `Install additional tools` in this document, you can easily check if the images are build for your docker installation.
+
+The images list should contain the `basket, customer, inventory and payment` microserevices. Also the `gql.gateway` should be in the list.
+
+![docker image builds](./docs/images/docker-image-builds.png)
+
+### Deploying your docker containers
+
+t.b.a.
+
+## Deploying Dapr services (GitOps)
+
+t.b.a.
