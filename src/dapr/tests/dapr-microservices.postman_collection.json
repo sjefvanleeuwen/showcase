@@ -431,6 +431,145 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "inventory",
+					"item": [
+						{
+							"name": "direct",
+							"item": [
+								{
+									"name": "A01 get product",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.collectionVariables.set(\"reserve_quantity\", pm.response.json().data.inventory.quantity);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "{ inventory(id:1) {\r\n  quantity\r\n}}",
+												"variables": ""
+											}
+										},
+										"url": {
+											"raw": "http://localhost:10003/graphql",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "10003",
+											"path": [
+												"graphql"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "A02 reserve 1",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"expect correct quantity\", function () {\r",
+													"    pm.expect(pm.response.json().data.reserve.quantity).to.equal(pm.variables.get(\"reserve_quantity\") -1);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation {\r\n  reserve(request: {productId: 1 quantity: 1}) {\r\n    productId\r\n    quantity\r\n  }\r\n}\r\n",
+												"variables": ""
+											}
+										},
+										"url": {
+											"raw": "http://localhost:10003/graphql?sdl",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "10003",
+											"path": [
+												"graphql"
+											],
+											"query": [
+												{
+													"key": "sdl",
+													"value": null
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "A03 liberate 1",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"expect correct quantity\", function () {\r",
+													"    pm.expect(pm.response.json().data.reserve.quantity).to.equal(pm.variables.get(\"reserve_quantity\"));\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation {\r\n  reserve(request: {productId: 1 quantity: -1}) {\r\n    productId\r\n    quantity\r\n  }\r\n}\r\n",
+												"variables": ""
+											}
+										},
+										"url": {
+											"raw": "http://localhost:10003/graphql?sdl",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "10003",
+											"path": [
+												"graphql"
+											],
+											"query": [
+												{
+													"key": "sdl",
+													"value": null
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
 				}
 			]
 		}
@@ -459,6 +598,12 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "reserve_quantity",
+			"value": ""
 		}
 	]
 }
