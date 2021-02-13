@@ -84,7 +84,7 @@ For micro service orchestration we use 3 builidng blocks from camunda:latest
 * [Elastic Search](https://github.com/elastic/elasticsearch) (for storing workflow data)
 * [Operate](https://docs.camunda.io/docs/product-manuals/operate/index) for monitoring and troubleshooting workflow instances
 * [Monitor](https://github.com/zeebe-io/zeebe-simple-monitor) a simple monitoring application where you can test workflow manually
-
+* [Modeler](https://github.com/zeebe-io/zeebe-modeler/releases) visual workflow for zeebe using BPMN.
 
 # Setup
 
