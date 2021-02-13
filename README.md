@@ -7,24 +7,27 @@
       - [Popularity](#popularity)
       - [Runtime language services](#runtime-language-services)
       - [dapr Release Train](#dapr-release-train)
-  - [Setup](#setup)
-    - [Clone repo](#clone-repo)
-    - [Setting up secrets (important)](#setting-up-secrets-important)
-    - [vscode debug launch](#vscode-debug-launch)
-      - [Debug all micro services](#debug-all-micro-services)
-      - [Service registry and ports](#service-registry-and-ports)
-        - [Swagger endpoints](#swagger-endpoints)
-        - [GraphQL endpoints](#graphql-endpoints)
-        - [GraphQL Gateway](#graphql-gateway)
-      - [Install additional tools.](#install-additional-tools)
-    - [npm Scripts](#npm-scripts)
-      - [gql-doc](#gql-doc)
-      - [gql-schemas](#gql-schemas)
-      - [gqlg](#gqlg)
-      - [test / test-dashboard](#test--test-dashboard)
-  - [High Level Overview](#high-level-overview)
-  - [Hosting Modes](#hosting-modes)
-    - [Micro services](#micro-services-1)
+    - [Micro Service Orchestration](#micro-service-orchestration)
+- [Setup](#setup)
+  - [Clone repo](#clone-repo)
+  - [Setting up secrets (important)](#setting-up-secrets-important)
+  - [vscode debug launch](#vscode-debug-launch)
+    - [Debug all micro services](#debug-all-micro-services)
+    - [Service registry and ports](#service-registry-and-ports)
+      - [Swagger endpoints](#swagger-endpoints)
+      - [GraphQL endpoints](#graphql-endpoints)
+      - [GraphQL Gateway](#graphql-gateway)
+    - [Install additional tools.](#install-additional-tools)
+  - [npm Scripts](#npm-scripts)
+    - [gql-doc](#gql-doc)
+    - [gql-schemas](#gql-schemas)
+    - [gqlg](#gqlg)
+    - [test / test-dashboard](#test--test-dashboard)
+  - [Zeebe Micro Service Orchestration](#zeebe-micro-service-orchestration)
+    - [Docker installation](#docker-installation)
+- [High Level Overview](#high-level-overview)
+- [Hosting Modes](#hosting-modes)
+  - [Micro services](#micro-services-1)
 - [Deploying to Kubernetes](#deploying-to-kubernetes)
   - [Setup dapr on Azure AKS kubernetes](#setup-dapr-on-azure-aks-kubernetes)
   - [Setup your container registry](#setup-your-container-registry)
@@ -74,11 +77,20 @@ As per January 29th 2020
 
 ![](./docs/images/dapr-release-train.png)
 
-## Setup
+### Micro Service Orchestration
+
+For micro service orchestration we use 3 builidng blocks from camunda:latest
+* [Zeebe](https://github.com/zeebe-io/zeebe) orchestration engine
+* [Elastic Search](https://github.com/elastic/elasticsearch) (for storing workflow data)
+* [Operate](https://docs.camunda.io/docs/product-manuals/operate/index) for monitoring and troubleshooting workflow instances
+* [Monitor](https://github.com/zeebe-io/zeebe-simple-monitor) a simple monitoring application where you can test workflow manually
+
+
+# Setup
 
 The VSCODE project consists out of Tasks/Launch json configuration. On top of this some utilities are installed as NPM packages. The scripts that are shipped in package.json with the solution are installed as dev dependencies and these node modules are executed with `npx`.
 
-### Clone repo
+## Clone repo
 
 ```
 git clone https://github.com/sjefvanleeuwen/showcase.git
@@ -91,7 +103,7 @@ cd ./showcase/src/dapr
 npm install
 ```
 
-### Setting up secrets (important)
+## Setting up secrets (important)
 
 dapr stores its secrets in the `./src/dapr/secrets.json` file. The secrets component configuration itself can be found in:  `./src/dapr/components/localSecretStore.yaml`. This configuration is used for `standalone mode` during your debug sessions. You will need to replace the full path to match the location of the file on your dev workstation (replace %Your Path%).
 
@@ -112,11 +124,11 @@ spec:
 ```
 
 
-### vscode debug launch
+## vscode debug launch
 
 When starting up a new VSCode editor, in `./src/dapr/`, the project contains several launch options. The most important one you will be working with is `debug all microservices`
 
-#### Debug all micro services
+### Debug all micro services
 
 This will startup the entire environment as depicted in the `high level overview`. At the time of this writing the micro orchestrator is not yet integrated in the debugging experience.
 
@@ -124,11 +136,11 @@ The debug options can be found in the left pane.
 
 ![debug all micro services](./docs/images/debug-all-micro-services.png)
 
-#### Service registry and ports
+### Service registry and ports
 
 The following URL's will be available as GraphQL service endpoints (and RESTful for that matter) when debugging in standalone mode.
 
-##### Swagger endpoints
+#### Swagger endpoints
 
 | Micro Service                      	| Native                  	| Dapr                                                          	|
 |------------------------------------	|-------------------------	|---------------------------------------------------------------	|
@@ -138,7 +150,7 @@ The following URL's will be available as GraphQL service endpoints (and RESTful 
 | dapr.gql.payment                   	| localhost:10004/swagger 	| localhost:20004/v1.0/invoke/dapr-gql-payment/method   	|
 | dapr.gql.product                   	| localhost:10005/swagger 	| localhost:20005/v1.0/invoke/dapr-gql-product/method   	|
 
-##### GraphQL endpoints
+#### GraphQL endpoints
 
 | Micro Service      	| Native                  	| Dapr                                                          	|
 |--------------------	|-------------------------	|---------------------------------------------------------------	|
@@ -148,7 +160,7 @@ The following URL's will be available as GraphQL service endpoints (and RESTful 
 | dapr.gql.payment   	| localhost:10004/graphql 	| localhost:20004/v1.0/invoke/dapr-gql-payment/method/graphql   	|
 | dapr.gql.product   	| localhost:10005/graphql 	| localhost:20005/v1.0/invoke/dapr-gql-product/method/graphql   	|
 
-##### GraphQL Gateway
+#### GraphQL Gateway
 
 The GraphQL gateway federates all services. The sticthing gateway can be opened in your web browser at: http://localhost:9999/graphql when debugging.
 
@@ -192,7 +204,7 @@ extend type BasketItem {
 
 ```
 
-#### Install additional tools.
+### Install additional tools.
 
 Here is a list of tools that will enhance your (debugging) experience with VSCODE for this project:
 
@@ -229,11 +241,11 @@ Launch a local development server with live reload feature for static & dynamic 
 
 https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
 
-### npm Scripts
+## npm Scripts
 
 The following section describes the available scripts:
 
-#### gql-doc
+### gql-doc
 
 Documents the graphql schema from the stitching/federated graphql gateway endpoint. Output example [here](https://sjefvanleeuwen.github.io/showcase/schemas/graphql/).
 
@@ -241,7 +253,7 @@ Documents the graphql schema from the stitching/federated graphql gateway endpoi
 npm run gql-doc
 ```
 
-#### gql-schemas
+### gql-schemas
 
 Fetches the schema from the stitching/federated graphql gateway endpoint via curl and places it in the `./generated` folder.
 
@@ -249,7 +261,7 @@ Fetches the schema from the stitching/federated graphql gateway endpoint via cur
 npm run gql-schema
 ```
 
-#### gqlg
+### gqlg
 
 Generates a javascript serverside (nodejs) graphql client for the gateway. This command is dependend on gql-schema.
 *note* this generator can not interpret the @source directive containing a repeatable ENUM. Please remove it from the fetched `schema.graphql` file in the `./generated-folder`
@@ -258,7 +270,7 @@ This command is going to be replaced by a better client/server code generator. S
 ```
 npm run gqlg
 ```
-#### test / test-dashboard
+### test / test-dashboard
 
 Executes newman integration tests from the ./tests directory, which contains postman configurations. It exports the test results using a html reporter `newman-reporter-html-extra`
 
@@ -276,15 +288,34 @@ npm run test-dashboard
 
 You can see an example of the dashboard [here](https://sjefvanleeuwen.github.io/showcase/tests/newman/dashboard.html)
 
-## High Level Overview
+## Zeebe Micro Service Orchestration
+
+### Docker installation
+
+Zeebe can be setup using docker-compose. cd to the `./src/orchestration/zeebe/operate-simple-monitor`.
+
+```
+docker-compose up
+```
+
+Camunda operate should now be available at: http://localhost:9998/
+
+```
+u/l: demo/demo
+```
+
+![operate](./docs/zeebe/images/camunda-operate.png)
+
+
+# High Level Overview
 
 High level overview of what I am building.
 
 ![High Level Overview](./docs/images/high-level.svg)
 
-## Hosting Modes
+# Hosting Modes
 
-### Micro services
+## Micro services
 
 At this time the micro services run in self hosted mode. The eventual "production" mode is targeted towards kubernetes.
 

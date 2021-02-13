@@ -1,0 +1,69 @@
+version: "2"
+
+volumes:
+  zeebe_data:
+  zeebe_elasticsearch_data:
+
+networks:
+  zeebe_network:
+    driver: bridge
+
+services:
+  zeebe:
+    container_name: zeebe
+    image: camunda/zeebe:0.26.0
+    environment:
+      - ZEEBE_LOG_LEVEL=debug
+    ports:
+      - "26500:26500"
+      - "9600:9600"
+      - "5701:5701"
+    volumes:
+      - ../lib/zeebe-hazelcast-exporter-0.10.0.jar:/usr/local/zeebe/exporters/zeebe-hazelcast-exporter-0.10.0.jar
+      - ./application.yaml:/usr/local/zeebe/config/application.yaml
+    networks:
+      - zeebe_network
+  monitor:
+    container_name: zeebe_monitor
+    restart: always
+    image: camunda/zeebe-simple-monitor:0.20.0
+    environment:
+      - zeebe.client.broker.contactPoint=zeebe:26500
+      - zeebe.client.worker.hazelcast.connection=zeebe:5701
+    volumes:
+      - ./simple-monitor-application.yaml:/application.yaml
+    ports:
+      - "8082:8082"
+    depends_on:
+      - zeebe
+    networks:
+      - zeebe_network
+  operate:
+    container_name: operate
+    image: camunda/operate:0.26.0
+    ports:
+      - "9998:8080"
+    volumes:
+      - ../lib/application.yml:/usr/local/operate/config/application.yml
+    networks:
+      - zeebe_network
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.7.1
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+      - cluster.name=elasticsearch
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - zeebe_elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - zeebe_network
+  # kibana:
+  #   container_name: kibana
+  #   image: docker.elastic.co/kibana/kibana-oss:6.7.1
+  #   ports:
+  #     - "5601:5601"
+  #   networks:
+  #     - zeebe_network
