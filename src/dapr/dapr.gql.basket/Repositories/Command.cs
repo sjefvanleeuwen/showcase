@@ -1,4 +1,6 @@
+using Dapr.Client;
 using HotChocolate;
+using Microsoft.AspNetCore.Mvc;
 
 namespace dapr.gql.basket.Repositories
 {
@@ -18,6 +20,10 @@ namespace dapr.gql.basket.Repositories
         /// </summary>
         /// <param name="basketItemId">The unique identifier of the basket item</param>
         /// <param name="repository">The repository where this item is stored</param>
-        public void RemoveItemFromBasket(int basketItemId, [Service] IBasketRepository repository) => repository.Remove(basketItemId);
+        public void RemoveItemFromBasket(int basketItemId, [Service] IBasketRepository repository)
+        {
+            repository.Remove(basketItemId);
+            //daprClient.de
+        }
     }
 }

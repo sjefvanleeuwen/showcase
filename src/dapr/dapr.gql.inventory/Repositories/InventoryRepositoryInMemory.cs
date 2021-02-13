@@ -19,5 +19,6 @@ namespace dapr.gql.inventory.Repositories
 
         public Inventory Get(int productId) => _inventory[productId];
         public IEnumerable<Inventory> Get() => _inventory.Values;
+        public void Set(Inventory product) => _inventory[product.ProductId] = product;
     }
 }

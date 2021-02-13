@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using HotChocolate.Types;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace dapr.gql.customer.Controllers
 {
-    [ApiController]
+   // [ApiController]
     //[Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    [ExtendObjectType(Name = "Query")]
+    public class WeatherForecastController// : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
@@ -23,6 +25,7 @@ namespace dapr.gql.customer.Controllers
         }
 
         [HttpGet("weather")]
+        [HotChocolate.GraphQLName(name:"weather")]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();

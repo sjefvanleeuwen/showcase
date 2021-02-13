@@ -1,0 +1,1 @@
+{"Schemas":[{"Name":"Inventory","Type":"http","File":"Inventory.graphql","Url":"http://localhost:10003/graphql"}],"ClientName":"InventoryClient"}

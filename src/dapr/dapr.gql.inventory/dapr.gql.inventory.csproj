@@ -16,5 +16,4 @@
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
     <None Include="../components/**" CopyToOutputDirectory="PreserveNewest" LinkBase="components\" />
   </ItemGroup>
-
 </Project>

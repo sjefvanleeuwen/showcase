@@ -1,3 +1,4 @@
+using dapr.gql.customer.Controllers;
 using dapr.gql.customer.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,7 +29,8 @@ namespace dapr.gql.customer
             services
                 .AddSingleton<ICustomerRepository, CustomerRepositoryInmemory>()
                 .AddGraphQLServer()
-                .AddQueryType<Query>();
+                .AddQueryType<Query>()
+                .AddType<WeatherForecastController>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

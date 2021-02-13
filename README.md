@@ -9,6 +9,7 @@
       - [dapr Release Train](#dapr-release-train)
     - [Micro Service Orchestration](#micro-service-orchestration)
 - [Setup](#setup)
+  - [Install Dapr CLI](#install-dapr-cli)
   - [Clone repo](#clone-repo)
   - [Setting up secrets (important)](#setting-up-secrets-important)
   - [vscode debug launch](#vscode-debug-launch)
@@ -38,6 +39,11 @@
     - [Attaching container Registry](#attaching-container-registry)
     - [Deploying dapr services](#deploying-dapr-services)
   - [Deploying Dapr services (GitOps)](#deploying-dapr-services-gitops)
+- [GraphQL](#graphql)
+  - [Client generator](#client-generator)
+    - [Setup client tools](#setup-client-tools)
+    - [Fetch the graphql schema](#fetch-the-graphql-schema)
+    - [Generate the client](#generate-the-client)
 
 # Showcase
 
@@ -90,6 +96,17 @@ For micro service orchestration we use 3 builidng blocks from camunda:latest
 
 The VSCODE project consists out of Tasks/Launch json configuration. On top of this some utilities are installed as NPM packages. The scripts that are shipped in package.json with the solution are installed as dev dependencies and these node modules are executed with `npx`.
 
+## Install Dapr CLI
+
+The dapr runtime can be installed by following this documentation:
+https://v1-rc1.docs.dapr.io/getting-started/install-dapr-cli/
+
+To debug dapr micro services, install dapr in local mode on your dev machine.
+
+```
+dapr init --runtime-version v1.0.0-rc.4
+```
+
 ## Clone repo
 
 ```
@@ -122,7 +139,6 @@ spec:
   - name: nestedSeparator
     value: ":"
 ```
-
 
 ## vscode debug launch
 
@@ -211,6 +227,7 @@ Here is a list of tools that will enhance your (debugging) experience with VSCOD
 **dotnet core test explorer**
 
 Unit Test Explorer for .NET Core
+
 https://marketplace.visualstudio.com/items?itemName=formulahendry.dotnet-test-explorer
 
 **dapr extensions**
@@ -229,6 +246,8 @@ https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp
 **Docker**
 
 The Docker extension makes it easy to build, manage, and deploy containerized applications from Visual Studio Code. It also provides one-click debugging of Node.js, Python, and .NET Core inside a container.
+
+https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker
 
 **GraphQL**
 
@@ -463,3 +482,84 @@ You should see the basket micro service running.
 ## Deploying Dapr services (GitOps)
 
 t.b.a.
+
+# GraphQL
+
+## Client generator
+
+For service to service communication we can leverage graphql. The follow example shows how to create a client for the basket service, which needs to synchronously call the inventory to reserve product items. Consider the following activity diagram.
+
+[![](https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgcGFydGljaXBhbnQgQmFza2V0Q2xpZW50XG4gICAgcGFydGljaXBhbnQgQmFza2V0U2VydmljZVxuICAgIEJhc2tldENsaWVudC0-PkJhc2tldFNlcnZpY2U6IENoYW5nZSBxdWFudGl0eVxuICAgIHBhcnRpY2lwYW50IEludmVudG9yeVNlcnZpY2VcbiAgICBCYXNrZXRTZXJ2aWNlLS0-PkludmVudG9yeVNlcnZpY2U6IFJlc2VydmVcbiAgICBJbnZlbnRvcnlTZXJ2aWNlIC0-PiBJbnZlbnRvcnlTZXJ2aWNlOiBSZXNlcnZlUXVhbnRpdHlcbiAgICBJbnZlbnRvcnlTZXJ2aWNlIC0-PiBCYXNrZXRTZXJ2aWNlOiBSZXN1bHQgKHF1YW50aXR5KVxuICAgIEJhc2tldFNlcnZpY2UgLS0-PiBCYXNrZXRDbGllbnQ6IFJlc3VsdCAocXVhbnRpdHkpXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgcGFydGljaXBhbnQgQmFza2V0Q2xpZW50XG4gICAgcGFydGljaXBhbnQgQmFza2V0U2VydmljZVxuICAgIEJhc2tldENsaWVudC0-PkJhc2tldFNlcnZpY2U6IENoYW5nZSBxdWFudGl0eVxuICAgIHBhcnRpY2lwYW50IEludmVudG9yeVNlcnZpY2VcbiAgICBCYXNrZXRTZXJ2aWNlLS0-PkludmVudG9yeVNlcnZpY2U6IFJlc2VydmVcbiAgICBJbnZlbnRvcnlTZXJ2aWNlIC0-PiBJbnZlbnRvcnlTZXJ2aWNlOiBSZXNlcnZlUXVhbnRpdHlcbiAgICBJbnZlbnRvcnlTZXJ2aWNlIC0-PiBCYXNrZXRTZXJ2aWNlOiBSZXN1bHQgKHF1YW50aXR5KVxuICAgIEJhc2tldFNlcnZpY2UgLS0-PiBCYXNrZXRDbGllbnQ6IFJlc3VsdCAocXVhbnRpdHkpXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
+
+The basket services requests the reserve mutation service, for this it needs the mutation operation schema from the inventory service.
+
+### Setup client tools
+
+In order to do so, run the inventory service from VSCODE. cd to `src/dapr/dapr.gql.basket/Client`
+
+In this directory we have setup the client as follows:
+
+```
+dotnet new tool-manifest
+dotnet tool install StrawberryShake.Tools --local --version 11.0.0-preview.137
+```
+
+### Fetch the graphql schema
+
+To generate a new client based on the operations from the iventory service, make sure the inventory service is running. Then generate a strongly typed client by executing:
+
+```
+dotnet graphql init http://localhost:10003/graphql -n Inventory
+```
+
+```
+Download schema started.
+Download schema completed in 978 ms
+Client configuration started.
+Client configuration completed in 12 ms
+```
+
+2 files will now be in the Client directory.
+
+* berry.json
+* Inventory.graphql
+
+Furthemore a `.config` directory, containing dotnet-tools.json contains the version of the tool used.
+
+```json
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "strawberryshake.tools": {
+      "version": "11.0.0-preview.137",
+      "commands": [
+        "dotnet-graphql"
+      ]
+    }
+  }
+}
+```
+
+### Generate the client
+
+Create the query or mutation you want to generate code for as a new file: `ReserveMutation.graphql`
+
+```graphql
+mutation Reserve {
+    reserve {
+        productId
+        quantity
+    }
+}
+```
+
+Now build the project, a `./Generated` directory will be created containing the strongly typed client code.
+
+```
+dotnet build ../
+```
+
+The `ReserveMutation` client can now be used.
+
+

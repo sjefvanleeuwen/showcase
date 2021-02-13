@@ -22,6 +22,6 @@ namespace dapr.gql.inventory.Repositories
         /// The quantity of stock for the product
         /// </summary>
         /// <value></value>
-        public int Quantity { get; }
+        public int Quantity { get; set;}
     }
 }

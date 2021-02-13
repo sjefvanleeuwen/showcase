@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using HotChocolate;
 using HotChocolate.Subscriptions.InMemory;
-
+using dapr.gql.basket.Controllers;
 
 namespace dapr.gql.basket
 {
@@ -34,6 +34,7 @@ namespace dapr.gql.basket
                 .AddSingleton<IBasketRepository, BasketRepositoryInMemory>()
                 .AddGraphQLServer()
                 .AddQueryType<Query>()
+                //.AddQueryType<WeatherForecastController>() // expose rest controller as graphql.
                 .AddMutationType<BasketMutations>();
         }
 

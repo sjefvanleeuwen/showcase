@@ -1,0 +1,6 @@
+mutation Reserve {
+    reserve {
+        productId
+        quantity
+    }
+}

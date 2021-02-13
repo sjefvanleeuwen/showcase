@@ -6,5 +6,6 @@ namespace dapr.gql.inventory.Repositories
     {
         Inventory Get(int productId);
         IEnumerable<Inventory> Get();
+        void Set(Inventory product);
     }
 }

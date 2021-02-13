@@ -28,7 +28,8 @@ namespace dapr.gql.inventory
             services
                 .AddSingleton<IInventoryRepository, InventoryRepositoryInMemory>()
                 .AddGraphQLServer()
-                .AddQueryType<Query>();
+                .AddQueryType<Query>()
+                .AddMutationType<Command>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
