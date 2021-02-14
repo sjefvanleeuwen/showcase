@@ -1,0 +1,22 @@
+version: '3.5'
+services:
+  dapr.gql.basket:
+    image: dapr.gql.basket
+    ports:
+      - "10001:80"
+  dapr.gql.customer:
+    image: dapr.gql.customer
+    ports:
+      - "10002:80"
+  dapr.gql.inventory:
+    image: dapr.gql.inventory
+    ports:
+      - "10003:80"
+  dapr.gql.payment:
+    image: dapr.gql.payment
+    ports:
+      - "10004:80"
+  dapr.gql.product:
+    image: dapr.gql.product
+    ports:
+      - "10005:80"
