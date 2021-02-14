@@ -48,6 +48,12 @@
     - [Managing Secrets](#managing-secrets)
     - [Attaching container Registry](#attaching-container-registry)
     - [Deploying dapr services](#deploying-dapr-services)
+    - [Exposing Dapr services](#exposing-dapr-services)
+      - [Ingress Controller](#ingress-controller)
+        - [DNS](#dns)
+        - [SSL Certs](#ssl-certs)
+        - [K8s Secret for cert](#k8s-secret-for-cert)
+        - [Ingress Routes](#ingress-routes)
   - [Deploying Dapr services (GitOps)](#deploying-dapr-services-gitops)
 - [GraphQL](#graphql)
   - [Client generator](#client-generator)
@@ -571,6 +577,83 @@ You should see the basket micro service running.
 
 ![control plane basket](./docs/images/dapr-control-plane-basket.png)
 
+### Exposing Dapr services
+
+First we are going to expose the basket service to our development workstation so we can perform a query to it using graphql. We could instead expose the gateway, but lets keep things simple as that needs more wiring. This will be a manual exercise, but eventually will be done using automated deployments using GitOps.
+
+#### Ingress Controller
+
+Dapr fully integrates with Azure API management. If you want to use this instead of setting up you own generic ingress controller check this link: 
+
+https://docs.microsoft.com/en-us/azure/api-management/api-management-dapr-policies
+
+Our ingress controller will be NGINX. Instructions for this can be found on: 
+
+https://docs.microsoft.com/en-us/azure/aks/ingress-basic
+
+For deployment of nginx you can go to the `~/src/dapr/k8s/deployment/ingresses folder.
+
+Execute the following command from powershell
+
+```
+./nginx-ingress
+```
+
+Wait for a couple seconds, until the script executes the `kubectl --namespace ingress-basic get services -o wide -w nginx-ingress-ingress-nginx-controller` in order to view the status of the nginx ingress getting an external IP address assigned.
+
+```
+nginx-ingress-ingress-nginx-controller   LoadBalancer   10.0.96.37   <pending>     80:31982/TCP,443:31005/TCP   4s    app.kubernetes.io/component=controller,app.kubernetes.io/instance=nginx-ingress,app.kubernetes.io/name=ingress-nginx
+nginx-ingress-ingress-nginx-controller   LoadBalancer   10.0.96.37   20.67.176.154   80:31982/TCP,443:31005/TCP   15s   app.kubernetes.io/component=controller,app.kubernetes.io/instance=nginx-ingress,app.kubernetes.io/name=ingress-nginx
+```
+
+After 15 seconds, our ingress controller is available on public load balancer IP: 20.67.176.154. Of course this IP address will differ from your setup.
+
+When browsing to https://20.67.176.154 you will see the nginx server online it gives back a 404 error as nothing has been wired yet. Also note that the NGINX server still needs a trusted certificate.
+
+More info about setting up TLS and DNS can be found here: https://docs.microsoft.com/en-US/azure/aks/ingress-tls in case you want to use different options available to you than set forth here.
+
+##### DNS
+
+Before issuing a SSL cert we need to setup DNS for 20.67.176.154. I choose to use my external DNS provider, as I have my FQDN's setup there already. Simply create an A-Record pointing to your NGINX IP-Address.
+
+##### SSL Certs
+
+Make sure you have the openssl tooling available. You can install this using chocolatey for example, see: https://chocolatey.org/packages/openssl
+
+```
+choco install openssl.light
+```
+
+Restart your command shell for the command the become available.
+
+Please replace the FQDN under the Canonical Name (CN) with your own FQDN A record.
+
+We will be creating a self signed certificate and key.
+
+```
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -out aks-ingress-tls.crt  -keyout aks-ingress-tls.key -subj "/CN=dapr-ingress.morstead.nl/O=aks-ingress-tls"
+```
+
+This will create two files, being the request certificate and key. The
+
+##### K8s Secret for cert
+
+To allow Kubernetes to use the TLS certificate and private key for the ingress controller, you create and use a Secret. The secret is defined once, and uses the certificate and key file created in the previous step. You then reference this secret when you define ingress routes.
+
+The following example creates a Secret name aks-ingress-tls:
+
+```
+kubectl create secret tls aks-ingress-tls --namespace ingress-basic --key aks-ingress-tls.key --cert aks-ingress-tls.crt
+```
+```
+secret/aks-ingress-tls created
+```
+
+We can now reference the secret `aks-ingress-tls` when we create the ingress routes to our services using a spec file.
+
+##### Ingress Routes
+
+t.b.a.
 
 ## Deploying Dapr services (GitOps)
 
