@@ -484,6 +484,8 @@ kubectl create secret generic my-secret-store --from-literal='my-secret'='If you
 secret/my-secret-store created
 ```
 
+**!Note** You should encrypt secrets in kubernetes as they are stored in plane text as base64. If you are on azure, take a look at Key Vault. Azure Key Vault is a secret management platform that provides a secure repository for keys, secrets, and certificates. It offers deep integration with other Azure services and provides a highly secure repository for your most sensitive data.
+
 ### Attaching container Registry
 
 You can attach the container registry to your AKS cluster that you created and pushed the images to. remember to replace the name of the `acr` to your own unique container registry name.
