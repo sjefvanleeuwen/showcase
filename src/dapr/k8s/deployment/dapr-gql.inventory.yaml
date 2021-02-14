@@ -1,30 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dapr-gql-basket
+  name: dapr-gql-inventory
   namespace: default
   labels:
-    app: dapr-gql-basket
+    app: dapr-gql-inventory
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dapr-gql-basket
+      app: dapr-gql-inventory
   template:
     metadata:
       labels:
-        app: dapr-gql-basket
+        app: dapr-gql-inventory
       annotations:
         dapr.io/enabled: "true"
-        dapr.io/id: "dapr-gql-basket"
-        dapr.io/app-port: "10001"
-        dapr.io/port: "20001"
+        dapr.io/id: "dapr-gql-inventory"
+        dapr.io/app-port: "10003"
+        dapr.io/port: "20003"
         dapr.io/config: "appconfig"
         dapr.io/log-level: "info"
     spec:
       containers:
-      - name: dapr-gql-basket
-        image: sjefvanleeuwenshowcase.azurecr.io/dapr.gql.basket:latest
+      - name: dapr-gql-inventory
+        image: sjefvanleeuwenshowcase.azurecr.io/dapr.gql.inventory:latest
         ports:
         - containerPort: 80
         imagePullPolicy: Always
