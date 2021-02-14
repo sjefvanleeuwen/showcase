@@ -1,7 +1,17 @@
 ![banner](./docs/images/banner.svg)
 
 - [Showcase](#showcase)
-  - [Status](#status)
+- [Status](#status)
+- [Cowz n' Bullz background](#cowz-n-bullz-background)
+  - [Business Requirements](#business-requirements)
+    - [Provide digital services](#provide-digital-services)
+      - [Dairy farmers](#dairy-farmers)
+      - [Wholesalers](#wholesalers)
+      - [POS](#pos)
+- [High Level Overview](#high-level-overview)
+  - [Production Pipeline](#production-pipeline)
+  - [Product teams](#product-teams)
+  - [Micro services/front ends](#micro-servicesfront-ends)
   - [Stack used](#stack-used)
     - [Micro services](#micro-services)
       - [Popularity](#popularity)
@@ -26,7 +36,6 @@
     - [test / test-dashboard](#test--test-dashboard)
   - [Zeebe Micro Service Orchestration](#zeebe-micro-service-orchestration)
     - [Docker installation](#docker-installation)
-- [High Level Overview](#high-level-overview)
 - [Hosting Modes](#hosting-modes)
   - [Micro services](#micro-services-1)
 - [Deploying to Kubernetes](#deploying-to-kubernetes)
@@ -44,18 +53,79 @@
     - [Setup client tools](#setup-client-tools)
     - [Fetch the graphql schema](#fetch-the-graphql-schema)
     - [Generate the client](#generate-the-client)
+- [Disclaimer](#disclaimer)
 
 # Showcase
 
-A personal full stack journey. Consisting out of:
+This is my fullstack journey for this year with the challenge to build a comprehensive system consisting out of modern (web)technologies. The **fictitious business model of Cowz `n Bullz** challenges this system and what it needs to comprise of. Though my intention is not to build a full system that meets all the business needs of the fictitious business model, it should hit some interesting design challenges along the way.
+
+I hope this journey can be helpful to others in the open source community, that it aspires others to become full-stack engineers or deepening their knowledge about full-stack development in general.
+
+# Status
+
+Very much under construction. Started with the back end and setting up the project backstory, IDE in VSCode, docker containers, npm scripts and the micro services for an integrated development experience. The services are tested with integration tests.
+
+# Cowz n' Bullz background
+
+In 1872, the Cowz n' Bullz cooperative was formed. Farmers began to recognize that if they stood together, they would be stronger. Today, almost 150 years later, many dairy farmers are in the cooperative, doing everything they can for their cows, their land, and the good nutrition they produce every day for the world. As of today, the cooperative caters to Wholesalers. Besides that the company offers supporting services for point of sales (POS) in the region to the local consumer and the dairy farmer.
+
+## Business Requirements
+
+### Provide digital services
+
+Provide services to the stakeholders in the business model.
+
+#### Dairy farmers
+
+As part of the ERP, provide a dashboard  that can monitor the daily local production process for the dairy farmers.
+
+#### Wholesalers
+
+Provide a digital services gateway to place bulk orders.
+
+#### POS
+
+Provide an e-commerce shop, where consumers can order quality dairy products produced by local businesses.
+
+# High Level Overview
+
+High level overview of what I am building.
+
+![High Level Overview](./docs/images/high-level.svg)
+ 
+The full stack consisting out of:
 
 * Micro Services
 * Micro (modular) Front End
 * Simulation Driven Development
 
-## Status
+## Production Pipeline
 
-Very much under construction. Started with the back end and setting up docker containers and npm scripts.
+Cowz n' Bullz has an open communication in its culture. The company current has 3 scrum teams, but is not expected to grow beyond 4 teams in the forseeable future. After looking at various Scaled Agile models, they decide to adopt the Nexus framework.
+
+Nexus' objective is to scale up the value that can be delivered by a group of Scrum Teams (3-8 teams) working on a single product. It does this by reducing the complexity faced by those teams as they work together to deliver at least one integrated, valuable, helpful product increment every Sprint.
+
+## Product teams
+
+Each feature is build by a team of experts. Each feature slice in the product increments are a daily end-to-end exercise for the team. The team consists out of experts in:
+
+* User Experience
+* Web & Graphic Design
+* [Analytics translation](https://abs.uva.nl/content/open-programmes-abs/analytics-translator/analytics-translator.html) / Data Science
+* Solution Architecture / Full Stack Software Engineering
+* Operations
+
+As the primary link to the stakeholders, the product owner of Cowz n' Bullz acts as the liaison. While the product owner defines the vision, manages the backlog, prioritizes and anticipates the needs of the customers. He also monitors the development stages and evaluates the quality of the product at each iteration.
+
+The team itself has direct communication from the perspective of users experience design and the analytics translator (business information needs) with the stakeholders when working on the product features.
+
+<h2><p align="center">You won’t understand until you experience it</p></h2>
+
+The user experience expert tests visual prototypes with the customer before they are built technically as a feature in the software. In that sense, the Analytics translator and User Experience designer are front-runners in the team and challenge the Spikes the team would be facing so they mitigate the risk in their technical approach.
+
+## Micro services/front ends
+
+As per business requirements, catering to the stakeholders, the functionality of the system is split up in micro services and micro (modular) front ends. This allows the company to more easily rollout parts that make up the system consisting out of features. The DevOps teams are specialized in GitOps and rollout each future in the infrastructure as code (IAC) with a `you build, it you run it` mentality.
 
 ## Stack used
 
@@ -85,7 +155,7 @@ As per January 29th 2020
 
 ### Micro Service Orchestration
 
-For micro service orchestration we use 3 builidng blocks from camunda:latest
+For micro service orchestration we use 3 building blocks from camunda:latest
 * [Zeebe](https://github.com/zeebe-io/zeebe) orchestration engine
 * [Elastic Search](https://github.com/elastic/elasticsearch) (for storing workflow data)
 * [Operate](https://docs.camunda.io/docs/product-manuals/operate/index) for monitoring and troubleshooting workflow instances
@@ -178,9 +248,9 @@ The following URL's will be available as GraphQL service endpoints (and RESTful 
 
 #### GraphQL Gateway
 
-The GraphQL gateway federates all services. The sticthing gateway can be opened in your web browser at: http://localhost:9999/graphql when debugging.
+The GraphQL gateway federates all services. The stitching gateway can be opened in your web browser at: http://localhost:9999/graphql when debugging.
 
-Next to federation it also stiches schema's such as mybasket, to join several graphs from several micro services (basket, product and inventory) into one query endpoint. At the time of this writing, the gaphql gateway is still tested to the native graphql query endpoints and will soon change to be served from the dapr endpoints.
+Next to federation it also stitches schemas such as `my basket`, to join several graphs from several micro services (basket, product and inventory) into one query endpoint. At the time of this writing, the graphql gateway is still tested to the native graphql query endpoints and will soon change to be served from the dapr endpoints.
 
 Here is the stitching example:
 
@@ -282,7 +352,7 @@ npm run gql-schema
 
 ### gqlg
 
-Generates a javascript serverside (nodejs) graphql client for the gateway. This command is dependend on gql-schema.
+Generates a javascript server-side (nodejs) graphql client for the gateway. This command is dependent on gql-schema.
 *note* this generator can not interpret the @source directive containing a repeatable ENUM. Please remove it from the fetched `schema.graphql` file in the `./generated-folder`
 This command is going to be replaced by a better client/server code generator. Such as the one available at: https://graphql-code-generator.com/
 
@@ -299,7 +369,7 @@ This command generates a new test report per run, with date/time stamp in the fi
 npm run test
 ```
 
-This command overwrites a test file in the `../docs/tests/newmann folder`. Putting the live webserver on that file will result in the dashboard updated in the browser at each run. Good for dashboarding.
+This command overwrites a test file in the `../docs/tests/newman folder`. Putting the live webserver on that file will result in the dashboard updated in the browser at each run. Good for dashboard's.
 
 ```
 npm run test-dashboard
@@ -325,13 +395,6 @@ u/l: demo/demo
 
 ![operate](./docs/zeebe/images/camunda-operate.png)
 
-
-# High Level Overview
-
-High level overview of what I am building.
-
-![High Level Overview](./docs/images/high-level.svg)
-
 # Hosting Modes
 
 ## Micro services
@@ -354,7 +417,7 @@ Please follow the guide [here](./docs/docker/setup-azure-container-registry.md)
 
 ## Deploying Dapr services (from vscode)
 
-The `./src/dapr` project comes with a .sln file, binding all services together. When developing larger services landscapes these can be seperated out as you scale your application. For now however we can make use of one of the Tasks that will containerize our services in order to get ready for kubernetes deployment via the Azure service registry you have already set up by now.
+The `./src/dapr` project comes with a .sln file, binding all services together. When developing larger services landscapes these can be separated out as you scale your application. For now however we can make use of one of the Tasks that will containerize our services in order to get ready for kubernetes deployment via the Azure service registry you have already set up by now.
 
 ### Building your docker containers
 
@@ -368,7 +431,7 @@ This will build the containers for the micro services, including the gateway
 
 If you installed the visual studio extension for docker as indicated under `Install additional tools` in this document, you can easily check if the images are build for your docker installation.
 
-The images list should contain the `basket, customer, inventory and payment` microserevices. Also the `gql.gateway` should be in the list.
+The images list should contain the `basket, customer, inventory and payment` micro services. Also the `gql.gateway` should be in the list.
 
 ![docker image builds](./docs/images/docker-image-builds.png)
 
@@ -380,7 +443,7 @@ In the docker pane in vscode you see a registry menu.
 1. Click on Connect Registry
 2. Choose Azure
 3. Open the Azure tree
-4. Click on `Install Azure Ccount Extension`
+4. Click on `Install Azure Account Extension`
 5. Install the Extension
 6. Sign In to Azure 
 
@@ -398,7 +461,7 @@ The Azure portal should show all images in its repositories menu for the resourc
 
 ### Managing Secrets
 
-Secrets will be kept seperate from our code to enforce secure software development.
+Secrets will be kept separate from our code to enforce secure software development.
 For this we use the built in kubernetes built-in secret store.
 
 You can create a secret via the kubectl cli. For now we create the same test secret that we use in standalone dapr mode for integration testing.
@@ -489,7 +552,7 @@ t.b.a.
 
 For service to service communication we can leverage graphql. The follow example shows how to create a client for the basket service, which needs to synchronously call the inventory to reserve product items. Consider the following activity diagram.
 
-[![](https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgcGFydGljaXBhbnQgQmFza2V0Q2xpZW50XG4gICAgcGFydGljaXBhbnQgQmFza2V0U2VydmljZVxuICAgIEJhc2tldENsaWVudC0-PkJhc2tldFNlcnZpY2U6IENoYW5nZSBxdWFudGl0eVxuICAgIHBhcnRpY2lwYW50IEludmVudG9yeVNlcnZpY2VcbiAgICBCYXNrZXRTZXJ2aWNlLS0-PkludmVudG9yeVNlcnZpY2U6IFJlc2VydmVcbiAgICBJbnZlbnRvcnlTZXJ2aWNlIC0-PiBJbnZlbnRvcnlTZXJ2aWNlOiBSZXNlcnZlUXVhbnRpdHlcbiAgICBJbnZlbnRvcnlTZXJ2aWNlIC0-PiBCYXNrZXRTZXJ2aWNlOiBSZXN1bHQgKHF1YW50aXR5KVxuICAgIEJhc2tldFNlcnZpY2UgLS0-PiBCYXNrZXRDbGllbnQ6IFJlc3VsdCAocXVhbnRpdHkpXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgcGFydGljaXBhbnQgQmFza2V0Q2xpZW50XG4gICAgcGFydGljaXBhbnQgQmFza2V0U2VydmljZVxuICAgIEJhc2tldENsaWVudC0-PkJhc2tldFNlcnZpY2U6IENoYW5nZSBxdWFudGl0eVxuICAgIHBhcnRpY2lwYW50IEludmVudG9yeVNlcnZpY2VcbiAgICBCYXNrZXRTZXJ2aWNlLS0-PkludmVudG9yeVNlcnZpY2U6IFJlc2VydmVcbiAgICBJbnZlbnRvcnlTZXJ2aWNlIC0-PiBJbnZlbnRvcnlTZXJ2aWNlOiBSZXNlcnZlUXVhbnRpdHlcbiAgICBJbnZlbnRvcnlTZXJ2aWNlIC0-PiBCYXNrZXRTZXJ2aWNlOiBSZXN1bHQgKHF1YW50aXR5KVxuICAgIEJhc2tldFNlcnZpY2UgLS0-PiBCYXNrZXRDbGllbnQ6IFJlc3VsdCAocXVhbnRpdHkpXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
+![](https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgcGFydGljaXBhbnQgQmFza2V0Q2xpZW50XG4gICAgcGFydGljaXBhbnQgQmFza2V0U2VydmljZVxuICAgIEJhc2tldENsaWVudC0-PkJhc2tldFNlcnZpY2U6IENoYW5nZSBxdWFudGl0eVxuICAgIHBhcnRpY2lwYW50IEludmVudG9yeVNlcnZpY2VcbiAgICBCYXNrZXRTZXJ2aWNlLS0-PkludmVudG9yeVNlcnZpY2U6IFJlc2VydmVcbiAgICBJbnZlbnRvcnlTZXJ2aWNlIC0-PiBJbnZlbnRvcnlTZXJ2aWNlOiBSZXNlcnZlUXVhbnRpdHlcbiAgICBJbnZlbnRvcnlTZXJ2aWNlIC0-PiBCYXNrZXRTZXJ2aWNlOiBSZXN1bHQgKHF1YW50aXR5KVxuICAgIEJhc2tldFNlcnZpY2UgLS0-PiBCYXNrZXRDbGllbnQ6IFJlc3VsdCAocXVhbnRpdHkpXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)]
 
 The basket services requests the reserve mutation service, for this it needs the mutation operation schema from the inventory service.
 
@@ -506,7 +569,7 @@ dotnet tool install StrawberryShake.Tools --local --version 11.0.0-preview.137
 
 ### Fetch the graphql schema
 
-To generate a new client based on the operations from the iventory service, make sure the inventory service is running. Then generate a strongly typed client by executing:
+To generate a new client based on the operations from the inventory service, make sure the inventory service is running. Then generate a strongly typed client by executing:
 
 ```
 dotnet graphql init http://localhost:10003/graphql -n Inventory
@@ -524,7 +587,7 @@ Client configuration completed in 12 ms
 * berry.json
 * Inventory.graphql
 
-Furthemore a `.config` directory, containing dotnet-tools.json contains the version of the tool used.
+Furthermore, a `.config` directory, containing dotnet-tools.json contains the version of the tool used.
 
 ```json
 {
@@ -563,3 +626,9 @@ dotnet build ../
 The `ReserveMutation` client can now be used.
 
 
+# Disclaimer
+
+
+This is a fictional work. All the names, characters, companies, places, events and incidents in this exercise are either the product of the imagination of the author or used in a fictitious way, unless otherwise stated. It is purely coincidental to have any resemblance to actual individuals, living or dead, or actual events.
+
+As per MIT license, The software is provided "AS IS" without any kind of warranty, express or guarantee. Please read the full license [here](./LICENSE).

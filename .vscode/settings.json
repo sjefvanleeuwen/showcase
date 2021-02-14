@@ -1,3 +1,14 @@
 {
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "cSpell.words": [
+        "Bullz",
+        "Camunda",
+        "Cowz",
+        "Dapr",
+        "Omni",
+        "Zeebe",
+        "gqlg",
+        "kubectl",
+        "kubernetes"
+    ]
 }
