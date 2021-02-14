@@ -536,7 +536,30 @@ kubectl apply -f dapr-gql-basket.yaml
 deployment.apps/dapr-gql-basket created
 ```
 
-You can go to your previously installed dashboard to see the basket service running. If its not running issue:
+To check if the container is running.
+
+```
+kubectl logs -l app=dapr-gql-basket -c dapr-gql-basket
+
+info: Microsoft.Hosting.Lifetime[0]
+      Now listening on: http://[::]:80
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /app
+info: Microsoft.Hosting.Lifetime[0]
+      Now listening on: http://[::]:80
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /app
+```
+
+You can also go to your previously installed dashboard to see the basket service running. If its not running issue:
 
 ```
 dapr dashboard -k
