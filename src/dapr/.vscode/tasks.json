@@ -342,9 +342,34 @@
             },
             "dependsOn": "build-product"
         },
+        // 6. stitching
         {
-            "appId": "dapr-gql-product",
-            "label": "daprd-down-product",
+            "appId": "gql-gateway",
+            "appPort":      9999,
+            "httpPort":     19999,
+            "grpcPort":     29999,
+            "metricsPort":  39999,
+            "label": "daprd-debug-stitching",
+            "type": "daprd",
+            "problemMatcher": {
+            "pattern": [
+                {
+                    "regexp": ".",
+                    "file": 1,
+                    "location": 2,
+                    "message": 3
+                }
+            ],
+            "background": {
+                "beginsPattern": "^.*starting Dapr Runtime.*",
+                "endsPattern": "^.*waiting on port.*"
+                }
+            },
+            "dependsOn": "build-stitching"
+        },
+        {
+            "appId": "gql-gateway",
+            "label": "daprd-down-gateway",
             "type": "daprd-down"
         },
         // 1. basket docker

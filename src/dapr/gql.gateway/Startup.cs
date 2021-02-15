@@ -18,7 +18,8 @@ namespace gql.gateway
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            // Gateway Endpoints
+            services.AddControllers().AddDapr();
+            // Gateway Endpoints via ocelot (obsolete, replaced by graphql)
             /*
             services.AddHttpClient(Basket, x=>x.BaseAddress = new Uri($"http://localhost:10000/{Basket}/graphql"));
             services.AddHttpClient(Customer, x=>x.BaseAddress = new Uri($"http://localhost:10000/{Customer}/graphql"));
@@ -57,6 +58,8 @@ namespace gql.gateway
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapSubscribeHandler();
+                endpoints.MapControllers();
                 endpoints.MapGraphQL();
             });
         }

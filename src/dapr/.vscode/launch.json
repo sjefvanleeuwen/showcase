@@ -141,7 +141,7 @@
             "name": "stitching",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build-stitching",
+            "preLaunchTask": "daprd-debug-stitching",
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/gql.gateway/bin/Debug/net5.0/gql.gateway.dll",
             "args": [],
@@ -156,7 +156,7 @@
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
             },
-            //"postDebugTask": "daprd-down-gateway"
+            "postDebugTask": "daprd-down-stitching"
         },
         {
             "name": "docker product",
