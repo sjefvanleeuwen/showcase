@@ -54,6 +54,7 @@
         - [SSL Certs](#ssl-certs)
         - [K8s Secret for cert](#k8s-secret-for-cert)
         - [Ingress Routes](#ingress-routes)
+  - [Administering multi cluster environments](#administering-multi-cluster-environments)
   - [Deploying Dapr services (GitOps)](#deploying-dapr-services-gitops)
 - [GraphQL](#graphql)
   - [Client generator](#client-generator)
@@ -657,9 +658,46 @@ We can now reference the secret `aks-ingress-tls` when we create the ingress rou
 
 t.b.a.
 
+## Administering multi cluster environments 
+
+Now that the kubctl client is set to your azure environment, you can also switch between multiple environments. For example when using Kubernetes on Docker Desktop you can tell kubctl to point to that environment at any time.
+
+To see which configs are available to kubectl, issue:
+
+```
+kubectl config view
+```
+
+```yaml
+...
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: DATA+OMITTED
+    server: https://kubernetes.docker.internal:6443
+  name: docker-desktop
+- cluster:
+    certificate-authority-data: DATA+OMITTED                          azmk8s.io:443
+    server: https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.azmk8s.io:443
+  name: showcase
+...
+```
+
+Listed on my machine are two environments, `docker-desktop` an internal kubernetes "cluster" and `showcase` which we created in our previous exercise.
+
+To switch back to docker-desktop issue:
+
+```
+kubectl config set-cluster docker-desktop
+```
+
+And we're back.
+
 ## Deploying Dapr services (GitOps)
 
 t.b.a.
+
+
 
 # GraphQL
 
