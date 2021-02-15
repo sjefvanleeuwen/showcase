@@ -688,7 +688,7 @@ Listed on my machine are two environments, `docker-desktop` an internal kubernet
 To switch back to docker-desktop issue:
 
 ```
-kubectl config set-cluster docker-desktop
+kubectl config use-context docker-desktop
 ```
 
 And we're back.
