@@ -1,0 +1,13 @@
+range:
+    - image: localhost:9997/dapr.gql.basket
+      name: dapr-gql-basket
+    - image: localhost:9997/dapr.gql.customer
+      name: dapr-gql-customer
+    - image: localhost:9997/dapr.gql.inventory
+      name: dapr-gql-inventory
+    - image: localhost:9997/dapr.gql.payment
+      name: dapr-gql-payment
+    - image: localhost:9997/dapr.gql.product
+      name: dapr-gql-product
+    - image: localhost:9997/gql.gateway
+      name: gql-gateway

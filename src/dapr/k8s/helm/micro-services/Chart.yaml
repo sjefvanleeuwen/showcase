@@ -1,0 +1,4 @@
+apiVersion: v2
+description: A Helm chart for deploying Cowz n' Bullz micro-services
+name: micro-services
+version: 0.0.1

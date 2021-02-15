@@ -1,0 +1,1 @@
+ helm install gql-gateway ./gql-gateway
