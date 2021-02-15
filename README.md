@@ -41,13 +41,13 @@
   - [Micro services](#micro-services-1)
 - [Deploying to Kubernetes](#deploying-to-kubernetes)
   - [Setup dapr on Azure AKS kubernetes](#setup-dapr-on-azure-aks-kubernetes)
-  - [Setup your container registry](#setup-your-container-registry)
+  - [Setup your container registry (Azure)](#setup-your-container-registry-azure)
   - [Deploying Dapr services (from vscode)](#deploying-dapr-services-from-vscode)
     - [Building your docker containers](#building-your-docker-containers)
     - [Pushing your docker Images](#pushing-your-docker-images)
     - [Managing Secrets](#managing-secrets)
     - [Attaching container Registry](#attaching-container-registry)
-    - [Deploying dapr services](#deploying-dapr-services)
+    - [Deploying dapr services (HELM)](#deploying-dapr-services-helm)
     - [Exposing Dapr services](#exposing-dapr-services)
       - [Ingress Controller](#ingress-controller)
         - [DNS](#dns)
@@ -425,7 +425,7 @@ Time to shift our focus on the Kubernetes hosting mode. This is also known as `D
 
 Please follow the guide [here](./docs/kubernetes/setup-aks-cluster.md)
 
-## Setup your container registry
+## Setup your container registry (Azure)
 
 Please follow the guide [here](./docs/docker/setup-azure-container-registry.md)
 
@@ -498,54 +498,37 @@ az aks update --name showcase --resource-group showcase --attach-acr sjefvanleeu
 
 This wil take less than a minute usually. 
 
-### Deploying dapr services
+### Deploying dapr services (HELM)
 
-You can find Deployment spec files in the ./src/dapr/k8s/deployment folder.
-**note** that I haven't templated the file yet, you need to change the container image tag `%youracrname%` with your own registry name for now. 
+You can find HELM files in the ./charts folder. You can change the `values.yaml` in the micro-services chart. Specifically change the `localhost:9997` to your own registry on AKS. If you like to run a local registry and kubernetes on docker desktop, or micro k8s for example you can install a docker registry yourself.
 
-`dapr-gql-basket.yaml` spec file:
+```
+docker run -d -p 9997:5000 --restart=always --name registry registry:2
+```
 
 ```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: dapr-gql-basket
-  namespace: default
-  labels:
-    app: dapr-gql-basket
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: dapr-gql-basket
-  template:
-    metadata:
-      labels:
-        app: dapr-gql-basket
-      annotations:
-        dapr.io/enabled: "true"
-        dapr.io/id: "dapr-gql-basket"
-        dapr.io/port: "80"
-        dapr.io/config: "appconfig"
-        dapr.io/log-level: "info"
-    spec:
-      containers:
-      - name: dapr-gql-basket
-        image: %youracename%.azurecr.io/dapr.gql.basket:latest
-        ports:
-        - containerPort: 80
-        imagePullPolicy: Always
-
+range:
+    - image: localhost:9997/dapr.gql.basket
+      name: dapr-gql-basket
+    - image: localhost:9997/dapr.gql.customer
+      name: dapr-gql-customer
+    - image: localhost:9997/dapr.gql.inventory
+      name: dapr-gql-inventory
+    - image: localhost:9997/dapr.gql.payment
+      name: dapr-gql-payment
+    - image: localhost:9997/dapr.gql.product
+      name: dapr-gql-product
+    - image: localhost:9997/gql.gateway
+      name: gql-gateway
 ```
 
-You can deploy using `kubectl apply`.
+You can deploy the micro services to your kubernetes cluster using
 
 ```
-kubectl apply -f dapr-gql-basket.yaml
-deployment.apps/dapr-gql-basket created
+helm install micro-services ./micro-services
 ```
 
-To check if the container is running.
+To check if the basket container is running.
 
 ```
 kubectl logs -l app=dapr-gql-basket -c dapr-gql-basket

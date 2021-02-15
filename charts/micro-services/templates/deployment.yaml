@@ -12,6 +12,12 @@ spec:
       app: {{ .name }}
   template:
     metadata:
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/id: "{{ .name }}"
+        dapr.io/app-port: "80"
+        dapr.io/config: "appconfig"
+        dapr.io/log-level: "info"
       labels:
         app: {{ .name }}
         environment: development
