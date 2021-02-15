@@ -1,1 +1,1 @@
- helm install gql-gateway ./gql-gateway
+ A Helm chart for deploying Cowz n' Bullz micro-services
