@@ -72,20 +72,6 @@
             ],
             "problemMatcher": "$msCompile"
         },
-        // Build definitions---------------------------------------------------
-        // 0. gateway
-        {
-            "label": "build-gateway",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-            "build",
-            "${workspaceFolder}/ocelot/dapr.gql.gateway/dapr.gql.gateway.csproj",
-            "/property:GenerateFullPaths=true",
-            "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
         // 1. basket
         {
             "label": "build-basket",
@@ -165,37 +151,6 @@
             "problemMatcher": "$msCompile"
         },
         // Dapr definitions----------------------------------------------------
-        // 0. gateway
-        {
-            "appId": "dapr-gql-gateway",
-            "appPort":      10000,
-            "httpPort":     20000,
-            "grpcPort":     30000,
-            "metricsPort":  40000,
-            "placementAddress": "localhost:6010",
-            "label": "daprd-debug-gateway",
-            "type": "daprd",
-            "problemMatcher": {
-            "pattern": [
-                {
-                    "regexp": ".",
-                    "file": 1,
-                    "location": 2,
-                    "message": 3
-                }
-            ],
-            "background": {
-                "beginsPattern": "^.*starting Dapr Runtime.*",
-                "endsPattern": "^.*waiting on port.*"
-                }
-            },
-            "dependsOn": "build-gateway"
-        },
-        {
-            "appId": "dapr-gql-gateway",
-            "label": "daprd-down-gateway",
-            "type": "daprd-down"
-        },
         // 1. basket
         {
             "appId": "dapr-gql-basket",
