@@ -36,15 +36,48 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://{{host}}:{{dapr_basket_port}}/{{dapr_version}}/secrets/my-secret-store/my-secret",
-									"protocol": "http",
+									"raw": "{{basket_secret}}/my-secret-store/my-secret",
 									"host": [
-										"{{host}}"
+										"{{basket_secret}}"
 									],
-									"port": "{{dapr_basket_port}}",
 									"path": [
-										"{{dapr_version}}",
-										"secrets",
+										"my-secret-store",
+										"my-secret"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "gateway: can read secret",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"http status ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"pm.test(\"can read secret\", function () {\r",
+											"    pm.expect(pm.response.json()[\"my-secret\"]).to.equal(\"“If you want to keep a secret, you must also hide it from yourself. -- George Orwell, 1984\");\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{gateway_secret}}/my-secret-store/my-secret",
+									"host": [
+										"{{gateway_secret}}"
+									],
+									"path": [
 										"my-secret-store",
 										"my-secret"
 									]
@@ -74,15 +107,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://{{host}}:{{dapr_customer_port}}/{{dapr_version}}/secrets/my-secret-store/my-secret",
-									"protocol": "http",
+									"raw": "{{customer_secret}}/my-secret-store/my-secret",
 									"host": [
-										"{{host}}"
+										"{{customer_secret}}"
 									],
-									"port": "{{dapr_customer_port}}",
 									"path": [
-										"{{dapr_version}}",
-										"secrets",
 										"my-secret-store",
 										"my-secret"
 									]
@@ -114,15 +143,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://{{host}}:{{dapr_inventory_port}}/{{dapr_version}}/secrets/my-secret-store/my-secret",
-									"protocol": "http",
+									"raw": "{{inventory_secret}}/my-secret-store/my-secret",
 									"host": [
-										"{{host}}"
+										"{{inventory_secret}}"
 									],
-									"port": "{{dapr_inventory_port}}",
 									"path": [
-										"{{dapr_version}}",
-										"secrets",
 										"my-secret-store",
 										"my-secret"
 									]
@@ -154,15 +179,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://{{host}}:{{dapr_payment_port}}/{{dapr_version}}/secrets/my-secret-store/my-secret",
-									"protocol": "http",
+									"raw": "{{payment_secret}}/my-secret-store/my-secret",
 									"host": [
-										"{{host}}"
+										"{{payment_secret}}"
 									],
-									"port": "{{dapr_payment_port}}",
 									"path": [
-										"{{dapr_version}}",
-										"secrets",
 										"my-secret-store",
 										"my-secret"
 									]
@@ -194,15 +215,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://{{host}}:{{dapr_product_port}}/{{dapr_version}}/secrets/my-secret-store/my-secret",
-									"protocol": "http",
+									"raw": "{{product_secret}}/my-secret-store/my-secret",
 									"host": [
-										"{{host}}"
+										"{{product_secret}}"
 									],
-									"port": "{{dapr_product_port}}",
 									"path": [
-										"{{dapr_version}}",
-										"secrets",
 										"my-secret-store",
 										"my-secret"
 									]
@@ -261,9 +278,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{graphql_gateway_base_url}}/graphql",
+											"raw": "{{gateway}}/graphql",
 											"host": [
-												"{{graphql_gateway_base_url}}"
+												"{{gateway}}"
 											],
 											"path": [
 												"graphql"
@@ -315,9 +332,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{graphql_gateway_base_url}}/graphql",
+											"raw": "{{gateway}}/graphql",
 											"host": [
-												"{{graphql_gateway_base_url}}"
+												"{{gateway}}"
 											],
 											"path": [
 												"graphql"
@@ -364,9 +381,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{graphql_gateway_base_url}}/graphql",
+											"raw": "{{gateway}}/graphql",
 											"host": [
-												"{{graphql_gateway_base_url}}"
+												"{{gateway}}"
 											],
 											"path": [
 												"graphql"
@@ -417,9 +434,165 @@
 											}
 										},
 										"url": {
-											"raw": "{{graphql_gateway_base_url}}/graphql",
+											"raw": "{{gateway}}/graphql",
 											"host": [
-												"{{graphql_gateway_base_url}}"
+												"{{gateway}}"
+											],
+											"path": [
+												"graphql"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "direct",
+							"item": [
+								{
+									"name": "basketItemById",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"can read basket quantity\", function () {\r",
+													"    pm.expect(pm.response.json().data.basketItem.quantity).to.equal(2);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "content-type",
+												"value": "application/graphql",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query {\r\n  basketItem(id:1){\r\n    customerId\r\n    basketItemId\r\n    productId\r\n    quantity\r\n  }\r\n}\r\n",
+												"variables": ""
+											},
+											"options": {
+												"raw": {
+													"language": "text"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{basket}}/graphql",
+											"host": [
+												"{{basket}}"
+											],
+											"path": [
+												"graphql"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "basketForCustomer",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"can read basket quantity\", function () {\r",
+													"    pm.expect(pm.response.json().data.basketForCustomer[0].quantity).to.equal(2);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "content-type",
+												"type": "text",
+												"value": "application/graphql",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query {\r\n  basketForCustomer(id:1){\r\n    customerId\r\n    basketItemId\r\n    productId\r\n    quantity\r\n  }\r\n}\r\n",
+												"variables": ""
+											},
+											"options": {
+												"raw": {
+													"language": "text"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{basket}}/graphql",
+											"host": [
+												"{{basket}}"
+											],
+											"path": [
+												"graphql"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "upsertBasketItem",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"upsert test\", function () {\r",
+													"    const json = pm.response.json();\r",
+													"    pm.expect(json.data.upsertBasketItem.id).to.equal(56);\r",
+													"    pm.expect(json.data.upsertBasketItem.quantity).to.equal(42);\r",
+													"    pm.expect(json.data.upsertBasketItem.productId).to.equal(1);\r",
+													"    pm.expect(json.data.upsertBasketItem.customerId).to.equal(1);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "content-type",
+												"type": "text",
+												"value": "application/graphql",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation {\r\n  upsertBasketItem(input: {id: 56 customerId: 1 productId: 1 quantity: 42}){\r\n      id\r\n      quantity\r\n      productId\r\n      customerId\r\n    }\r\n}\r\n",
+												"variables": ""
+											},
+											"options": {
+												"raw": {
+													"language": "text"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{basket}}/graphql",
+											"host": [
+												"{{basket}}"
 											],
 											"path": [
 												"graphql"
@@ -462,12 +635,10 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:10003/graphql",
-											"protocol": "http",
+											"raw": "{{inventory}}/graphql",
 											"host": [
-												"localhost"
+												"{{inventory}}"
 											],
-											"port": "10003",
 											"path": [
 												"graphql"
 											]
@@ -502,20 +673,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:10003/graphql?sdl",
-											"protocol": "http",
+											"raw": "{{inventory}}/graphql",
 											"host": [
-												"localhost"
+												"{{inventory}}"
 											],
-											"port": "10003",
 											"path": [
 												"graphql"
-											],
-											"query": [
-												{
-													"key": "sdl",
-													"value": null
-												}
 											]
 										}
 									},
@@ -548,20 +711,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:10003/graphql?sdl",
-											"protocol": "http",
+											"raw": "{{inventory}}/graphql",
 											"host": [
-												"localhost"
+												"{{inventory}}"
 											],
-											"port": "10003",
 											"path": [
 												"graphql"
-											],
-											"query": [
-												{
-													"key": "sdl",
-													"value": null
-												}
 											]
 										}
 									},

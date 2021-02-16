@@ -16,7 +16,7 @@
     "gql-doc": "npx graphdoc -e http://localhost:9999/graphql -o ../../docs/schemas/graphql --force",
     "gql-schema": "curl http://localhost:9999/graphql/stitched-schema?sdl --output ./generated/schema.graphql",
     "gqlg": "npx gqlg --schemaFilePath ./generated/schema.graphql --destDirPath ./generated/gqlg",
-    "test": "npx newman run \"./tests/dapr-microservices.postman_collection.json\" -e \"./tests/dapr-microservice_(debug_local).postman_environment.json\" -r htmlextra --reporter-htmlextra-title \"microservices integration\"",
-    "test-dashboard": "npx newman run \"./tests/dapr-microservices.postman_collection.json\" -e \"./tests/dapr-microservice_(debug_local).postman_environment.json\" -r htmlextra --reporter-htmlextra-export ../../docs/tests/newman/dashboard.html --reporter-htmlextra-title \"microservices integration\""
+    "test": "npx newman run \"./tests/dapr-microservices.postman_collection.json\" -e \"./tests/cowz-n-bullz-debug.postman_environment.json\" -r htmlextra --reporter-htmlextra-title \"microservices integration\"",
+    "test-dashboard": "npx newman run \"./tests/dapr-microservices.postman_collection.json\" -e \"./tests/cowz-n-bullz-debug.postman_environment.json\" -r htmlextra --reporter-htmlextra-export ../../docs/tests/newman/dashboard.html --reporter-htmlextra-title \"microservices integration\""
   }
 }
