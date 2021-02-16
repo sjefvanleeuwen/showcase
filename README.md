@@ -11,6 +11,8 @@
 - [High Level Overview](#high-level-overview)
   - [Production Pipeline](#production-pipeline)
   - [Product teams](#product-teams)
+  - [Simulation Driven Development](#simulation-driven-development)
+    - [Discrete Event Simulation](#discrete-event-simulation)
   - [Micro services/front ends](#micro-servicesfront-ends)
   - [Stack used](#stack-used)
     - [Micro services](#micro-services)
@@ -127,9 +129,43 @@ As the primary link to the stakeholders, the product owner of Cowz n' Bullz acts
 
 The team itself has direct communication from the perspective of users experience design and the analytics translator (business information needs) with the stakeholders when working on the product features.
 
-<h2><p align="center">You won’t understand until you experience it</p></h2>
+<h3><p align="center" style="border: dashed">You won’t understand until you experience it</p></h3>
 
 The user experience expert tests visual prototypes with the customer before they are built technically as a feature in the software. In that sense, the Analytics translator and User Experience designer are front-runners in the team and challenge the Spikes the team would be facing so they mitigate the risk in their technical approach.
+
+## Simulation Driven Development
+
+<table border="0">
+ <tr>
+    <td width=40%>The system of Cowz 'n Bullz integrates with various dairy production plants. Supervisory control and data acquisition (SCADA) sensory data from the production plant is streamed live over the cloud. In order to test event messaging with our micro services, we mimic the production data using discrete event simulation locally.
+
+In the simulation code, we currently use averaging `ptMean` and `ptSigma` for standard deviations in random distributions. Hypothetically we could also extend the model to use real production data and machine learning models, if Cowz n' Bullz was not a fictitious company. These types of simulation could then also be utilized for policy modelling next to software testing.</td>
+    <td>![dairy production](./docs/images/dairy-production.svg)</td>
+ </tr>
+</table>
+
+
+### Discrete Event Simulation
+
+The production plant data can be generated as follows:
+
+cd to `~/src/simulation/production-plant/discrete-event-simulation`
+
+Issue:
+
+```
+dotnet run
+
+Building...
+== Dairy Production Plant ==
+Dairy Production Plant results after 365 days.
+
+Processed 29060 events in 0.0434367 seconds (669019.5157551103 events/s).
+Milked: 7260 animals.
+Total Milking Timed: 25.05:01:15.7306465.
+```
+
+a `production-data.json` will be generated containing events for a year of production data. This data can be loaded on a streaming server, replaying the data so our micro services can response to the events. The model is kept simple but can be extended with more complex production processes.
 
 ## Micro services/front ends
 

@@ -15,7 +15,7 @@ namespace ProductionSimulation
             // Create an environment and start the setup process
             var start = DateTime.Now;
             var env = new Simulation(start, rseed);
-            env.Log("== Yak Production Plant ==");
+            env.Log("== Dairy Production Plant ==");
             var milker = new PreemptiveResource(env, 1);
             var shaver = new PreemptiveResource(env, 1);
             var yaks = Enumerable.Range(0, 20).Select(x => new ActiveObjects.Cow(env, YakNames[x], milker, shaver)).ToArray();
@@ -25,7 +25,7 @@ namespace ProductionSimulation
             env.Run(TimeSpan.FromDays(365));
             var perf = DateTime.UtcNow - startPerf;
             // Analyis/results
-            env.Log("Yak Production Plant results after {0} days.", (env.Now - start).TotalDays);
+            env.Log("Dairy Production Plant results after {0} days.", (env.Now - start).TotalDays);
             env.Log(string.Empty);
             env.Log("Processed {0} events in {1} seconds ({2} events/s).", env.ProcessedEvents, perf.TotalSeconds, (env.ProcessedEvents / perf.TotalSeconds));
             env.Log($"Milked: { ActiveObjects.Cow.Milked} animals.");
