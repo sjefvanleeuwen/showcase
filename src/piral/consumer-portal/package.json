@@ -1,0 +1,39 @@
+{
+  "name": "consumer-portal",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [
+    "piral"
+  ],
+  "dependencies": {
+    "piral": "^0.12.4"
+  },
+  "scripts": {
+    "start": "npx piral debug",
+    "build": "npx piral build",
+    "build-emulator": "npx piral build --type emulator"
+  },
+  "app": "./src/index.html",
+  "pilets": {
+    "files": [],
+    "externals": [],
+    "scripts": {},
+    "validators": {},
+    "devDependencies": {},
+    "preScaffold": "",
+    "postScaffold": "",
+    "preUpgrade": "",
+    "postUpgrade": "",
+    "packageOverrides": {}
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/react-router": "latest",
+    "@types/react-router-dom": "latest",
+    "piral-cli": "^0.12.4",
+    "piral-cli-webpack": "^0.12.4",
+    "typescript": "latest"
+  }
+}
