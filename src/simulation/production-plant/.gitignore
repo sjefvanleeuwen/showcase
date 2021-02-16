@@ -1,0 +1,28 @@
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/
+
+bin/
+obj/
+
+### Node ###
+# Logs
+node_modules/
+logs
+*.log
+npm-debug.log*
+yarn-*.log
+
+# generated files
+generated/
+# tests
+newman/
+
+# data ouput
+production-data.json
