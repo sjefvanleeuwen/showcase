@@ -25,6 +25,7 @@
   - [Install Dapr CLI](#install-dapr-cli)
   - [Clone repo](#clone-repo)
   - [Setting up secrets (important)](#setting-up-secrets-important)
+  - [Launch Dev Areas](#launch-dev-areas)
   - [vscode debug launch](#vscode-debug-launch)
     - [Debug all micro services](#debug-all-micro-services)
     - [Service registry and ports](#service-registry-and-ports)
@@ -259,6 +260,19 @@ spec:
   - name: nestedSeparator
     value: ":"
 ```
+
+## Launch Dev Areas
+
+The project is divided in multiple vscode development areas. cd to `~/src` and issue:
+
+```
+./launch-dev-areas.ps1
+```
+
+You can select multiple areas, each one starts up a VSCODE editor for that area.
+
+
+![launch dev areas](./docs/images/launch-dev-areas.png)
 
 ## vscode debug launch
 
