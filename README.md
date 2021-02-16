@@ -340,9 +340,17 @@ GraphQL extension VSCode built with the aim to tightly integrate the GraphQL Eco
 https://marketplace.visualstudio.com/items?itemName=GraphQL.vscode-graphql
 
 **Live Server**
+
 Launch a local development server with live reload feature for static & dynamic pages.
 
 https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
+
+**Piral**
+
+This extension is a useful companion when developing Piral based app shells, or pilets for existing app shells.
+
+https://marketplace.visualstudio.com/items?itemName=smapiot.vscode-piral
+
 
 ## npm Scripts
 
