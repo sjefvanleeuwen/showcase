@@ -1,0 +1,48 @@
+{
+  "name": "basket",
+  "version": "0.1.0",
+  "description": "",
+  "keywords": [
+    "pilet"
+  ],
+  "dependencies": {
+    "consumer-portal": "file:../../../piral/consumer-portal/dist/emulator/package"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "^16.8.2",
+    "@types/react-dom": "^16.8.0",
+    "@types/react-router": "^5.0.0",
+    "@types/react-router-dom": "latest",
+    "history": "4.10.1",
+    "piral-cli": "latest",
+    "piral-cli-webpack": "^0.12.4",
+    "react": "16.13.0",
+    "react-dom": "16.13.0",
+    "react-router": "5.1.2",
+    "react-router-dom": "5.1.2",
+    "tslib": "1.11.1",
+    "typescript": "latest"
+  },
+  "peerDependencies": {
+    "history": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-router": "*",
+    "react-router-dom": "*",
+    "tslib": "*"
+  },
+  "scripts": {
+    "start": "npx pilet debug Properties/index.ts",
+    "build": "npx pilet build Properties/index.ts",
+    "upgrade": "npx pilet upgrade"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "piral": {
+    "comment": "Keep this section to use the Piral CLI.",
+    "name": "consumer-portal"
+  }
+}
