@@ -1,0 +1,10 @@
+badge_*.svg
+icon_*.svg
+badge_*.png
+*.js
+*.css
+!badge_combined.svg
+!.gitignore
+*.html
+*.htm
+*.mht
