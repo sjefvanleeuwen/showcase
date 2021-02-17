@@ -12,7 +12,7 @@ foreach ($i in $menuReturn){
         # Pilets area (web assembly micro front ends)
         "pilets" {code ./blazor/}
         # Documentation area
-        "documentation" {code ./}
+        "documentation" {code ../}
         # Simulation area
         "simulation" {code ./simulation}
     }
