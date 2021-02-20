@@ -7,10 +7,6 @@ foreach ($i in $menuReturn){
     switch($i) {
         # Micro services area
         "dapr" {code ./dapr/}
-        # Piral portal area
-        "piral" {code ./piral/}
-        # Pilets area (web assembly micro front ends)
-        "pilets" {code ./blazor/}
         # Documentation area
         "documentation" {code ../}
         # Simulation area

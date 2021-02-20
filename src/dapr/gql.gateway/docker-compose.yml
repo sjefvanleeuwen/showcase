@@ -1,0 +1,6 @@
+version: '3.5'
+services:
+  gql.gateway:
+    image: gql.gateway
+    ports:
+      - "9999:80"

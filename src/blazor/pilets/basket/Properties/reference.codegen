@@ -1,4 +1,0 @@
-module.exports = function () {
-    //TODO
-    return `module.exports = [];`;
-};
