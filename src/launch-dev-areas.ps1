@@ -1,6 +1,6 @@
 . ./utilities/cli/Write-Menu.ps1
 
-$menuReturn = Write-Menu -Title "Cowz n' Bullz Dev Areas" -Sort -MultiSelect -Entries "dapr","piral","pilets","documentation","simulation"
+$menuReturn = Write-Menu -Title "Cowz n' Bullz Dev Areas" -Sort -MultiSelect -Entries "dapr","documentation","simulation"
 
 foreach ($i in $menuReturn){
     Write-Host 'launching area' $i
