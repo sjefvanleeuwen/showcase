@@ -15,6 +15,6 @@ jobs:
         creds: ${{ secrets.AZURE_SHOWCASE_CREDENTIALS }}
 
     - run: |
-        cd ./src/dapr/dapr.gql.basket
+        cd ./src/dapr
         docker build .  -t ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/dapr.gql.basket:${{ github.sha }}
         docker push ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/dapr.gql.basket:${{ github.sha }}
