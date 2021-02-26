@@ -1,0 +1,19 @@
+on: 
+  workflow_dispatch:
+name: Azure build and push containers
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+      # Checkout code
+    - uses: actions/checkout@main
+
+      # Log into Azure
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_SHOWCASE_CREDENTIALS }}
+
+- run: |
+        docker build ./src/dapr/dapr.gql.basket -t ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/dapr.gql.basket:${{ github.sha }}
+        docker push ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/dapr.gql.basket:${{ github.sha }}
