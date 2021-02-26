@@ -1,0 +1,26 @@
+on: 
+  workflow_dispatch:
+name: Azure Create Container Registry
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+      # Checkout code
+    - uses: actions/checkout@main
+
+      # Log into Azure
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_SHOWCASE_CREDENTIALS }}
+
+      # Deploy ARM template
+    - name: Run ARM deploy
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.AZURE_SHOWCASE_SUBSCRIPTION_ID }}
+        resourceGroupName: ${{ secrets.AZURE_SHOWCASE_RESOURCE_GROUP_NAME }}
+        template: ./src/git-ops/deploy-container-registry.json
+        parameters: 
+          region=${{ secrets.AZURE_SHOWCASE_REGION }}
+          registryName=${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}
