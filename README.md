@@ -885,6 +885,27 @@ This script setups the container registry so the containers of our solution that
 
 [Arm Template](./src/git-ops/deploy-container-registry.json)
 
+For the container registry we will need to set up some more secrets
+
+We can obtain the values (token based login) by logging in to the azure container registry.
+
+```
+az acr login --name {your-container-registry-name} --expose-token
+```
+
+```
+You can perform manual login using the provided access token below, for example: 'docker login loginServer -u 00000000-0000-0000-0000-000000000000 -p accessToken'
+{
+  "accessToken": "base64tokenstring",
+  "loginServer": "{your-acr-name}.azurecr.io"
+}
+```
+
+Assign these to the following github secrets:
+
+1. `AZURE_SHOWCASE_CONTAINER_REGISTRY_LOGIN_SERVER` value: loginServer
+2. `AZURE_SHOWCASE_CONTAINER_REGISTRY_USERNAME` value: 00000000-0000-0000-0000-000000000000
+3. `AZURE_SHOWCASE_CONTAINER_REGISTRY_PASSWORD` value: accessToken
 
 # Disclaimer
 
