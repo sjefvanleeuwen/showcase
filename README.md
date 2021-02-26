@@ -58,12 +58,15 @@
         - [K8s Secret for cert](#k8s-secret-for-cert)
         - [Ingress Routes](#ingress-routes)
   - [Administering multi cluster environments](#administering-multi-cluster-environments)
-  - [Deploying Dapr services (GitOps)](#deploying-dapr-services-gitops)
 - [GraphQL](#graphql)
   - [Client generator](#client-generator)
     - [Setup client tools](#setup-client-tools)
     - [Fetch the graphql schema](#fetch-the-graphql-schema)
     - [Generate the client](#generate-the-client)
+- [GitOps (Azure)](#gitops-azure)
+  - [Initial Setup.](#initial-setup)
+  - [ARM Deploy](#arm-deploy)
+    - [Deploy Container Registry](#deploy-container-registry)
 - [Disclaimer](#disclaimer)
 
 # Showcase
@@ -734,11 +737,6 @@ kubectl config use-context docker-desktop
 
 And we're back.
 
-## Deploying Dapr services (GitOps)
-
-t.b.a.
-
-
 
 # GraphQL
 
@@ -819,9 +817,76 @@ dotnet build ../
 
 The `ReserveMutation` client can now be used.
 
+# GitOps (Azure)
+
+All the manual steps can be easily scripted using template generators on azure for the resources. These templates can then be used in GitHub Workflows.
+
+## Initial Setup.
+
+To start with github workflows we first need to create deployment credentials, or rather service principal for a resource. We could reuse the existing `showcase` resource group, but the keep things separated, lets create a new resource.
+
+```
+az group create --location northeurope -n showcase-gitops
+```
+
+```json
+{
+  "id": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/showcase-gitops",
+  "location": "northeurope",
+  "managedBy": null,
+  "name": "showcase-gitops",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": null,
+  "type": "Microsoft.Resources/resourceGroups"
+}
+```
+
+We will now create the service principal. Replace xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx with your subscription ID, as indicated in the Json above.
+
+```
+az ad sp create-for-rbac --name showcase-gitops --role contributor --scopes /subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/showcase-gitops --sdk-auth
+```
+```json
+{
+  "clientId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+  "clientSecret": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+  "subscriptionId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+  "tenantId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+  "activeDirectoryEndpointUrl": "https://login.microsoftonline.com",
+  "resourceManagerEndpointUrl": "https://management.azure.com/",
+  "activeDirectoryGraphResourceId": "https://graph.windows.net/",
+  "sqlManagementEndpointUrl": "https://management.core.windows.net:8443/",
+  "galleryEndpointUrl": "https://gallery.azure.com/",
+  "managementEndpointUrl": "https://management.core.windows.net/"
+}
+```
+
+The following keys need to be stored as secrets in your github account.
+
+1. Go to the repository, where you forked this repo.
+2. Go into the project settings / secrets / new secret
+3. Paste the payload from above into `AZURE_SHOWCASE_CREDENTIALS`
+4. Add a secret for the resource group name it `AZURE_SHOWCASE_RESOURCE_GROUP_NAME` with the value: showcase-gitops
+5. Add a secret for your subscription ID name it `AZURE_SHOWCASE_SUBSCRIPTION_ID` with your subscription ID value i.e: `c6e66c96-b1ec-48e8-84a7-33dafbd2b314`
+6. Add a secret for your container registry name `AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME` and add a azure wide unique container registry name i.e: `yournameshowcasegitops`
+7. Add the region under secret `AZURE_SHOWCASE_REGION` i.e.: `northeurope`
+
+## ARM Deploy
+
+In this repository, the resource management templates are included in ./src/git-ops we are going to deploy these using ARM Deploy using the GitHub workflow activity `azure/arm-deploy@v1`
+
+### Deploy Container Registry
+
+This script setups the container registry so the containers of our solution that get published there can be used by our Kubernetes (AKS) Cluster.
+
+[Workflow](./github/../.github/workflows/deploy-container-registry.yml)
+
+[Arm Template](./src/git-ops/deploy-container-registry.json)
+
 
 # Disclaimer
-
 
 This is a fictional work. All the names, characters, companies, places, events and incidents in this exercise are either the product of the imagination of the author or used in a fictitious way, unless otherwise stated. It is purely coincidental to have any resemblance to actual individuals, living or dead, or actual events.
 
