@@ -20,6 +20,7 @@
       - [Runtime language services](#runtime-language-services)
       - [dapr Release Train](#dapr-release-train)
     - [Micro Service Orchestration](#micro-service-orchestration)
+    - [Micro Front Ends](#micro-front-ends)
   - [GitOps Overview](#gitops-overview)
 - [Setup](#setup)
   - [Install Dapr CLI](#install-dapr-cli)
@@ -209,6 +210,23 @@ For micro service orchestration we use 3 building blocks from camunda:latest
 * [Operate](https://docs.camunda.io/docs/product-manuals/operate/index) for monitoring and troubleshooting workflow instances
 * [Monitor](https://github.com/zeebe-io/zeebe-simple-monitor) a simple monitoring application where you can test workflow manually
 * [Modeler](https://github.com/zeebe-io/zeebe-modeler/releases) visual workflow for zeebe using BPMN.
+
+### Micro Front Ends
+
+For micro front ends we rely on the following:
+
+* React Components
+* Module Federation (through WebPack 5)
+* CSS Isolation for micro front ends
+* NGINX for serving the components, portal
+* NGINX for hosting shared static content delivery as a CDN
+* Docker Containerization
+
+High Level overview for Micro front ends.
+
+![](./docs/micro-front-end/high-level-overview.svg)
+
+Each react component is grouped in a logical problem domain. For example This could be per feature team or split up logically (DDD) for performance or increase maintenance and delivery. As each Remote Entry is hosted in a separate web server and are meant to be stateless, each container can be scaled by increasing the number of replicas when put on kubernetes. Each component has the option to either use CSS Isolation or reuse styles from the CDN.
 
 ## GitOps Overview
 
