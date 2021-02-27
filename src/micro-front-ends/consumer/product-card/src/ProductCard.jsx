@@ -19,7 +19,7 @@ export default class ProductCard extends Component {
       <div className={styles.right}>
         <div className={styles.done}><i className="material-icons">done</i></div>
         <div className={styles.details}>
-          <h1>Chair</h1>
+          <h2>Milk</h2>
           <p>Added to your cart</p>
         </div>
         <div className={styles.remove}><i className="material-icons">clear</i></div>

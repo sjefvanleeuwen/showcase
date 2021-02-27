@@ -9,7 +9,7 @@
     overflow: hidden;
     border-radius: 10px 10px 10px 10px;
     box-shadow: 0;
-    transform: scale(0.95);
+    transform: scale(.85);
     transition: box-shadow 0.5s, transform 0.5s;
   }
   .wrapper:hover {
@@ -52,7 +52,7 @@
     float: left;
   }
   .wrapper .container .bottom .left .details {
-    padding: 20px;
+    padding-left: 20px;
     float: left;
     width: calc(70% - 40px);
   }
@@ -127,7 +127,7 @@
   }
   .wrapper .inside {
     z-index: 9;
-    background: #92879B;
+    background: #005bb1;
     width: 140px;
     height: 140px;
     position: absolute;
