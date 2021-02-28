@@ -4,7 +4,7 @@ on:
       component:
         description: 'Which Frontend Component? [product|portal]'     
         required: true
-name: Build, Containerize and push micro front ends
+name: Build, Containerize and push specified Micro Frontend
 jobs:
   build-and-deploy:
     if: github.event.inputs.component == 'product' || github.event.inputs.component == 'portal'
