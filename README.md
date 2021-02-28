@@ -980,6 +980,23 @@ Assign these to the following github secrets:
 2. `AZURE_SHOWCASE_CONTAINER_REGISTRY_USERNAME` value: 00000000-0000-0000-0000-000000000000
 3. `AZURE_SHOWCASE_CONTAINER_REGISTRY_PASSWORD` value: accessToken
 
+**!NOTE**
+
+This token expires quickly. To create a permanent token you will have to update your ACR to Premium SKU. You can then create an access token with scope map.
+This is azure feature is in preview at the time of this writing.
+
+```
+az acr token create -n showcase -r {your_acr_registry} --repository {your_repository} content/write content/read metadata/read metadata/write content/delete
+```
+
+```
+Command group 'acr token' is in preview and under development. Reference and support levels: https://aka.ms/CLI_refstatus
+Please store your generated credentials safely. Meanwhile you can use it through "docker login {your_acr_name}.azurecr.io -u showcase -p xxxxxxxxxxxxxxxxxxxx".
+```
+
+If you want to login using user name and password, you can enable admin account under access keys in your ACR settings panel.
+
+
 # Disclaimer
 
 This is a fictional work. All the names, characters, companies, places, events and incidents in this exercise are either the product of the imagination of the author or used in a fictitious way, unless otherwise stated. It is purely coincidental to have any resemblance to actual individuals, living or dead, or actual events.
