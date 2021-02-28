@@ -27,8 +27,8 @@ jobs:
         username: ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_USERNAME }}
         password: ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_PASSWORD }}
     - run: |
-        cd ./src/micro-front-ends/consumer/${{ github.event.inputs.environment }}
+        cd ./src/micro-front-ends/consumer/${{ github.event.inputs.component }}
         npm ci
         npm run-script dist:build
-        docker build . -t ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/cb-mf-${{ github.event.inputs.environment }}:${{ github.sha }}
-        docker push ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/cb-mf-${{ github.event.inputs.environment }}:${{ github.sha }}
+        docker build . -t ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/cb-mf-${{ github.event.inputs.component }}:${{ github.sha }}
+        docker push ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/cb-mf-${{ github.event.inputs.component }}:${{ github.sha }}
