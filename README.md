@@ -21,6 +21,8 @@
       - [dapr Release Train](#dapr-release-train)
     - [Micro Service Orchestration](#micro-service-orchestration)
     - [Micro Front Ends](#micro-front-ends)
+      - [High Level overview for Micro front ends.](#high-level-overview-for-micro-front-ends)
+      - [Webpack deployment](#webpack-deployment)
   - [GitOps Overview](#gitops-overview)
 - [Setup](#setup)
   - [Install Dapr CLI](#install-dapr-cli)
@@ -222,11 +224,64 @@ For micro front ends we rely on the following:
 * NGINX for hosting shared static content delivery as a CDN
 * Docker Containerization
 
-High Level overview for Micro front ends.
+#### High Level overview for Micro front ends.
 
 ![](./docs/micro-front-end/high-level-overview.svg)
 
 Each react component is grouped in a logical problem domain. For example This could be per feature team or split up logically (DDD) for performance or increase maintenance and delivery. As each Remote Entry is hosted in a separate web server and are meant to be stateless, each container can be scaled by increasing the number of replicas when put on kubernetes. Each component has the option to either use CSS Isolation or reuse styles from the CDN.
+
+#### Webpack deployment
+
+Since Webpack v5, Module federation is supported. Each react app can import react components easily over remote endpoints, called remote entries. Federation is the defacto underlying technology to enable distributed micro front ends. The following schematic shows how the micro front ends are build up.
+
+![](./docs/micro-front-end/webpack-deployment.svg)
+
+Each front end project (except the CDN, as it only serves static content), has 3 webpack files for its configuration.
+
+* **webpack.common.js**
+<br/>contains commonly used configuration that can be shared
+* **webpack.dev.js**
+<br/>contains development specific settings, such as localhost deployment
+* **webpack.prod.js**
+<br/>contains production specific settings, such as minify build to `./dist` directory, ready to be wrapped in a container.
+
+A Micro Frontend typically exports its remote entry through a webpack build i.e. a product card component that is maintained by the product feature team: 
+
+```javascript
+  ...
+  plugins: [
+    ...
+    new ModuleFederationPlugin({
+        name: 'product_card',
+        filename: 'remoteEntry.js',
+        exposes: {
+            './ProductCard': './src/ProductCard',
+        },
+        shared: ['react', 'react-dom'],
+    })
+    ...
+  ],
+  ...
+```
+
+The portal (feature team) imports the remote entry during the webpack build. i.e:
+
+```javascript
+  ...
+  plugins: [
+    ...
+    new ModuleFederationPlugin({
+        name: 'container',
+        remotes: {
+            product_card:
+                'product_card@http://localhost:3003/remoteEntry.js',
+        },
+        shared: ['react', 'react-dom'],
+    })
+    ...
+  ],
+  ...
+```
 
 ## GitOps Overview
 
