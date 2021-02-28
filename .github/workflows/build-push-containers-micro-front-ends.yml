@@ -25,5 +25,5 @@ jobs:
         cd ./src/micro-front-ends/consumer/portal
         npm ci
         npm run-script dist:build
-        docker build -f . -t ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/portal:${{ github.sha }}
+        docker build . -t ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/portal:${{ github.sha }}
         docker push ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/portal:${{ github.sha }}
