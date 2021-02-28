@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  cb-cdn:
+    build:
+      context: ./cdn
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+  cb-portal:
+    build:
+      context: ./portal
+      dockerfile: Dockerfile
+    ports:
+      - "3001:80"
+  cb-product:
+    build:
+      context: ./product
+      dockerfile: Dockerfile
+    ports:
+      - "3003:80"
