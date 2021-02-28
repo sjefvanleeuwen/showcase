@@ -25,5 +25,13 @@ jobs:
         cd ./src/micro-front-ends/consumer/portal
         npm ci
         npm run-script dist:build
-        docker build . -t ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/portal:${{ github.sha }}
-        docker push ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/portal:${{ github.sha }}
+        docker build . -t ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/cb-mf-portal:${{ github.sha }}
+        docker push ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/cb-mf-portal:${{ github.sha }}
+        cd ../product
+        npm ci
+        npm run-script dist:build
+        docker build . -t ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/cb-mf-product:${{ github.sha }}
+        docker push ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/cb-mf-product:${{ github.sha }}
+        cd ../cdn
+        docker build . -t ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/cb-mf-cdn:${{ github.sha }}
+        docker push ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/cb-mf-cdn:${{ github.sha }}
