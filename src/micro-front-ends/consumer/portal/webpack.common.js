@@ -30,14 +30,6 @@ resolve: {
     new HtmlWebpackPlugin({
       title: 'Production',
       template: './public/index.html'
-    }),
-    new ModuleFederationPlugin({
-        name: 'container',
-        remotes: {
-            product_card:
-                'product_card@http://localhost:3003/remoteEntry.js',
-        },
-        shared: ['react', 'react-dom'],
     })
   ],
   output: {

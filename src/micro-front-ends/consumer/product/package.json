@@ -7,7 +7,7 @@
     "dev:serve": "webpack serve --config webpack.dev.js", 
     "prod:serve": "webpack serve --config webpack.prod.js",
     "dist:build": "webpack build --config webpack.prod.js",
-    "docker:build": "docker build -t product ."
+    "docker:build": "docker build -t cb-product ."
   },
   "keywords": [],
   "author": "",
