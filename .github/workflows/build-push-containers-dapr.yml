@@ -4,7 +4,7 @@ on:
       component:
         description: 'Which Dapr Component? [basket|customer|inventory|payment|product]'     
         required: true  
-name: Azure build and push containers
+name: Build, Containerize and push specified container dapr
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
