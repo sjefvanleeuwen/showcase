@@ -295,6 +295,19 @@ Startup `~/src/launch-docker-compose.ps1`. This will build the docker containers
 2. Portal on http://localhost:3001
 3. Product Micro Front End on http://localhost:3003
 
+Using `docker-compose-viz` from pmsipilot we can visualize the composition of the docker containers for documentation.
+
+```
+ docker run --rm -it --name dcv -v ${pwd}:/input pmsipilot/docker-compose-viz render -m image docker-compose.yml
+```
+
+This will generate the following image:
+
+![](./docs/micro-front-end/docker-compose-mf.png)
+
+Docker Compose Viz can be found at: https://hub.docker.com/r/pmsipilot/docker-compose-viz/
+
+
 ## GitOps Overview
 
 Within Scrum Nexus, the teams organize themselves around GitOps. The following high level infographic depicts the continuous integration and delivery and technologies used within the Cowz n' Bulls cooperative.

@@ -1,4 +1,4 @@
-version: '3.9'
+version: '2'
 services:
   cb-cdn:
     build:
@@ -6,15 +6,35 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:80"
+    networks:
+      cb-front:
   cb-portal:
     build:
       context: ./portal
       dockerfile: Dockerfile
     ports:
       - "3001:80"
+    networks:
+      cb-front:
   cb-product:
     build:
       context: ./product
       dockerfile: Dockerfile
     ports:
       - "3003:80"
+    networks:
+      cb-front:
+
+networks:
+    cb-front:
+        # use the bridge driver, but enable IPv6
+        driver: bridge
+        driver_opts:
+            com.docker.network.enable_ipv6: "true"
+        ipam:
+          driver: default
+          config:
+            - subnet: 172.16.238.0/24
+              gateway: 172.16.238.1
+            - subnet: "2001:3984:3989::/64"
+              gateway: "2001:3984:3989::1"
