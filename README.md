@@ -23,6 +23,7 @@
     - [Micro Front Ends](#micro-front-ends)
       - [High Level overview for Micro front ends.](#high-level-overview-for-micro-front-ends)
       - [Webpack deployment](#webpack-deployment)
+      - [Docker Compose](#docker-compose)
   - [GitOps Overview](#gitops-overview)
 - [Setup](#setup)
   - [Install Dapr CLI](#install-dapr-cli)
@@ -282,6 +283,14 @@ The portal (feature team) imports the remote entry during the webpack build. i.e
   ],
   ...
 ```
+
+#### Docker Compose
+
+Startup `~/src/launch-docker-compose.ps1`. This will build the docker containers and compose 3 services:
+
+1. CDN, content delivery network on http://localhost:3000
+2. Portal on http://localhost:3001
+3. Product Micro Front End on http://localhost:3003
 
 ## GitOps Overview
 
