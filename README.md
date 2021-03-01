@@ -20,10 +20,11 @@
       - [Runtime language services](#runtime-language-services)
       - [dapr Release Train](#dapr-release-train)
     - [Micro Service Orchestration](#micro-service-orchestration)
+      - [Docker Compose](#docker-compose)
     - [Micro Front Ends](#micro-front-ends)
       - [High Level overview for Micro front ends.](#high-level-overview-for-micro-front-ends)
       - [Webpack deployment](#webpack-deployment)
-      - [Docker Compose](#docker-compose)
+      - [Docker Compose](#docker-compose-1)
   - [GitOps Overview](#gitops-overview)
 - [Setup](#setup)
   - [Install Dapr CLI](#install-dapr-cli)
@@ -216,6 +217,12 @@ For micro service orchestration we use 3 building blocks from camunda:latest
 * [Operate](https://docs.camunda.io/docs/product-manuals/operate/index) for monitoring and troubleshooting workflow instances
 * [Monitor](https://github.com/zeebe-io/zeebe-simple-monitor) a simple monitoring application where you can test workflow manually
 * [Modeler](https://github.com/zeebe-io/zeebe-modeler/releases) visual workflow for zeebe using BPMN.
+
+#### Docker Compose
+
+Startup `~/src/launch-docker-compose.ps1` and select Zeebe orchestration. This will fetch the docker containers from the public docker ub and compose the formentioned services (except the desktop modeler application, which you will need to install yourself)
+
+![](./docs/zeebe/images/docker-compose.png)
 
 ### Micro Front Ends
 
