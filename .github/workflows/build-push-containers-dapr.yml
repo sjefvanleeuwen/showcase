@@ -1,5 +1,9 @@
 on: 
   workflow_dispatch:
+    inputs:
+      component:
+        description: 'Which Dapr Component? [basket|customer|inventory|payment|product]'     
+        required: true  
 name: Azure build and push containers
 jobs:
   build-and-deploy:
@@ -21,5 +25,5 @@ jobs:
         password: ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_PASSWORD }}
     - run: |
         cd ./src/dapr
-        docker build -f dapr.gql.basket/Dockerfile . -t ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/dapr.gql.basket:${{ github.sha }}
-        docker push ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/dapr.gql.basket:${{ github.sha }}
+        docker build -f dapr.gql.${{ github.event.inputs.component }}/Dockerfile . -t ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/dapr.gql.${{ github.event.inputs.component }}:${{ github.sha }}
+        docker push ${{ secrets.AZURE_SHOWCASE_CONTAINER_REGISTRY_NAME }}.azurecr.io/dapr.gql.${{ github.event.inputs.component }}:${{ github.sha }}
