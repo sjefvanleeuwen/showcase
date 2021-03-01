@@ -71,6 +71,9 @@
   - [Initial Setup.](#initial-setup)
   - [ARM Deploy](#arm-deploy)
     - [Deploy Container Registry](#deploy-container-registry)
+    - [GitHub Workflows](#github-workflows)
+      - [Build & Push Micro Frontend](#build--push-micro-frontend)
+      - [Build & Push Micro Service](#build--push-micro-service)
 - [Disclaimer](#disclaimer)
 
 # Showcase
@@ -1004,6 +1007,20 @@ Please store your generated credentials safely. Meanwhile you can use it through
 ```
 
 If you want to login using user name and password, you can enable admin account under access keys in your ACR settings panel.
+
+### GitHub Workflows
+
+#### Build & Push Micro Frontend
+
+This is a manual workflow in which you can build and push a specific micro front end container to the ACR on demand. At the time of this writing this is either rolling out a new portal or product micro front end.
+
+![build and push micro front end](./docs/gitops/gitops-build-push-mf.png)
+
+#### Build & Push Micro Service
+
+The same goes for the dapr micro services.
+
+![build and push micro service](./docs/gitops/gitops-build-push-dapr.png)
 
 
 # Disclaimer
