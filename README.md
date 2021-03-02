@@ -20,11 +20,10 @@
       - [Runtime language services](#runtime-language-services)
       - [dapr Release Train](#dapr-release-train)
     - [Micro Service Orchestration](#micro-service-orchestration)
-      - [Docker Compose](#docker-compose)
-    - [Micro Front Ends](#micro-front-ends)
+    - [Micro Frontend](#micro-frontend)
       - [High Level overview for Micro front ends.](#high-level-overview-for-micro-front-ends)
       - [Webpack deployment](#webpack-deployment)
-      - [Docker Compose](#docker-compose-1)
+      - [Docker Compose](#docker-compose)
   - [GitOps Overview](#gitops-overview)
 - [Setup](#setup)
   - [Install Dapr CLI](#install-dapr-cli)
@@ -44,7 +43,8 @@
     - [gqlg](#gqlg)
     - [test / test-dashboard](#test--test-dashboard)
   - [Zeebe Micro Service Orchestration](#zeebe-micro-service-orchestration)
-    - [Docker installation](#docker-installation)
+    - [Docker Compose](#docker-compose-1)
+    - [Payment / Order Flow](#payment--order-flow)
 - [Hosting Modes](#hosting-modes)
   - [Micro services](#micro-services-1)
 - [Deploying to Kubernetes](#deploying-to-kubernetes)
@@ -85,7 +85,7 @@ I hope this journey can be helpful to others in the open source community, that 
 
 # Status
 
-Very much under construction. Started with the back end and setting up the project backstory, IDE in VSCode, docker containers, npm scripts and the micro services for an integrated development experience. The services are tested with integration tests.
+Very much under construction. Started with the back end and setting up the project backstory, IDE in VSCode, docker containers, npm scripts and the micro services for an integrated development experience. The services are tested with integration tests. Beware this document is mainly a brain dump and still needs some editorial work.
 
 # Cowz n' Bullz background
 
@@ -181,7 +181,7 @@ a `production-data.json` will be generated containing events for a year of produ
 
 ## Micro services/front ends
 
-As per business requirements, catering to the stakeholders, the functionality of the system is split up in micro services and micro (modular) front ends. This allows the company to more easily rollout parts that make up the system consisting out of features. The DevOps teams are specialized in GitOps and rollout each future in the infrastructure as code (IAC) with a `you build, it you run it` mentality.
+As per business requirements, catering to the stakeholders, the functionality of the system is split up in micro services and micro (modular) front ends. This allows the company to more easily rollout parts that make up the system consisting out of features. The DevOps teams are specialized in GitOps and rollout each future in the infrastructure as code (IAC).
 
 ## Stack used
 
@@ -218,13 +218,7 @@ For micro service orchestration we use 3 building blocks from camunda:latest
 * [Monitor](https://github.com/zeebe-io/zeebe-simple-monitor) a simple monitoring application where you can test workflow manually
 * [Modeler](https://github.com/zeebe-io/zeebe-modeler/releases) visual workflow for zeebe using BPMN.
 
-#### Docker Compose
-
-Startup `~/src/launch-docker-compose.ps1` and select Zeebe orchestration. This will fetch the docker containers from the public docker ub and compose the formentioned services (except the desktop modeler application, which you will need to install yourself)
-
-![](./docs/zeebe/images/docker-compose.png)
-
-### Micro Front Ends
+### Micro Frontend
 
 For micro front ends we rely on the following:
 
@@ -296,7 +290,17 @@ The portal (feature team) imports the remote entry during the webpack build. i.e
 
 #### Docker Compose
 
-Startup `~/src/launch-docker-compose.ps1`. This will build the docker containers and compose 3 services:
+Startup `~/src/launch-docker-compose.ps1`. And select `consumer micro frontend`
+
+```
+Cowz n' Bullz Docker-Compose Areas
+
+   [X] consumer micro frontend
+   [ ] zeebe orchestration (with operator)     
+```
+
+
+This will build the docker containers and compose 3 services:
 
 1. CDN, content delivery network on http://localhost:3000
 2. Portal on http://localhost:3001
@@ -379,8 +383,14 @@ The project is divided in multiple vscode development areas. cd to `~/src` and i
 
 You can select multiple areas, each one starts up a VSCODE editor for that area.
 
+```
+  Cowz n' Bullz Dev Areas
 
-![launch dev areas](./docs/images/launch-dev-areas.png)
+   [X] dapr
+   [ ] documentation
+   [X] micro front ends (consumer)     
+   [ ] simulation                      
+```
 
 ## vscode debug launch
 
@@ -559,9 +569,22 @@ You can see an example of the dashboard [here](https://sjefvanleeuwen.github.io/
 
 ## Zeebe Micro Service Orchestration
 
-### Docker installation
+### Docker Compose
 
-Zeebe can be setup using docker-compose. cd to the `./src/orchestration/zeebe/operate-simple-monitor`.
+Startup `~/src/launch-docker-compose.ps1` and select Zeebe orchestration.
+
+```
+Cowz n' Bullz Docker-Compose Areas
+
+   [ ] consumer micro frontend
+   [X] zeebe orchestration (with operator)     
+```
+
+This will fetch the docker containers from the public docker hub and compose the formentioned [services](#micro-service-orchestration) (except the desktop modeler application, which you will need to install yourself)
+
+This schematic reflects the docker-compose.yml file visually:
+
+![](./docs/zeebe/images/docker-compose.png)
 
 ```
 docker-compose up
@@ -574,6 +597,12 @@ u/l: demo/demo
 ```
 
 ![operate](./docs/zeebe/images/camunda-operate.png)
+
+### Payment / Order Flow
+
+Mainly 3 workers handle an order placement. As the order process is a long running process it is a candidate for the BPMN engine. Orders can be tracked and managed from the operate console anywhere from the payment till the actual shipment. This long running process can be easily extended with other micro orchestrations, such as return policies, which for simplicity we leave out of scope for this journey.
+
+![operate](./docs/zeebe/images/order-handling.png)
 
 # Hosting Modes
 
