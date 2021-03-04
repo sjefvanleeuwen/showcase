@@ -1,0 +1,46 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build-redis-worker",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+            "build",
+            "${workspaceFolder}/workers/dapr.redis.worker/dapr.redis.worker.csproj",
+            "/property:GenerateFullPaths=true",
+            "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "appId": "dapr-redis-worker",
+            "appPort":      19997,
+
+            "label": "daprd-debug-redis-worker",
+            "type": "daprd",
+            "componentsPath": "./components",
+
+            "problemMatcher": {
+            "pattern": [
+                {
+                    "regexp": ".",
+                    "file": 1,
+                    "location": 2,
+                    "message": 3
+                }
+            ],
+            "background": {
+                "beginsPattern": "^.*starting Dapr Runtime.*",
+                "endsPattern": "^.*waiting on port.*"
+                }
+            },
+            "dependsOn": "build-redis-worker"
+        },
+        {
+            "appId": "dapr-redis-worker",
+            "label": "daprd-down-redis-worker",
+            "type": "daprd-down"
+        },
+    ]
+}

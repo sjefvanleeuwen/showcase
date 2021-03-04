@@ -1,0 +1,32 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "dapr.redis.worker",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "daprd-debug-redis-worker",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/workers/dapr.redis.worker/bin/Debug/net5.0/dapr.redis.worker.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/workers/dapr.redis.worker",
+            "stopAtEntry": false,
+            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
+           // "serverReadyAction": {
+           //     "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+           // },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:6666"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            },
+            "postDebugTask": "daprd-down-redis-worker"
+        },
+        
+    ]
+}
