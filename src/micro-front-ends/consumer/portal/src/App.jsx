@@ -29,6 +29,11 @@ const App = () => {
                     </React.Suspense>
                 ))}
             </div>
+            <React.Suspense
+                        fallback={<p>...</p>}
+                    >
+                        <FormEngineComponent />
+                    </React.Suspense>
         </main>
     );
 };

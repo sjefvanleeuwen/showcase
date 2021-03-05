@@ -8,6 +8,7 @@ module.exports = merge(common, {
   devServer: {
     port: 3001,
     contentBase: './dist',
+    open: true
   },
   plugins: [
     new ModuleFederationPlugin({
