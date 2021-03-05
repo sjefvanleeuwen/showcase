@@ -4,5 +4,6 @@ $menuReturn = Write-Menu -Title "Cowz n' Bullz Dev Areas" -Sort -MultiSelect -En
     "dapr" = "(code ./dapr/)"
     "documentation" = "(code ../)"
     "simulation" = "(code ./simulation)"
+    "orchestration (zeebe)" =  "(code ./orchestration/zeebe)"
     "micro front ends (consumer)" =  "(code ./micro-front-ends/consumer)"
 }
