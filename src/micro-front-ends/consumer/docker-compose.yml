@@ -8,6 +8,14 @@ services:
       - "3000:80"
     networks:
       cb-front:
+  cb-form-engine:
+    build:
+      context: ../common/form-engine
+      dockerfile: Dockerfile
+    ports:
+      - "3002:80"
+    networks:
+      cb-front:  
   cb-portal:
     build:
       context: ./portal
@@ -24,7 +32,6 @@ services:
       - "3003:80"
     networks:
       cb-front:
-
 networks:
     cb-front:
         # use the bridge driver, but enable IPv6
@@ -34,7 +41,7 @@ networks:
         ipam:
           driver: default
           config:
-            - subnet: 172.16.238.0/24
+            - subnet: 172.16.238.1/24
               gateway: 172.16.238.1
             - subnet: "2001:3984:3989::/64"
               gateway: "2001:3984:3989::1"
