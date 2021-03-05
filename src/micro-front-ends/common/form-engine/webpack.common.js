@@ -44,10 +44,10 @@ module.exports = {
         template: './public/index.html',
     }),
     new ModuleFederationPlugin({
-        name: 'product_card',
+        name: 'form_engine',
         filename: 'remoteEntry.js',
         exposes: {
-            './FormEngine': './src/FormEngine',
+            './FormEngineComponent': './src/FormEngineComponent',
         },
         shared: ['react', 'react-dom'],
     }),

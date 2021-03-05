@@ -1,6 +1,8 @@
 import React from 'react';
+const FormEngineComponent = React.lazy(() => import('form_engine/FormEngineComponent'));
 
 const ProductCard = React.lazy(() => import('product_card/ProductCard'));
+
 const style = {
     display: 'flex',
     justifyContent: 'center',
@@ -12,6 +14,11 @@ const App = () => {
     return (
         <main>
             <h1>This is the Portal app</h1>
+            <React.Suspense
+                        fallback={<p>...</p>}
+                    >
+                        <FormEngineComponent />
+                    </React.Suspense>
             <div style={style}>
                 {productCards.map((id) => (
                     <React.Suspense

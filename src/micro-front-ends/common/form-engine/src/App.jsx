@@ -1,10 +1,10 @@
 import React from 'react';
-import FormEngine from './FormEngine';
+import FormEngineComponent from './FormEngineComponent';
 
 const App = () => {
     return (
         <main>
-            <FormEngine />
+            <FormEngineComponent />
         </main>
     );
 };

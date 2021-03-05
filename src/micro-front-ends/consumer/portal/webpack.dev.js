@@ -15,6 +15,8 @@ module.exports = merge(common, {
         remotes: {
             product_card:
                 'product_card@http://localhost:3003/remoteEntry.js',
+            form_engine:
+                'form_engine@http://localhost:3002/remoteEntry.js',
         },
         shared: ['react', 'react-dom'],
     }),
