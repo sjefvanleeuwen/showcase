@@ -160,6 +160,8 @@
             "metricsPort":  40001,
             "placementAddress": "localhost:6010",
             "label": "daprd-debug-basket",
+            "componentsPath": "./components",
+            "config": "./components/config.yaml",
             "type": "daprd",
             "problemMatcher": {
             "pattern": [
@@ -190,6 +192,8 @@
             "grpcPort":     30002,
             "metricsPort":  40002,
             "label": "daprd-debug-customer",
+            "componentsPath": "./components",
+            "config": "./components/config.yaml",
             "type": "daprd",
             "problemMatcher": {
             "pattern": [
@@ -220,6 +224,8 @@
             "grpcPort":     30003,
             "metricsPort":  40003,
             "label": "daprd-debug-inventory",
+            "componentsPath": "./components",
+            "config": "./components/config.yaml",
             "type": "daprd",
             "problemMatcher": {
             "pattern": [
@@ -250,6 +256,8 @@
             "grpcPort":     30004,
             "metricsPort":  40004,
             "label": "daprd-debug-payment",
+            "componentsPath": "./components",
+            "config": "./components/config.yaml",
             "type": "daprd",
             "problemMatcher": {
             "pattern": [
@@ -280,6 +288,8 @@
             "grpcPort":     30005,
             "metricsPort":  40005,
             "label": "daprd-debug-product",
+            "componentsPath": "./components",
+            "config": "./components/config.yaml",
             "type": "daprd",
             "problemMatcher": {
             "pattern": [
@@ -310,6 +320,8 @@
             "grpcPort":     29999,
             "metricsPort":  39999,
             "label": "daprd-debug-stitching",
+            "componentsPath": "./components",
+            "config": "./components/config.yaml",
             "type": "daprd",
             "problemMatcher": {
             "pattern": [
