@@ -68,6 +68,9 @@
     - [Setup client tools](#setup-client-tools)
     - [Fetch the graphql schema](#fetch-the-graphql-schema)
     - [Generate the client](#generate-the-client)
+  - [Available Tools](#available-tools)
+    - [Playground](#playground)
+    - [Voyager](#voyager)
 - [GitOps (Azure)](#gitops-azure)
   - [Initial Setup.](#initial-setup)
   - [ARM Deploy](#arm-deploy)
@@ -951,13 +954,37 @@ dotnet build ../
 
 The `ReserveMutation` client can now be used.
 
+## Available Tools
+
+### Playground
+
+Each dapr micro service can be queried from a browser UI interface. The interface is based on the Microsoft Monaco Editor and supports intellisense.
+
+For each micro service endpoint you can browse to http://localhost:<<portnumber>>/graphql
+
+The gateway that federates and stitches the micro services can be reached at:
+
+http://localhost:9999/graphql
+
+
+You can download the full graphql schema by executing an SDL query: http://localhost:9999/graphql?sdl. This also works for each micro service separately.
+
+### Voyager
+
+The graphql gateway has an extra service installed, being Voyager. Voyager allows you to visualize and navigate your documented graph for Queries / Mutations and individual entities.
+
+For example navigating to our previous generated `ReserveMutation` graphql mutation at http://localhost:9999/voyager/
+
+
+![](./docs/graphql/voyager-reserve-mutation.png)
+
 # GitOps (Azure)
 
 All the manual steps can be easily scripted using template generators on azure for the resources. These templates can then be used in GitHub Workflows.
 
 ## Initial Setup.
 
-To start with github workflows we first need to create deployment credentials, or rather service principal for a resource. We could reuse the existing `showcase` resource group, but the keep things separated, lets create a new resource.
+To start with github workflows we first need to create deployment credentials, or rather service principal for a resource. We could reuse the existing `showcase` resource group, but to keep things separated, lets create a new resource.
 
 ```
 az group create --location northeurope -n showcase-gitops
