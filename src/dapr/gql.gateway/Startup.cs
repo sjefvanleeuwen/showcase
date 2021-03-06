@@ -30,11 +30,24 @@ namespace gql.gateway
             */
 
             // Direct Endpoints
+            /*
             services.AddHttpClient(Basket, x=>x.BaseAddress = new Uri($"http://localhost:10001/graphql"));
             services.AddHttpClient(Customer, x=>x.BaseAddress = new Uri("http://localhost:10002/graphql"));
             services.AddHttpClient(Inventory, x=>x.BaseAddress = new Uri($"http://localhost:10003/graphql"));
             services.AddHttpClient(Payment, x=>x.BaseAddress = new Uri($"http://localhost:10004/graphql"));
             services.AddHttpClient(Product, x=>x.BaseAddress = new Uri($"http://localhost:10005/graphql"));
+            */
+
+            // Darp endpoints
+            services.AddHttpClient(Basket, x=>x.BaseAddress = new Uri($"http://localhost:20001/v1.0/invoke/dapr-gql-basket/method/graphql"));
+            services.AddHttpClient(Customer, x=>x.BaseAddress = new Uri("http://localhost:20002/v1.0/invoke/dapr-gql-customer/method/graphql"));
+            services.AddHttpClient(Inventory, x=>x.BaseAddress = new Uri($"http://localhost:20003/v1.0/invoke/dapr-gql-inventory/method/graphql"));
+            services.AddHttpClient(Payment, x=>x.BaseAddress = new Uri($"http://localhost:20004/v1.0/invoke/dapr-gql-payment/method/graphql"));
+            services.AddHttpClient(Product, x=>x.BaseAddress = new Uri($"http://localhost:20005/v1.0/invoke/dapr-gql-product/method/graphql"));
+
+
+
+            http://localhost:20005/v1.0/invoke/dapr-gql-product/method/graphql
 
             services.AddGraphQLServer()
             //.AddQueryType(d => d.Name("Query")) <-- used when stitching query and overriding source root schemas
