@@ -72,6 +72,7 @@
     - [Playground](#playground)
     - [Voyager](#voyager)
     - [Tracing with Zipkin](#tracing-with-zipkin)
+    - [Dependencies with Zipkin](#dependencies-with-zipkin)
 - [GitOps (Azure)](#gitops-azure)
   - [Initial Setup.](#initial-setup)
   - [ARM Deploy](#arm-deploy)
@@ -984,6 +985,14 @@ A Typical trace from a federated query execution, in this case the query `mybask
 ![](./docs/graphql/graphql-zipkin-tracing-mybasket.png)
 
 Please note that, for speed optimization, the gateway queries the micro services in parallel and that sequencing maybe differ. In this case 3 spans were traced by Zipkin.
+
+### Dependencies with Zipkin
+
+Zipkin allows for replay of micro service calls given a start and end date/time queries. This allows you to view (complex) communications between micro services. In this example only the graphql gateway emits events to the micro services, but the dependencies would also visualize inter communications between the micro services themselves, might they occur. This type of ontology gives you valuable insights in how your micro services landscape behaves in its communications.
+
+Below you see a typical animation of what Zipkin offers in these kind of insights:
+
+![](./docs/graphql/zipkin-dependencies.gif)
 
 # GitOps (Azure)
 
