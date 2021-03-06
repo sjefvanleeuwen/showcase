@@ -981,7 +981,7 @@ From the graphql gateway you can trace the inter service communication that occu
 
 A Typical trace from a federated query execution, in this case the query `mybasket` might look like this.
 
-![](graphql-zipkin-tracing-mybasket.png)
+![](./docs/graphql/graphql-zipkin-tracing-mybasket.png)
 
 Please note that, for speed optimization, the gateway queries the micro services in parallel and that sequencing maybe differ. In this case 3 spans were traced by Zipkin.
 
