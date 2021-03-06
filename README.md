@@ -953,7 +953,7 @@ The `ReserveMutation` client can now be used.
 
 Each dapr micro service can be queried from a browser UI interface. The interface is based on the Microsoft Monaco Editor and supports intellisense.
 
-For each micro service endpoint you can browse to http://localhost:<<portnumber>>/graphql
+For each micro service endpoint you can browse to http://localhost:{port-number}/graphql
 
 The gateway that federates and stitches the micro services can be reached at:
 
