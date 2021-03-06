@@ -959,6 +959,7 @@ The gateway that federates and stitches the micro services can be reached at:
 
 http://localhost:9999/graphql
 
+![](./docs/graphql/graphql-ui.png)
 
 You can download the full graphql schema by executing an SDL query: http://localhost:9999/graphql?sdl. This also works for each micro service separately.
 
