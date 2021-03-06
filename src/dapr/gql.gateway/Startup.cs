@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using HotChocolate.AspNetCore.Voyager;
 
 namespace gql.gateway
 {
@@ -55,6 +56,7 @@ namespace gql.gateway
             }
 
             app.UseRouting();
+            app.UseVoyager("/graphql","/voyager");
 
             app.UseEndpoints(endpoints =>
             {
