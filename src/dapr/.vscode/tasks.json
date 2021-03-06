@@ -297,6 +297,11 @@
             },
             "dependsOn": "build-product"
         },
+        {
+            "appId": "dapr-gql-product",
+            "label": "daprd-down-product",
+            "type": "daprd-down"
+        },
         // 6. stitching
         {
             "appId": "gql-gateway",
