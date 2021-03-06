@@ -516,13 +516,6 @@ Launch a local development server with live reload feature for static & dynamic 
 
 https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
 
-**Piral**
-
-This extension is a useful companion when developing Piral based app shells, or pilets for existing app shells.
-
-https://marketplace.visualstudio.com/items?itemName=smapiot.vscode-piral
-
-
 ## npm Scripts
 
 The following section describes the available scripts:
@@ -583,7 +576,7 @@ Cowz n' Bullz Docker-Compose Areas
    [X] zeebe orchestration (with operator)     
 ```
 
-This will fetch the docker containers from the public docker hub and compose the formentioned [services](#micro-service-orchestration) (except the desktop modeler application, which you will need to install yourself)
+This will fetch the docker containers from the public docker hub and compose the aforementioned [services](#micro-service-orchestration) (except the desktop modeler application, which you will need to install yourself)
 
 This schematic reflects the docker-compose.yml file visually:
 
@@ -841,7 +834,7 @@ t.b.a.
 
 ## Administering multi cluster environments 
 
-Now that the kubctl client is set to your azure environment, you can also switch between multiple environments. For example when using Kubernetes on Docker Desktop you can tell kubctl to point to that environment at any time.
+Now that the kubectl client is set to your azure environment, you can also switch between multiple environments. For example when using Kubernetes on Docker Desktop you can tell kubectl to point to that environment at any time.
 
 To see which configs are available to kubectl, issue:
 
