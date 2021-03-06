@@ -134,7 +134,7 @@
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
             },
-            "postDebugTask": "daprd-down-stitching"
+            "postDebugTask": "daprd-down-gateway"
         },
         {
             "name": "docker product",
