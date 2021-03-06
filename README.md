@@ -71,6 +71,7 @@
   - [Available Tools](#available-tools)
     - [Playground](#playground)
     - [Voyager](#voyager)
+    - [Tracing with Zipkin](#tracing-with-zipkin)
 - [GitOps (Azure)](#gitops-azure)
   - [Initial Setup.](#initial-setup)
   - [ARM Deploy](#arm-deploy)
@@ -969,8 +970,15 @@ The graphql gateway has an extra service installed, being Voyager. Voyager allow
 
 For example navigating to our previous generated `ReserveMutation` graphql mutation at http://localhost:9999/voyager/
 
-
 ![](./docs/graphql/voyager-reserve-mutation.png)
+
+### Tracing with Zipkin
+
+From the graphql gateway you can trace the inter service communication that occurs to the micro services.
+
+A Typical trace from a federated query execution might look like this.
+
+![](./docs/graphql/graphql-zipkin-tracing.png)
 
 # GitOps (Azure)
 
