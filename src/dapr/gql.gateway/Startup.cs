@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using HotChocolate.AspNetCore.Voyager;
+using System.Net;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace gql.gateway
 {
@@ -20,6 +22,14 @@ namespace gql.gateway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddDapr();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy( builder=>{
+                    builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            });
             // Gateway Endpoints via ocelot (obsolete, replaced by graphql)
             /*
             services.AddHttpClient(Basket, x=>x.BaseAddress = new Uri($"http://localhost:10000/{Basket}/graphql"));
@@ -45,32 +55,29 @@ namespace gql.gateway
             services.AddHttpClient(Payment, x=>x.BaseAddress = new Uri($"http://localhost:20004/v1.0/invoke/dapr-gql-payment/method/graphql"));
             services.AddHttpClient(Product, x=>x.BaseAddress = new Uri($"http://localhost:20005/v1.0/invoke/dapr-gql-product/method/graphql"));
 
-
-
-            http://localhost:20005/v1.0/invoke/dapr-gql-product/method/graphql
-
             services.AddGraphQLServer()
             //.AddQueryType(d => d.Name("Query")) <-- used when stitching query and overriding source root schemas
             .AddRemoteSchema(Basket, ignoreRootTypes: false)
             .AddTypeExtensionsFromFile("basket.stitches.graphql")
-            .AddRemoteSchema(Customer)
-            .AddRemoteSchema(Inventory)
-            .AddRemoteSchema(Payment)
+            //.AddRemoteSchema(Customer)
+            //.AddRemoteSchema(Inventory)
+            //.AddRemoteSchema(Payment)
             .AddRemoteSchema(Product);
-            ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
+
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseRouting();
-            app.UseVoyager("/graphql","/voyager");
 
+            app.UseVoyager("/graphql","/voyager");
+            app.UseCors();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapSubscribeHandler();

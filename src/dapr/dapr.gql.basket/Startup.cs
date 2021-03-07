@@ -23,6 +23,14 @@ namespace dapr.gql.basket
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder=>{
+                    builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            });
             // Add in-memory event provider
             services.AddInMemorySubscriptions();
             services.AddControllers().AddDapr();
@@ -42,7 +50,8 @@ namespace dapr.gql.basket
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {
+            {            
+                app.UseCors("CorsPolicy");
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "dapr.gql.basket v1"));
