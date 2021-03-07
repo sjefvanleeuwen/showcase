@@ -1,0 +1,6 @@
+{
+    "plugins": [
+      "relay",
+      "@babel/plugin-syntax-class-properties"
+    ]
+  }
