@@ -9,8 +9,7 @@ import {
     operation,
     variables,
   ) {
-    // TODO: Point to Gateway
-    return fetch('http://localhost:10005/graphql', {
+    return fetch('http://localhost:19999/v1.0/invoke/gql-gateway/method/graphql', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
