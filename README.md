@@ -437,7 +437,7 @@ The following URL's will be available as GraphQL service endpoints (and RESTful 
 
 The GraphQL gateway federates all services. The stitching gateway can be opened in your web browser at: http://localhost:9999/graphql when debugging.
 
-Next to federation it also stitches schemas such as `my basket`, to join several graphs from several micro services (basket, product and inventory) into one query endpoint. At the time of this writing, the graphql gateway is still tested to the native graphql query endpoints and will soon change to be served from the dapr endpoints.
+Next to federation it also stitches schemas such as `my basket`, to join several graphs from several micro services (basket, product and inventory) into one query endpoint. As with all micro services, The graphql gateway is a dapr service with injected sidecar and served from a dapr endpoint. Queries called from the micro frontend can therefore be traced with tools such as [Zipkin](#tracing-with-zipkin).
 
 Here is the stitching example:
 
