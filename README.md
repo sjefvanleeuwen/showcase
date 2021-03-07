@@ -986,6 +986,8 @@ A Typical trace from a federated query execution, in this case the query `mybask
 
 Please note that, for speed optimization, the gateway queries the micro services in parallel and that sequencing maybe differ. In this case 3 spans were traced by Zipkin.
 
+In local hosting mode, as described earlier, the Zipkin dashboard can be reached at: http://localhost:9411/
+
 ### Dependencies with Zipkin
 
 Zipkin allows for replay of micro service calls given a start and end date/time queries. This allows you to view (complex) communications between micro services. In this example only the graphql gateway emits events to the micro services, but the dependencies would also visualize inter communications between the micro services themselves, might they occur. This type of ontology gives you valuable insights in how your micro services landscape behaves in its communications.
