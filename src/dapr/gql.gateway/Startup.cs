@@ -60,7 +60,7 @@ namespace gql.gateway
             .AddRemoteSchema(Basket, ignoreRootTypes: false)
             .AddTypeExtensionsFromFile("basket.stitches.graphql")
             //.AddRemoteSchema(Customer)
-            //.AddRemoteSchema(Inventory)
+            .AddRemoteSchema(Inventory)
             //.AddRemoteSchema(Payment)
             .AddRemoteSchema(Product);
         }
