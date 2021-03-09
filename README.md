@@ -518,6 +518,13 @@ Launch a local development server with live reload feature for static & dynamic 
 
 https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
 
+**Nuget Package Manager**
+
+An extension for Visual Studio Code that lets you easily add or remove .NET Core 1.1+ package references to/from your project's .csproj or .fsproj files using Code's Command Palette.
+
+https://marketplace.visualstudio.com/items?itemName=jmrog.vscode-nuget-package-manager
+
+
 ## npm Scripts
 
 The following section describes the available scripts:
