@@ -15,8 +15,8 @@
     <PackageReference Include="GraphQL" Version="3.3.2" />
     <PackageReference Include="StrawberryShake" Version="11.0.0-preview.137" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
-    <PackageReference Include="HotChocolate.AspNetCore" Version="11.1.0-preview.77" />
-    <PackageReference Include="HotChocolate.Subscriptions.Redis" Version="11.1.0-preview.77" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="11.1.0-preview.80" />
+    <PackageReference Include="HotChocolate.Subscriptions.Redis" Version="11.1.0-preview.80" />
 
   </ItemGroup>
   <!-- Copy dapr components store in standalone / debug mode -->
