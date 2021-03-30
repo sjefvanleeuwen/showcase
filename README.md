@@ -124,7 +124,7 @@ The full stack consisting out of:
 
 * Micro Services
 * Micro (modular) Front End
-* Simulation Driven Development
+* Simulation Driven Development (Discrete Event Simulationr, or DES)
 
 ## Production Pipeline
 
